@@ -1,0 +1,62 @@
+---
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, MAV, MFA, Ransomware, Security, best practices, best-practices, tamperproof, tamper proof, tamperproof snapshots tamper-proof snapshots 
+permalink: security.html 
+summary: Esses relatórios técnicos fornecem uma visão geral da segurança no NetApp ONTAP, bem como práticas recomendadas. 
+---
+= Relatórios técnicos de segurança
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+A ONTAP continua a evoluir, com a segurança como parte integrante da solução. As versões mais recentes do ONTAP contêm muitos novos recursos de segurança que são inestimáveis para sua organização proteger seus dados na nuvem híbrida, prevenir ataques de ransomware e aderir às práticas recomendadas pelo setor. Esses novos recursos também dão suporte ao movimento da sua organização em direção a um modelo Zero Trust.
+
+[NOTE]
+====
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/security-encryption/index.html["Segurança e criptografia de dados do ONTAP"^]documentação do produto.
+
+====
+
+
+== Ciber Vault da ONTAP
+
+link:https://docs.netapp.com/us-en/netapp-solutions/cyber-vault/ontap-cyber-vault-overview.html["Ciber Vault da ONTAP"^] O Cyber Vault baseado em ONTAP da NetApp oferece às organizações uma solução abrangente e flexível para proteger seus ativos de dados mais críticos. Ao utilizar metodologias de fortalecimento lógicas com metodologias robustas, o ONTAP permite que você crie ambientes de storage seguros e isolados que sejam resilientes contra ameaças cibernéticas em evolução. Com o ONTAP, você garante a confidencialidade, integridade e disponibilidade dos dados, mantendo a agilidade e a eficiência da infraestrutura de storage.
+
+
+
+== Ransomware
+
+link:https://docs.netapp.com/us-en/ontap/ransomware-solutions/ransomware-overview.html["TR-4572: A solução NetApp para ransomware"^] Saiba como o ransomware evoluiu e como identificar ataques, prevenir a propagação e se recuperar o mais rápido possível usando a solução NetApp para ransomware. As orientações e as soluções fornecidas neste documento são projetadas para ajudar as organizações a ter soluções de resiliência cibernética, ao mesmo tempo em que cumprem seus objetivos de segurança prescritos para confidencialidade, integridade e disponibilidade do sistema de informação.
+
+link:https://www.netapp.com/pdf.html?item=/media/6158-tr4526.pdf["TR-4526: Storage WORM em conformidade com NetApp SnapLock"^] Muitas empresas usam o storage de dados WORM (uma gravação, muitas leituras) para atender a requisitos de conformidade regulamentar ou simplesmente adicionar outra camada à estratégia de proteção de dados. Saiba como integrar o SnapLock, a solução WORM em ONTAP, em ambientes que exigem storage de dados WORM.
+
+
+
+== Confiança zero
+
+link:https://docs.netapp.com/us-en/ontap/zero-trust/zero-trust-overview.html["NetApp e confiança zero"] O Zero Trust tradicionalmente tem sido uma abordagem centrada na rede de arquitetura de micro núcleo e perímetro (MCAP) para proteger dados, serviços, aplicativos ou ativos com controles conhecidos como gateway de segmentação. A ONTAP adota uma abordagem centrada em dados para a confiança zero, na qual o sistema de gerenciamento de storage se torna o gateway de segmentação para proteger e monitorar o acesso aos dados de nossos clientes. Em particular, o mecanismo FPolicy Zero Trust e o ecossistema parceiro da FPolicy se tornam um centro de controle para obter uma compreensão detalhada dos padrões de acesso a dados normais e aberrantes e identificar ameaças internas.
+
+
+
+== Autenticação de vários fatores
+
+link:https://www.netapp.com/pdf.html?item=/media/17055-tr4647.pdf["TR-4647: Autenticação multifator nas práticas recomendadas e guia de implementação do ONTAP"^] Saiba mais sobre o recurso de autenticação multifator do ONTAP para acesso administrativo usando o Gerenciador de sistema, Active IQ Unified Manager e autenticação de CLI de shell seguro (SSH) do ONTAP.
+
+link:https://www.netapp.com/pdf.html?item=/media/17036-tr4717.pdf["TR-4717: Autenticação ONTAP SSH com um cartão de acesso comum"^] Saiba como configurar e testar clientes SSH de terceiros, em conjunto com o software ActivClient, para autenticar um administrador de armazenamento ONTAP através da chave pública armazenada em um cartão de acesso comum (CAC) quando configurado no ONTAP.
+
+
+
+== Alocação a vários clientes
+
+link:https://www.netapp.com/pdf.html?item=/media/16886-tr-4160.pdf["TR-4160: Alocação segura a vários clientes no ONTAP"^] Saiba como implementar a alocação segura a vários clientes usando VMs de storage no ONTAP, incluindo considerações de design e práticas recomendadas.
+
+
+
+== Padrões
+
+link:https://www.netapp.com/pdf.html?item=/media/17180-tr4401.pdf["TR-4401: PCI-DSS 4,0 e ONTAP"^] Saiba como validar um sistema em relação ao padrão PCI DSS 4,0 e atender aos requisitos dos controles que você aplica a um sistema NetApp ONTAP.

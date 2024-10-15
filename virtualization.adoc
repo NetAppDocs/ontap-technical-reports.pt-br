@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, VMware, vVols, SRM, SRA, Site Recovery Manager, OTV, ONTAP Tools for VMware, SnapCenter for VMware, SnapCenter, RCU, VSC, Virtual Storage Console, best practices, best-practices 
+permalink: virtualization.html 
+summary: Esses relatórios técnicos fornecem uma visão geral das soluções de virtualização da VMware usando o NetApp ONTAP, bem como práticas recomendadas. 
+---
+= Relatórios técnicos de virtualização
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+As soluções de virtualização da NetApp ajudam a fornecer o máximo valor de seus servidores. Com uma infraestrutura de servidor virtual responsiva baseada em sistemas flash ONTAP inovadores e de alto desempenho, você ganha a capacidade de acessar seus dados muito mais rapidamente. Sua infraestrutura virtual granular é dimensionada sem interrupção para vários petabytes de dados, fornecendo a performance necessária para o acesso compartilhado a vários workloads. O ONTAP ajuda a simplificar e reduzir a complexidade da implantação da infraestrutura de servidores virtuais com parcerias importantes, orientações de implantação, integração de aplicativos e design superior. O ONTAP fornece muitas práticas e soluções recomendadas para um ambiente de virtualização robusto, tanto no local quanto na nuvem.
+
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["Ferramentas do ONTAP para VMware vSphere"]documentação do produto.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html["TR-4597: VMware vSphere for ONTAP"] O ONTAP é uma solução de storage líder para ambientes VMware vSphere há quase duas décadas e continua adicionando recursos inovadores para simplificar o gerenciamento e reduzir custos. Este documento apresenta a solução ONTAP para vSphere, incluindo as informações mais recentes do produto e as práticas recomendadas, para simplificar a implantação, reduzir riscos e simplificar o gerenciamento.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vvols-overview.html["TR-4400: VMware vSphere Virtual volumes (vVols) com NetApp ONTAP"] O ONTAP é uma solução de storage líder para ambientes VMware vSphere há mais de duas décadas e continua adicionando recursos inovadores para simplificar o gerenciamento e reduzir custos. Este documento abrange os recursos do ONTAP para volumes virtuais do VMware vSphere (vVols), incluindo as informações mais recentes do produto e casos de uso, juntamente com práticas recomendadas e outras informações para simplificar a implantação e reduzir erros.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-overview.html["TR-4900: Gerente de recuperação de site da VMware com NetApp ONTAP"] A ONTAP é uma solução de storage líder para ambientes VMware vSphere desde sua introdução ao data center moderno em 2002 e continua adicionando recursos inovadores para simplificar o gerenciamento e reduzir custos. Este documento apresenta a solução ONTAP para o VMware Site Recovery Manager (SRM), o software de recuperação de desastres (DR) líder do setor da VMware, incluindo as informações mais recentes do produto e práticas recomendadas para simplificar a implantação, reduzir riscos e simplificar o gerenciamento contínuo.
+
+link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_auto_introduction.html["Introdução à automação para ONTAP e vSphere"] A automação tem sido parte integrante do gerenciamento de ambientes VMware desde os primeiros dias do VMware ESX. A capacidade de implantar infraestrutura como código e estender práticas para operações de nuvem privada ajuda a aliviar as preocupações relacionadas a escalabilidade, flexibilidade, autoprovisionamento e eficiência. Este documento apresenta a solução ONTAP para automatizar o ambiente ONTAP e VMware vSphere.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-security-tools.html["WP-7353: Ferramentas ONTAP para VMware vSphere - Segurança do produto"] Este documento descreve as técnicas e a tecnologia usadas para proteger as ferramentas do ONTAP para VMware vSphere 9.X contra ameaças existentes e emergentes em ambientes de produtos.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-security-snapcenter.html["WP-7355: Plug-in SnapCenter VMware vSphere - Segurança do produto"] Este documento descreve as técnicas e a tecnologia usadas para proteger o plug-in do NetApp SnapCenter para VMware vSphere 4.X contra ameaças existentes e emergentes em ambientes de produtos.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/microsoft/win_overview.html["TR-4568: Diretrizes de implantação do NetApp e práticas recomendadas de armazenamento para o Windows Server"] O Microsoft Windows Server é um sistema operacional de classe empresarial que abrange rede, segurança, virtualização, nuvem, infraestrutura de desktop virtual, proteção de acesso, proteção de informações, serviços da Web, infraestrutura de plataforma de aplicativos e muito mais. Este documento se concentra no Microsoft Windows, com ênfase particularmente pesada na tecnologia de virtualização Hyper-V, incluindo as informações mais recentes sobre o produto e práticas recomendadas, para simplificar a implantação, reduzir riscos e simplificar o gerenciamento.

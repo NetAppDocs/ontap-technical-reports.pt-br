@@ -1,0 +1,43 @@
+---
+settings:
+  name: ONTAP Technical Reports
+  search: ontap-technical-reports, ontap-apps-dbs, netapp-solutions-sap
+  internal:
+    pdf_enabled: false
+  prod:
+    pdf_enabled: false
+    harmony_enabled: false
+  langs: pt-br,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,es-es,fr-fr,it-it
+sidebar:
+  entries:
+  - title: Relatórios técnicos da ONTAP
+    url: "/index.html"
+  - title: Aplicações e bancos de dados
+    url: "/apps-dbs.html"
+  - title: Continuidade dos negócios
+    url: "/business-continuity.html"
+  - title: Proteção de dados e recuperação de desastres
+    url: "/data-protection-disaster-recovery.html"
+  - title: FlexCache e FlexGroup volumes
+    url: "/nas-containers.html"
+  - title: NAS
+    url: "/nas.html"
+  - title: Rede
+    url: "/networking.html"
+  - title: SAN
+    url: "/san.html"
+  - title: Segurança
+    url: "/security.html"
+  - title: Guias de proteção de segurança
+    url: "/security-hardening-guides.html"
+  - title: SnapCenter
+    url: "/snapcenter.html"
+  - title: Disposição em camadas
+    url: "/tiering.html"
+  - title: Virtualização
+    url: "/virtualization.html"
+  - title: Avisos legais
+    url: "/legal-notices.html"
+product-family:
+  name: ONTAP
+  repo: ontap-family

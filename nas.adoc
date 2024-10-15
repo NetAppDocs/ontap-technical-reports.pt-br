@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, NAS, best practices, best-practices 
+permalink: nas.html 
+summary: Esses relatórios técnicos fornecem uma visão geral dos serviços de nomes NFS, SMB/CIFS, S3 e no NetApp ONTAP, bem como das práticas recomendadas. 
+---
+= Relatórios técnicos da NAS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+As soluções nas da NetApp simplificam o gerenciamento de dados e ajudam você a acompanhar o ritmo do crescimento e, ao mesmo tempo, otimizam os custos. As soluções nas da ONTAP oferecem operações ininterruptas, eficiência e escalabilidade aprimorada em uma arquitetura unificada. Equipado com NetApp ONTAP, o nas com escalabilidade horizontal aproveita o enorme ecossistema ONTAP, com uma visão e uma liderança de inovação significativas para inovações futuras agressivas.
+
+[NOTE]
+====
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/nas-management/index.html["Gerenciamento de storage nas ONTAP"]documentação do produto elink:https://docs.netapp.com/us-en/ontap/object-storage-management/index.html["Gerenciamento de storage do ONTAP S3"].
+
+====
+
+
+== NFS
+
+link:https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["TR-4067: Guia de práticas recomendadas e implementação de NFS em ONTAP"^] Saiba mais sobre conceitos básicos, informações de suporte, dicas de configuração e práticas recomendadas para NFS no ONTAP.
+
+link:https://www.netapp.com/pdf.html?item=/media/84595-tr-4962.pdf["TR-4962: NFSv4,2 atributos estendidos"^] Saiba mais sobre como ativar e usar atributos estendidos do NFSv4,2 no ONTAP 9.12,1 e posterior.
+
+
+
+== SMB
+
+link:https://www.netapp.com/pdf.html?item=/media/17136-tr4740.pdf["TR-4740: SMB 3,0 multicanal"^] A Microsoft introduziu o Multichannel no protocolo SMB 3,0 com o objetivo de melhorar o protocolo SMB3, abordando as limitações de desempenho e confiabilidade do SMB1 e do SMB2. Saiba mais sobre o recurso multicanal no ONTAP, incluindo seus recursos, práticas recomendadas e resultados de teste de desempenho.
+
+
+
+== Multiprotocolo
+
+link:https://www.netapp.com/pdf.html?item=/media/27436-tr-4887.pdf["TR-4887: Visão geral e melhores práticas de nas multiprotocolo na ONTAP"^] Saiba como o acesso nas multiprotocolo funciona no ONTAP e as práticas recomendadas para ambientes multiprotocolo.
+
+
+
+== ONTAP S3
+
+link:https://www.netapp.com/pdf.html?item=/media/17219-tr4814.pdf["TR-4814: S3 nas melhores práticas da ONTAP"^] Saiba mais sobre as práticas recomendadas para usar o Amazon Simple Storage Service (S3) com o software ONTAP, além de recursos e configurações para usar o ONTAP como um armazenamento de objetos com aplicativos S3 nativos ou como um destino de disposição em camadas para o FabricPool.
+
+
+
+== Serviços de nomes
+
+link:https://www.netapp.com/pdf.html?item=/media/19370-tr-4523.pdf["TR-4523: Balanceamento de carga DNS no ONTAP"^] Saiba como configurar o ONTAP para uso com metodologias de balanceamento de carga DNS, incluindo DNS no ONTAP, vários métodos de configuração e práticas recomendadas.
+
+link:https://www.netapp.com/pdf.html?item=/media/16328-tr-4668.pdf["TR-4668: Guia de melhores práticas de serviços de nomes"^] Saiba mais sobre práticas recomendadas, limites e considerações ao implementar soluções nas (Network-Attached Storage), como CIFS/SMB e NFS no ONTAP.
+
+link:https://www.netapp.com/pdf.html?item=/media/19423-tr-4835.pdf["TR-4835: Como configurar LDAP no gerenciamento de identidade nas multiprotocolo ONTAP"^] Saiba como configurar o gerenciamento de identidade LDAP (Lightweight Directory Access Protocol) no ONTAP para nas multiprotocolo.
+
+
+
+== Segurança NAS
+
+link:https://www.netapp.com/pdf.html?item=/media/19384-tr-4616.pdf["TR-4616: Kerberos NFS no ONTAP"^] Saiba mais sobre o Kerberos NFS no ONTAP, incluindo etapas de configuração com clientes do ative Directory e do Red Hat Enterprise Linux (RHEL).

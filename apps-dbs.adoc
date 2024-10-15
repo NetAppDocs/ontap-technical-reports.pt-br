@@ -1,0 +1,96 @@
+---
+sidebar: sidebar 
+keywords: Databases, Applications, Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
+permalink: apps-dbs.html 
+summary: Esses relatórios técnicos fornecem uma visão geral de aplicativos e bancos de dados no ONTAP, bem como práticas recomendadas 
+---
+= Relatórios técnicos de aplicação e banco de dados
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+O ONTAP é a base para o gerenciamento e a proteção de dados em muitas tecnologias de banco de dados e aplicações empresariais. Os relatórios técnicos a seguir fornecem orientação sobre as práticas recomendadas e os procedimentos de implementação do NetApp para Microsoft SQL Server, MySQL, Oracle, PostgreSQL, SAP HANA e Epic.
+
+
+
+== Microsoft SQL Server
+
+O SQL Server é a base da plataforma de dados da Microsoft, fornecendo desempenho de missão crítica com tecnologias in-memory e insights mais rápidos sobre quaisquer dados, seja no local ou na nuvem.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/mssql/mssql-overview.html["Prática recomendada para Microsoft SQL Server com ONTAP"^] Saiba como os administradores de storage e os administradores de banco de dados podem implantar com sucesso o Microsoft SQL Server no armazenamento ONTAP.
+
+
+NOTE: Esta documentação substitui o relatório técnico publicado anteriormente _TR-4590: Guia de práticas recomendadas para Microsoft SQL Server com ONTAP._
+
+link:https://www.netapp.com/pdf.html?item=/media/88704-tr-4976-virtualized-microsoft-sql-server-performance-on-netapp-aff-a-series-and-c-series.pdf["TR-4976: Desempenho virtualizado do Microsoft SQL Server em sistemas NetApp AFF A-Series e C-Series"^] Saiba mais sobre as caraterísticas de desempenho do Microsoft SQL Server usando sistemas NetApp AFF A-Series e C-Series, bem como orientações sobre como selecionar o sistema certo com base na carga de trabalho.
+
+link:https://www.netapp.com/pdf.html?item=/media/12400-tr4714.pdf["TR-4714: Práticas recomendadas para Microsoft SQL Server usando SnapCenter"^] Saiba agora para implantar com sucesso o Microsoft SQL Server no armazenamento ONTAP usando a tecnologia SnapCenter para proteção de dados.
+
+
+
+== MySQL
+
+Este documento descreve os requisitos de configuração e fornece orientações sobre ajuste e configuração de armazenamento para a implantação do MySQL no ONTAP.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/mysql/mysql-overview.html["Banco de dados MySQL sobre as melhores práticas do NetApp ONTAP"^] MySQL e suas variantes, incluindo MariaDB e Percona, são amplamente utilizados para muitas aplicações empresariais. Esses aplicativos variam de sites globais de redes sociais e sistemas massivos de comércio eletrônico a sistemas de hospedagem SMB que contêm milhares de instâncias de banco de dados. Saiba mais sobre os requisitos de configuração e orientação sobre ajuste e configuração de armazenamento para a implantação do MySQL no ONTAP.
+
+
+NOTE: Esta documentação substitui o relatório técnico publicado anteriormente _TR-4722: Banco de dados MySQL sobre as melhores práticas do NetApp ONTAP._
+
+
+
+== Oracle
+
+O ONTAP foi projetado para bancos de dados Oracle. Por décadas, o ONTAP foi otimizado para as demandas exclusivas de e/S de banco de dados relacional e vários recursos do ONTAP foram criados especificamente para atender às necessidades dos bancos de dados Oracle e até mesmo a pedido da própria Oracle Inc..
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/oracle-overview.html["Bancos de dados Oracle no ONTAP"^] Saiba mais sobre as práticas recomendadas que permitem que administradores de armazenamento e administradores de banco de dados implantem com sucesso o Oracle no armazenamento ONTAP.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/oracle-dp-overview.html["Proteção de dados Oracle com ONTAP"^] Saiba mais sobre as práticas recomendadas que permitem que administradores de storage e administradores de banco de dados façam backup, recuperem, repliquem e forneçam recuperação de desastres para o Oracle no armazenamento ONTAP.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/oracle-dr-overview.html["Recuperação de desastres Oracle com o ONTAP"^] Saiba mais sobre as práticas recomendadas, procedimentos de teste e outras considerações para a operação de bancos de dados Oracle em um MetroCluster e SnapMirror Business Continuity.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/oracle-migration-overview.html["Migração de bancos de dados Oracle para sistemas de storage ONTAP"^] Saiba mais sobre as considerações gerais para o Planejamento de uma estratégia de migração, os três níveis diferentes em que a movimentação de dados ocorre e detalha alguns dos vários procedimentos disponíveis.
+
+
+NOTE: A documentação vinculada acima substitui esses relatórios técnicos publicados anteriormente _TR-3633: Bancos de dados Oracle no ONTAP; TR-4591: Proteção de dados Oracle: Backup, recuperação, replicação; TR-4592: Oracle no MetroCluster; e TR-4534: Migração de bancos de dados Oracle para sistemas de armazenamento NetApp_
+
+link:https://www.netapp.com/pdf.html?item=/media/85630-tr-4969.pdf["TR-4969: Desempenho do banco de dados Oracle no AFF A-Series e C-Series"^] O ONTAP é uma plataforma avançada de gerenciamento de dados com funcionalidades nativas que incluem compactação in-line, atualizações de hardware sem interrupções e a capacidade de importar um LUN de um array de storage estrangeiro. É possível agrupar até 24 nós, fornecendo dados simultaneamente por meio dos protocolos Network File System (NFS), Server Message Block (SMB), iSCSI, Fibre Channel (FC) e Nonvolatile Memory Express (NVMe). Além disso, a tecnologia Snapshot é a base para a criação de dezenas de milhares de backups online e clones totalmente operacionais de bancos de dados. Além do conjunto avançado de recursos do ONTAP, há uma grande variedade de requisitos do usuário, incluindo tamanho do banco de dados, requisitos de desempenho e necessidades de proteção de dados. Saiba mais sobre o desempenho do banco de dados bare metal usando os sistemas de armazenamento AFF, incluindo a série A e a série C, e abrange os máximos e a diferença prática entre as duas opções do AFF.
+
+link:https://www.netapp.com/pdf.html?item=/media/85629-tr-4971.pdf["TR-4971: Desempenho de banco de dados Oracle virtualizado no AFF Série A e série C."^] O ONTAP é uma plataforma avançada de gerenciamento de dados com funcionalidades nativas que incluem compactação in-line, atualizações de hardware sem interrupções e a capacidade de importar um LUN de um array de storage estrangeiro. É possível agrupar até 24 nós, fornecendo dados simultaneamente por meio dos protocolos Network File System (NFS), Server Message Block (SMB), iSCSI, Fibre Channel (FC) e Nonvolatile Memory Express (NVMe). Além disso, a tecnologia Snapshot é a base para a criação de dezenas de milhares de backups online e clones totalmente operacionais de bancos de dados. Além do conjunto avançado de recursos do ONTAP, há uma grande variedade de requisitos do usuário, incluindo tamanho do banco de dados, requisitos de desempenho e necessidades de proteção de dados. Saiba mais sobre o desempenho do banco de dados virtualizado usando sistemas de armazenamento AFF, incluindo o série A e o série C, e abrange tanto os máximos quanto a diferença prática entre as duas opções do AFF.
+
+link:https://www.netapp.com/pdf.html?item=/media/9138-tr4695.pdf["TR-4695: Disposição em camadas de storage de banco de dados com FabricPool"^] Saiba mais sobre os benefícios e opções de configuração do FabricPool com vários bancos de dados, incluindo o Oracle Relational Database Management System (RDBMS).
+
+link:https://www.netapp.com/pdf.html?item=/media/40384-tr-4899.pdf["TR-4899: Failover de aplicativos transparente de banco de dados Oracle com sincronização ativa do SnapMirror"^] O SnapMirror ative Sync (anteriormente SM-BC) e o Oracle Real Application Cluster (RAC) podem fornecer failover transparente de aplicativos (TAF) e continuidade diante de interrupções de site e desastres reais. Saiba mais sobre as orientações de configuração e as práticas recomendadas de um storage array do AFF com o SnapMirror ative Sync como o componente de armazenamento do Oracle RAC.
+
+link:https://www.netapp.com/pdf.html?item=/media/21901-tr-4876.pdf["TR-4876: Multitenancy Oracle com solução ONTAP e práticas recomendadas de implantação"^] Saiba mais sobre as práticas recomendadas de solução sobre como provisionar, gerenciar e proteger bancos de dados multitenant Oracle usando o armazenamento ONTAP para maximizar os benefícios dos bancos de dados multitenant Oracle e dos recursos do software ONTAP.
+
+
+
+== PostgreSQL
+
+PostgreSQL vem com variantes que incluem PostgreSQL, PostgreSQL Plus e EDB Postgres Advanced Server (EPAS). O PostgreSQL é normalmente implantado como banco de dados back-end para aplicativos de várias camadas. O NetApp ONTAP é uma excelente escolha para executar bancos de dados PostgreSQL de acordo com sua confiabilidade, alto desempenho e recursos eficientes de gerenciamento de dados.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/postgres/postgres-overview.html["Banco de dados PostgreSQL sobre as melhores práticas do ONTAP"^] PostgreSQL vem com variantes que incluem PostgreSQL, PostgreSQL Plus e EDB Postgres Advanced Server (EPAS). O PostgreSQL é normalmente implantado como banco de dados back-end para aplicativos de várias camadas. Ele é suportado por pacotes de middleware comuns (como PHP, Java, Python, Tcl/Tk, ODBC e JDBC) e tem sido historicamente uma escolha popular para sistemas de gerenciamento de banco de dados de código aberto. Saiba mais sobre os requisitos de configuração e orientação sobre ajuste e configuração de armazenamento para a implantação do PostgreSQL no ONTAP.
+
+
+NOTE: Esta documentação substitui o relatório técnico publicado anteriormente _TR-4770: Banco de dados PostgreSQL sobre as melhores práticas do ONTAP_.
+
+
+
+== SAP HANA
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/["Soluções de banco de dados SAP HANA no ONTAP"^] As práticas recomendadas para configuração, gerenciamento e automação de soluções SAP podem ser encontradas na página soluções SAP da NetApp.
+
+
+
+== Épico
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/epic/epic-overview.html["Épico sobre as melhores práticas da ONTAP"^] Um guia para entender as práticas recomendadas de implantação da Epic no local e na nuvem, atendendo aos padrões de configuração para implantação adequada no ONTAP.
+
+
+NOTE: Esta documentação substitui o relatório técnico publicado anteriormente _TR-3923: Melhores práticas da NetApp para a Epic_.

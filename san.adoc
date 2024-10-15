@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, SAN, NVMe, NVMeoF, NVMeoTCP, NVMeoFC, iSCSI, fibre channel, fiber channel, igroups, namespaces, namespace, LUN, subsystem, best practices, best-practices 
+permalink: san.html 
+summary: Esses relatórios técnicos fornecem uma visão geral dos protocolos de bloco no ONTAP, bem como práticas recomendadas. 
+---
+= Relatórios técnicos da SAN
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+O storage SAN ONTAP oferece uma experiência de SAN simplificada que fornece alta disponibilidade para os bancos de dados essenciais da sua organização e outros workloads de SAN. Com a melhor integração de serviços de dados da categoria com os bancos de dados Oracle, SAP e Microsoft SQL Server, além de VMware e outros hipervisores líderes, o ONTAP SAN oferece um retorno acelerado do investimento para aplicações de banco de dados empresariais.
+
+[NOTE]
+====
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/san-management/index.html["Gerenciamento de storage SAN ONTAP"]documentação do produto.
+
+====
+link:https://www.netapp.com/pdf.html?item=/media/10680-tr4080.pdf["TR-4080: Melhores práticas para SAN moderna em ONTAP"^] Saiba mais sobre protocolos de bloqueio no ONTAP, bem como práticas de recomendações.
+
+link:https://www.netapp.com/pdf.html?item=/media/10681-tr4684.pdf["TR-4684: Implementando e configurando SANs modernas com NVMe sobre Fabrics (NVMe-of)"^] Saiba como implementar e configurar o NVMe sobre Fabrics Transports (NVMe sobre Fibre Channel e NVMe sobre TCP). Os tópicos incluem design, implementação, configuração, diretrizes de gerenciamento e práticas recomendadas para criar soluções SAN modernas de alta performance e altamente disponíveis usando protocolos e transportes NVMe.
+
+link:https://www.netapp.com/pdf.html?item=/media/85671-tr-4968.pdf["TR-4968: Disponibilidade e integridade de dados de array all-SAN NetApp"^] Saiba como os vários recursos de proteção de dados e integridade de dados de todos os sistemas de storage SAN funcionam para alcançar o máximo de tempo de atividade da aplicação, além de práticas recomendadas para projetar, implementar e gerenciar uma rede SAN.
+
+link:https://www.netapp.com/pdf.html?item=/media/9222-nva-1145-design.pdf["Solução flash moderna conectada à nuvem SAN"^] Esta arquitetura verificada do NetApp foi projetada e verificada em conjunto pela NetApp, VMware e Broadcom. Ele usa as mais recentes soluções de tecnologia Brocade, Emulex e VMware vSphere, juntamente com o storage all-flash NetApp, que estabelece um novo padrão para armazenamento SAN empresarial e proteção de dados que gera valor comercial superior.

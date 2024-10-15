@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
+permalink: nas-containers.html 
+summary: Esses relatórios técnicos fornecem uma visão geral dos volumes FlexCache e FlexGroup no NetApp ONTAP, bem como recomendações de práticas recomendadas 
+---
+= Relatórios técnicos de volume FlexCache e FlexGroup
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+As soluções nas da NetApp simplificam o gerenciamento de dados e ajudam você a acompanhar o ritmo do crescimento e, ao mesmo tempo, otimizam os custos. As soluções nas da ONTAP oferecem operações ininterruptas, eficiência comprovada e escalabilidade aprimorada em uma arquitetura unificada. Equipado com ONTAP, o nas com escalabilidade horizontal aproveita o enorme ecossistema ONTAP, com uma visão e uma liderança de inovação significativas para inovações futuras agressivas.
+
+[NOTE]
+====
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/task_nas_flexcache.html["Volume ONTAP FlexCache"]documentação do produto elink:https://docs.netapp.com/us-en/ontap/task_nas_provision_flexgroup.html["Volume ONTAP FlexGroup"].
+
+====
+
+
+== FlexCache
+
+link:https://www.netapp.com/pdf.html?item=/media/7336-tr4743.pdf["TR-4743: FlexCache em ONTAP"^] O FlexCache é uma tecnologia de armazenamento em cache que cria réplicas esparsas e graváveis de volumes no mesmo ou em diferentes clusters do ONTAP. Ele pode aproximar dados e arquivos do usuário para obter uma taxa de transferência mais rápida com um espaço físico menor. Saiba como o FlexCache pode ser usado, as práticas recomendadas, limites e considerações para o projeto e implementação.
+
+
+
+== FlexCache write-back
+
+link:https://docs.netapp.com/us-en/ontap/flexcache-writeback/flexcache-write-back-overview.html["FlexCache write-back"^] Introduzido no ONTAP 9.15,1, o FlexCache write-back é um modo alternativo de operação para escrever em um cache. Write-back permite que a gravação seja comprometida com o armazenamento estável no cache e reconhecida ao cliente sem esperar que os dados cheguem à origem. Os dados são escoados assincronamente de volta à origem. Como resultado, um sistema de arquivos distribuído globalmente permite que as gravações sejam executadas em velocidades quase locais para workloads e ambientes específicos, oferecendo benefícios significativos de performance.
+
+
+
+== Volumes FlexGroup
+
+link:https://www.netapp.com/pdf.html?item=/media/17251-tr4571a.pdf["TR-4571a: As dez melhores práticas da FlexGroup"^] Este relatório técnico é uma versão condensada do TR-4571: Guia de práticas recomendadas e implementação do NetApp ONTAP FlexGroup volumes para consumo rápido.
+
+link:https://www.netapp.com/pdf.html?item=/media/7337-tr4557.pdf["TR-4557: Volumes NetApp ONTAP FlexGroup - Uma visão geral técnica"^] Saiba mais sobre o FlexGroup volumes, um contêiner nas com escalabilidade horizontal do ONTAP que combina capacidade quase infinita com desempenho previsível e de baixa latência em workloads com uso intenso de metadados.
+
+link:https://www.netapp.com/pdf.html?item=/media/12385-tr4571.pdf["TR-4571: Guia de práticas recomendadas e implementação do NetApp ONTAP FlexGroup volumes"^] Saiba mais sobre o FlexGroup volumes, práticas recomendadas e dicas de implementação. Os volumes FlexGroup são uma evolução de contêineres nas ONTAP com escalabilidade horizontal que combina capacidade quase infinita com performance previsível e de baixa latência em workloads com uso intenso de metadados.
+
+link:https://www.netapp.com/pdf.html?item=/media/17064-tr4678.pdf["TR-4678: Proteção de dados e backup de volumes FlexGroup"^] Saiba mais sobre a proteção de dados e o backup para volumes FlexGroup, incluindo cópias Snapshot, SnapMirror e outras soluções de proteção e backup de dados.

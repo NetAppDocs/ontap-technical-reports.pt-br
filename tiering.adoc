@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
+permalink: tiering.html 
+summary: Esses relatórios técnicos fornecem uma visão geral da disposição em camadas no NetApp ONTAP, bem como as práticas recomendadas. 
+---
+= Disposição em camadas de relatórios técnicos
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Com a solução de disposição em camadas de dados da FabricPool, a experiência de usuário geral da empresa em sistemas flash melhora e evita a dor da rearquitetura de aplicações para eficiência de storage. O FabricPool reduz o espaço físico do storage e os custos associados ao ambiente de um sistema. Os dados ativos permanecem em SSDs de alta performance. Os dados inativos são dispostos em camadas em storage de objetos de baixo custo, preservando a eficiência do storage.
+
+[NOTE]
+====
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/fabricpool/index.html["ONTAP FabricPool"]documentação do produto.
+
+====
+link:https://www.netapp.com/pdf.html?item=/media/17239-tr4598.pdf["TR-4598: Melhores práticas da FabricPool"^] Saiba mais sobre os recursos, requisitos, implementação e práticas recomendadas para o FabricPool.
+
+link:https://www.netapp.com/pdf.html?item=/media/19403-tr-4826.pdf["TR-4826: Guia de recomendação NetApp FabricPool com StorageGRID"^] Saiba mais sobre as práticas recomendadas para implantar e dimensionar o StorageGRID como um nível de capacidade para o ONTAP Component FabricPool. Este documento também abrange os principais recursos, requisitos, implementação e práticas recomendadas ao usar o StorageGRID.
+
+link:https://www.netapp.com/pdf.html?item=/media/9138-tr4695.pdf["TR-4695: Disposição em camadas de storage de banco de dados com NetApp FabricPool"^] Saiba mais sobre os benefícios e opções de configuração do FabricPool com vários bancos de dados, incluindo o Oracle Relational Database Management System (RDBMS).
