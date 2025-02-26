@@ -178,7 +178,6 @@
   <block id="255795c6dd40ee8f8b4105a7655ea56c" category="paragraph"><block ref="223707e6f9b8bb9fdf879bae05a91603" category="inline-link-macro-rx"></block> Saiba como o acesso nas multiprotocolo funciona no ONTAP e as práticas recomendadas para ambientes multiprotocolo.</block>
   <block id="1716834171e243de0f898a67621b6624" category="section-title">ONTAP S3</block>
   <block id="12d693aa0c15330c6f5d608b0a1eb6c3" category="inline-link-macro">TR-4814: S3 nas melhores práticas da ONTAP</block>
-  <block id="8a9f413c7d192f7ee13320a2b74b4ecc" category="paragraph"><block ref="3f5613d82639ca68ec10bef37723bdeb" category="inline-link-macro-rx"></block> Saiba mais sobre as práticas recomendadas para usar o Amazon Simple Storage Service (S3) com o software ONTAP, além de recursos e configurações para usar o ONTAP como um armazenamento de objetos com aplicativos S3 nativos ou como um destino de disposição em camadas para o FabricPool.</block>
   <block id="a4273e3e312edbc9d5bd7c188aecc370" category="section-title">Serviços de nomes</block>
   <block id="98c6ad5dad288854428df19a0833d709" category="inline-link-macro">TR-4523: Balanceamento de carga DNS no ONTAP</block>
   <block id="7a50564c3d71f025f2e39ea6c508a8ab" category="paragraph"><block ref="ea931303ddc872579ef3f1a3e7507b66" category="inline-link-macro-rx"></block> Saiba como configurar o ONTAP para uso com metodologias de balanceamento de carga DNS, incluindo DNS no ONTAP, vários métodos de configuração e práticas recomendadas.</block>
@@ -370,4 +369,5 @@
   <block id="1a5c3601eda1cd38072323e418968743" category="sidebar">Continuidade dos negócios</block>
   <block id="03c39d763ca15978d9ef16c2ba5fe98a" category="sidebar">Proteção de dados e recuperação de desastres</block>
   <block id="a5fa5746370b608090b994a97b49e98b" category="sidebar">Rede</block>
+  <block id="3e0f59fca19e9a4d246c3e746b14f879" category="paragraph"><block ref="e2f5d130ca2d9c5351a2d7cbfddc082b" category="inline-link-macro-rx"></block> Saiba mais sobre as práticas recomendadas para usar o Amazon Simple Storage Service (S3) com o software ONTAP, além de recursos e configurações para usar o ONTAP como um armazenamento de objetos com aplicativos S3 nativos ou como um destino de disposição em camadas para o FabricPool.</block>
 </blocks>

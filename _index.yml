@@ -56,7 +56,7 @@ indexpage:
     - title: Visão geral e práticas recomendadas de nas multiprotocolo no ONTAP
       url: nas.html
     - title: S3 nas melhores práticas da ONTAP
-      url: nas.html
+      url: https://docs.netapp.com/us-en/ontap/s3-config/index.html
     - title: Práticas recomendadas de serviços de nomes
       url: nas.html
     - title: Kerberos NFS no ONTAP
