@@ -1,10 +1,10 @@
 ---
+permalink: apps-dbs.html 
 sidebar: sidebar 
 keywords: Databases, Applications, Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
-permalink: apps-dbs.html 
 summary: Esses relatórios técnicos fornecem uma visão geral de aplicativos e bancos de dados no ONTAP, bem como práticas recomendadas 
 ---
-= Relatórios técnicos de aplicação e banco de dados
+= ONTAP e relatórios técnicos de aplicativos e bancos de dados
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

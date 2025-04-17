@@ -27,9 +27,17 @@ sidebar:
   - title: SAN
     url: "/san.html"
   - title: Segurança
-    url: "/security.html"
-  - title: Guias de proteção de segurança
-    url: "/security-hardening-guides.html"
+    entries:
+    - title: Visão geral
+      url: "/security.html"
+    - section: ransomware-solutions
+    - section: zero-trust
+    - section: abac
+  - title: Endurecimento da segurança
+    entries:
+    - title: Visão geral
+      url: "/security-hardening-guides.html"
+    - section: ontap-security-hardening
   - title: SnapCenter
     url: "/snapcenter.html"
   - title: Disposição em camadas

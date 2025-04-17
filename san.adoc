@@ -1,10 +1,10 @@
 ---
+permalink: san.html 
 sidebar: sidebar 
 keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, SAN, NVMe, NVMeoF, NVMeoTCP, NVMeoFC, iSCSI, fibre channel, fiber channel, igroups, namespaces, namespace, LUN, subsystem, best practices, best-practices 
-permalink: san.html 
 summary: Esses relatórios técnicos fornecem uma visão geral dos protocolos de bloco no ONTAP, bem como práticas recomendadas. 
 ---
-= Relatórios técnicos da SAN
+= Relatórios técnicos da SAN ONTAP
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -18,7 +18,7 @@ O storage SAN ONTAP oferece uma experiência de SAN simplificada que fornece alt
 
 [NOTE]
 ====
-Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/san-management/index.html["Gerenciamento de storage SAN ONTAP"]documentação do produto.
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/san-management/index.html["Gerenciamento de storage SAN ONTAP"^]documentação do produto.
 
 ====
 link:https://www.netapp.com/pdf.html?item=/media/10680-tr4080.pdf["TR-4080: Melhores práticas para SAN moderna em ONTAP"^] Saiba mais sobre protocolos de bloqueio no ONTAP, bem como práticas de recomendações.

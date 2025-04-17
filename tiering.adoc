@@ -1,10 +1,10 @@
 ---
+permalink: tiering.html 
 sidebar: sidebar 
 keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
-permalink: tiering.html 
 summary: Esses relatórios técnicos fornecem uma visão geral da disposição em camadas no NetApp ONTAP, bem como as práticas recomendadas. 
 ---
-= Disposição em camadas de relatórios técnicos
+= Relatórios técnicos de disposição em camadas do ONTAP
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -18,7 +18,7 @@ Com a solução de disposição em camadas de dados da FabricPool, a experiênci
 
 [NOTE]
 ====
-Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/fabricpool/index.html["ONTAP FabricPool"]documentação do produto.
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/fabricpool/index.html["ONTAP FabricPool"^]documentação do produto.
 
 ====
 link:https://www.netapp.com/pdf.html?item=/media/17239-tr4598.pdf["TR-4598: Melhores práticas da FabricPool"^] Saiba mais sobre os recursos, requisitos, implementação e práticas recomendadas para o FabricPool.

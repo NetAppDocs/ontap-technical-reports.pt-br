@@ -1,10 +1,10 @@
 ---
+permalink: storage-efficiency.html 
 sidebar: sidebar 
 keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
-permalink: storage-efficiency.html 
 summary: Esses relatórios técnicos fornecem uma visão geral da eficiência de storage no NetApp ONTAP, bem como as práticas recomendadas. 
 ---
-= Relatórios técnicos de eficiência de storage
+= Relatórios técnicos de eficiência de storage da ONTAP
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -18,6 +18,6 @@ O ONTAP oferece um portfólio abrangente de funcionalidades de eficiência de st
 
 [NOTE]
 ====
-A documentação de procedimentos para deduplicação pode ser encontrada na link:https://docs.netapp.com/us-en/ontap/volumes/enable-deduplication-volume-task.html["documentação de deduplicação"] documentação de procedimentos para compressão pode ser encontrada na link:https://docs.netapp.com/us-en/ontap/volumes/enable-data-compression-volume-task.html["documentação de compressão"]documentação de procedimentos para eficiência de armazenamento sensível à temperatura. Pode ser encontrada na link:https://docs.netapp.com/us-en/ontap/volumes/enable-temperature-sensitive-efficiency-concept.html["documentação de eficiência de armazenamento sensível à temperatura"] documentação de procedimentos para compactação em link:https://docs.netapp.com/us-en/ontap/volumes/enable-inline-data-compaction-fas-systems-task.html["documentação de compactação"]
+A documentação de procedimentos para deduplicação pode ser encontrada na link:https://docs.netapp.com/us-en/ontap/volumes/enable-deduplication-volume-task.html["documentação de deduplicação"^] documentação de procedimentos para compressão pode ser encontrada na link:https://docs.netapp.com/us-en/ontap/volumes/enable-data-compression-volume-task.html["documentação de compressão"^]documentação de procedimentos para eficiência de armazenamento sensível à temperatura. Pode ser encontrada na link:https://docs.netapp.com/us-en/ontap/volumes/enable-temperature-sensitive-efficiency-concept.html["documentação de eficiência de armazenamento sensível à temperatura"^] documentação de procedimentos para compactação em link:https://docs.netapp.com/us-en/ontap/volumes/enable-inline-data-compaction-fas-systems-task.html["documentação de compactação"^]
 
 ====

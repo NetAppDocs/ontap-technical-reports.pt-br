@@ -1,10 +1,10 @@
 ---
+permalink: nas.html 
 sidebar: sidebar 
 keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, NAS, best practices, best-practices 
-permalink: nas.html 
 summary: Esses relatórios técnicos fornecem uma visão geral dos serviços de nomes NFS, SMB/CIFS, S3 e no NetApp ONTAP, bem como das práticas recomendadas. 
 ---
-= Relatórios técnicos da NAS
+= Relatórios técnicos do ONTAP nas
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -18,7 +18,7 @@ As soluções nas da NetApp simplificam o gerenciamento de dados e ajudam você 
 
 [NOTE]
 ====
-Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/nas-management/index.html["Gerenciamento de storage nas ONTAP"]documentação do produto elink:https://docs.netapp.com/us-en/ontap/object-storage-management/index.html["Gerenciamento de storage do ONTAP S3"].
+Esses relatórios técnicos expandem a link:https://docs.netapp.com/us-en/ontap/nas-management/index.html["Gerenciamento de storage nas ONTAP"^]documentação do produto elink:https://docs.netapp.com/us-en/ontap/object-storage-management/index.html["Gerenciamento de storage do ONTAP S3"^].
 
 ====
 
