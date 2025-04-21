@@ -1748,7 +1748,6 @@
   <block id="50f0055dd25143ce1041a1e865a7cff2" category="paragraph">Para obter informações sobre como reportar vulnerabilidades e incidentes, respostas de segurança do NetApp e confidencialidade do cliente, consulte o<block ref="85e584d5dd95cb24acf0575604062318" category="inline-link-rx"></block>.</block>
   <block id="3b878279a04dc47d60932cb294d96259" category="sidebar">Visão geral</block>
   <block id="addb25ae677e0b8a55734ab57c09d585" category="sidebar">Endurecimento da segurança</block>
-  <block id="1aa0723459b84338c8aad8382638c878" category="sidebar">Diretrizes de endurecimento do ONTAP</block>
   <block id="ca8c02fc98ee18dce1a2f0c4acf7cd56" category="sidebar">Contas de administrador de armazenamento local</block>
   <block id="d3d5dd45b51e06a8bf7d70c42f06240c" category="sidebar">Verificação de vários administradores</block>
   <block id="4cd4399cfc2bfd6d194da77235de119a" category="sidebar">Bloqueio de cópias snapshot</block>
@@ -1757,15 +1756,15 @@
   <block id="b835d7094831b4ed2a38af1dbd1fe404" category="sidebar">Modo FIPS e gerenciamento TLS e SSL</block>
   <block id="8e48f26dee6c1917b45f1d05c19074d7" category="sidebar">Configurar assinatura e vedação CIFS SMB</block>
   <block id="94e6cee7fe1a1375bf9dc65d4f0dd995" category="sidebar">Segurança LIF</block>
-  <block id="4b3b5551c4f327daecfcde4636aca278" category="sidebar">Sobre a proteção contra ransomware da NetApp</block>
   <block id="dcd771e3d20c3c7415e08f5bf28a6e38" category="sidebar">Portfólio de proteção de ransomware e NetApp</block>
   <block id="06205ba9447bbde00fbe939539a25870" category="sidebar">Cópias snapshot à prova de SnapLock e invioláveis</block>
   <block id="e6a3ee6f35767ceec82038d17d54fb88" category="sidebar">Segurança de carga de trabalho de armazenamento de CI (CISWS)</block>
   <block id="e59f82f50a98ebe0abf3807c82f2a63b" category="sidebar">Vaulting cibernético</block>
   <block id="9c93de8987f6abeac5c25e0855470103" category="sidebar">Proteção contra ransomware da Active IQ</block>
-  <block id="3cecaa4840f4146d89b6a6560054fc43" category="sidebar">Ative o modelo Zero Trust</block>
   <block id="c8b78402f94fce212009aa61ceb6fa0d" category="sidebar">Visão geral do Zero Trust</block>
   <block id="ebf6adb994a800f01712f5271da576c8" category="sidebar">Abordagem do Architect Zero Trust</block>
   <block id="30b66b872763a94b8ae22c6953d55a41" category="sidebar">Automação para Zero Trust em escala</block>
   <block id="a919cbb519743fc10912cc33b7fce224" category="sidebar">Implantações de nuvem híbrida sem confiança</block>
+  <block id="31f4bfc29163ac1c62592e45806e4c89" category="sidebar">Diretrizes de fortalecimento da segurança do ONTAP</block>
+  <block id="998827b90d84e6f2876b33dda3bee943" category="sidebar">Solução NetApp para ransomware</block>
 </blocks>

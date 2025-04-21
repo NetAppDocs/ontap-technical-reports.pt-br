@@ -1,6 +1,6 @@
 ---
 section: ontap-security-hardening
-title: Diretrizes de endurecimento do ONTAP
+title: Diretrizes de fortalecimento da segurança do ONTAP
 entries:
 - title: Visão geral do fortalecimento da segurança do ONTAP
   url: "/ontap-security-hardening/security-hardening-overview.html"
