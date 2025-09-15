@@ -188,7 +188,7 @@ NOTE: A `autosupport` função é atribuída à conta predefinida `autosupport`,
 `vsadmin-volume`
  a| 
 * Gerencie a senha local da própria conta de usuário e as informações chave
-* Gerencie volumes, incluindo movimentos de volume
+* Gerencie volumes, exceto movimentos de volume
 * Gerencie cotas, qtrees, snapshots e arquivos
 * Gerenciar LUNs
 * Configurar protocolos: NFS, SMB, iSCSI, FC, FCoE, NVMe/FC e NVMe/TCP
