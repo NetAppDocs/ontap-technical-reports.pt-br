@@ -17,7 +17,7 @@ O FPolicy impede que arquivos indesejados sejam armazenados em seu dispositivo d
 
 O modo nativo do NetApp FPolicy (uma evolução do nome, Política de arquivos) é uma estrutura de bloqueio de extensão de arquivo que permite bloquear extensões de arquivo indesejadas de entrar em seu ambiente. Faz parte do ONTAP há mais de uma década e é incrivelmente útil para ajudar você a proteger contra ransomware. Esse mecanismo de confiança zero é valioso porque você obtém medidas de segurança extras além das permissões da lista de controle de acesso (ACL).
 
-No ONTAP System Manager e no BlueXP , uma lista de mais de 3000 extensões de arquivo está disponível para referência.
+No ONTAP System Manager e no NetApp Console, uma lista de mais de 3.000 extensões de arquivo está disponível para referência.
 
 
 WARNING: Algumas extensões podem ser legítimas em seu ambiente e bloqueá-las pode levar a problemas inesperados. Crie sua própria lista apropriada para o seu ambiente antes de configurar o FPolicy nativo.
