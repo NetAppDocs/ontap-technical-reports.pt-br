@@ -53,4 +53,6 @@ As funções de LIF podem ser as seguintes:
 
 
 ====
-Saiba mais sobre como proteger LIFs, consulte link:https://docs.netapp.com/us-en/ontap/networking/configure_firewall_policies_for_lifs.html["Configurar políticas de firewall para LIFs"^].
+Para saber mais sobre como garantir a segurança dos LIFs, consulte link:https://docs.netapp.com/us-en/ontap/networking/configure_firewall_policies_for_lifs.html["Configurar políticas de firewall para LIFs"^]. Esta página também fornece detalhes sobre as políticas de serviço do LIF a partir do ONTAP 9.10.1.
+
+Para saber mais sobre como criar uma nova política de serviço, consulte o `network interface service-policy create` comando no link:https://docs.netapp.com/us-en/ontap-cli/network-interface-service-policy-create.html["Referência de comandos."^]
