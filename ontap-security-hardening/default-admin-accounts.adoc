@@ -18,9 +18,9 @@ Existem duas contas administrativas padrão: `admin` E `diag`.
 As contas órfãs são um grande vetor de segurança que muitas vezes leva a vulnerabilidades, incluindo a escalação do Privileges. Estas são contas desnecessárias e não utilizadas que permanecem no repositório de contas de usuário. São principalmente contas padrão que nunca foram usadas ou para as quais senhas nunca foram atualizadas ou alteradas. Para resolver esse problema, o ONTAP suporta a remoção e renomeação de contas.
 
 
-NOTE: O ONTAP não pode remover ou renomear contas internas. No entanto, o NetApp recomenda bloquear quaisquer contas internas desnecessárias com o comando LOCK.
+NOTE: Não é possível remover ou renomear contas incorporadas. Se um administrador remover a conta, após reinicializar, a conta incorporada será recriada. *NetApp recomenda* bloquear quaisquer contas incorporadas desnecessárias com o comando lock.
 
-Embora as contas órfãs sejam um problema de segurança significativo, o NetApp recomenda fortemente testar o efeito da remoção de contas do repositório de contas local.
+Embora contas órfãs representem um problema de segurança significativo, *NetApp recomenda fortemente* testar o efeito da remoção de contas do repositório local.
 
 
 
@@ -32,7 +32,7 @@ Para listar as contas locais, execute o `security login show` comando.
 ----
 cluster1::*> security login show -vserver cluster1
 
-Vserver: cluster1
+vserver: cluster1
                              Authentication             Acct   Is-Nsswitch
 User/Group Name  Application Method    Role Name        Locked Group
 ---------------- ----------- --------- ---------------- ------ -----------

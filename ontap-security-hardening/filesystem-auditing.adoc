@@ -13,7 +13,7 @@ summary: 'É necessário habilitar a auditoria CIFS para gerar eventos de audito
 [role="lead"]
 Os sistemas de arquivos nas ocupam um espaço maior no cenário de ameaças atuais. As funções de auditoria são essenciais para oferecer suporte à visibilidade.
 
-A segurança requer validação. O ONTAP 9 fornece maiores eventos de auditoria e detalhes em toda a solução. Como os sistemas de arquivos nas ocupam um espaço físico maior no cenário de ameaças atuais, as funções de auditoria são essenciais para oferecer suporte à visibilidade. Devido à capacidade de auditoria aprimorada no ONTAP 9, os detalhes de auditoria do CIFS são mais abundantes do que nunca. Os principais detalhes, incluindo os seguintes, são registrados com eventos criados:
+A segurança exige validação. ONTAP oferece mais eventos e detalhes de auditoria em toda a solução. Como os sistemas de arquivos NAS ocupam um espaço cada vez maior no cenário de ameaças atual, as funções de auditoria são essenciais para garantir visibilidade. Devido à capacidade de auditoria aprimorada no ONTAP, os detalhes de auditoria do CIFS são mais abundantes do que nunca. Detalhes importantes, incluindo os seguintes, são registrados com os eventos criados:
 
 * Acesso a arquivos, pastas e compartilhamentos
 * Arquivos criados, modificados ou excluídos
@@ -59,6 +59,9 @@ O ONTAP inclui a capacidade de contas de administrador acessarem e manipularem a
 === Criar função de API REST sem acesso
 
 É possível impedir que os administradores do ONTAP usem APIS REST para acesso a arquivos ao criar uma função de API REST que não tenha acesso a volumes do ONTAP por meio DE REST. Para provisionar essa função, execute as etapas a seguir.
+
+
+NOTE: A API REST /api/storage/volumes é usada para mais do que apenas acesso a arquivos. Ela é usada pelo System Manager e outras interfaces gráficas para criar, visualizar e modificar volumes.
 
 .Passos
 . Crie uma nova função REST que não tenha acesso a volumes de storage, além de ter todos os outros acessos à API REST.
