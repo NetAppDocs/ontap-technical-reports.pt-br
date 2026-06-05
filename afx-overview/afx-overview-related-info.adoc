@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: afx-overview/afx-overview-related-info.html 
+keywords: netapp afx, resources, documentation, links, data sheet 
+summary: Consulte os seguintes recursos para saber mais sobre NetApp AFX. 
+---
+= Onde encontrar informações adicionais
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx-overview/
+
+
+[role="lead"]
+Para saber mais sobre as informações descritas neste documento, consulte os seguintes documentos e/ou sites:
+
+* Hardware Universe link:https://hwu.netapp.com/["https://hwu.netapp.com/"^]
+* NetApp Página do produto AFX https://www.netapp.com/afx/[]
+* NetApp AFX: infraestrutura de dados de IA escalável e segura link:https://www.netapp.com/blog/afx-scalable-secure-ai-data-infrastructure/["https://www.netapp.com/blog/afx-scalable-secure-ai-data-infrastructure/"^]
+* Está em dúvida entre NFSv3 e NFSv4.x? A escolha está ficando mais clara…link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Deciding-between-NFSv3-or-NFSv4-x-The-choice-is-getting-clearer["https://community.netapp.com/t5/Tech-ONTAP-Blogs/Deciding-between-NFSv3-or-NFSv4-x-The-choice-is-getting-clearer"^]
+* NetApp Ficha técnica AFX link:https://www.netapp.com/media/142853-ds-3466-netapp-afx-datasheet.pdf["https://www.netapp.com/media/142853-ds-3466-netapp-afx-datasheet.pdf"^]
+

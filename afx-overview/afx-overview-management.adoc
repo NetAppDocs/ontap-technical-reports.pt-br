@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: afx-overview/afx-overview-management.html 
+keywords: netapp afx, cli, system manager, rest api, management tools, gui 
+summary: Embora existam algumas diferenças arquitetônicas consideráveis ​​na forma como o storage é apresentado no NetApp AFX, o conjunto de recursos e a forma como ONTAP é gerenciado permanecem praticamente inalterados. 
+---
+= Ferramentas de gerenciamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx-overview/
+
+
+[role="lead"]
+Embora existam algumas diferenças arquitetônicas consideráveis na forma como o armazenamento é apresentado no NetApp AFX, o conjunto de recursos e a maneira como ONTAP é gerenciado permanecem praticamente inalterados. Isso é totalmente intencional. ONTAP é ONTAP e, sempre que possível, a curva de aprendizado deve ser mínima ou inexistente. E, neste caso, NetApp AFX ainda está executando ONTAP.
+
+
+
+== Gerenciamento – CLI
+
+No NetApp AFX, a CLI é quase idêntica à oferecida pela CLI unificada do ONTAP. Os comandos ainda são executados, em sua maioria, no nível do cluster, enquanto ainda existem comandos em nível de nó que podem ser emitidos. Ainda existem diretórios de comandos de nível superior e subcomandos, assim como a conclusão de comandos por tabulação. Além disso, todos os mesmos atalhos da CLI funcionam (por exemplo, filtrar conteúdo usando  `-fields`).
+
+As únicas diferenças reais na NetApp AFX CLI dizem respeito ao que foi adicionado e ao que foi removido (conforme abordado na seção "" deste documento). Se um recurso (como agregados ou Metrocluster) foi removido, o comando CLI correspondente não estará mais disponível.
+
+Além disso, sempre que novos recursos e funcionalidades forem adicionados ao NetApp AFX, novos comandos também estarão disponíveis. Por exemplo, o novo link:https://www.netapp.com/aide/["NetApp AI Data Engine (AIDE)"^] add-on interage diretamente com um NetApp AFX cluster por meio da rede de backend do cluster. Como resultado, os  `dcn` e  `data-engine` diretórios de comandos são adicionados à NetApp AFX CLI.
+
+A seguir, são apresentados os diretórios de comandos de nível superior disponíveis com privilégios de administrador em um NetApp AFX cluster. Os comandos adicionados recentemente estão em negrito.
+
+[listing]
+----
+AFX::>
+    cluster       data-engine   dcn           event         exit
+    history       job           man           metrocluster  network
+    qos           redo          rows          run           security
+    set           snaplock      snapmirror    statistics    statistics-v1
+    storage       system        top           up            volume
+    vserver
+----
+
+
+== Gerenciamento – GUI
+
+System Manager ainda é a interface GUI para interagir com NetApp AFX clusters para gerenciamento de recursos e, ao fazer login pela primeira vez, você provavelmente não perceberá à primeira vista que não está mais conectado a um sistema ONTAP unificado.
+
+*Comparação lado a lado das páginas iniciais unificadas do ONTAP e do NetApp AFX System Manager*
+
+image:side-by-side-system-manager.png["Visão lado a lado dos painéis unificados do ONTAP e do NetApp AFX System Manager"]
+
+Como você pode ver acima, não há muitas diferenças óbvias no System Manager para unified ONTAP e NetApp AFX. Existem, no entanto, alguns indícios.
+
+*Como o NetApp AFX difere no System Manager*
+
+image:image40.png["Imagem"]
+
+Ao explorar os menus e painéis, quase tudo permanece igual. Os volumes ainda mostram a capacidade usada e total. As interfaces de rede ainda mostram as portas e os endereços IP. Você ainda pode configurar políticas de proteção para SnapMirror. As visualizações de hardware ainda estão disponíveis. Mas NetApp AFX também aprimora um pouco as visualizações, oferecendo uma nova visualização de cabeamento, onde você pode detalhar e ver onde todos os cabos estão conectados em toda a pilha de storage.
+
+*NetApp visão da cablagem AFX*
+
+image:image41.png["Imagem"]
+
+
+
+== APIs REST
+
+NetApp AFX também se esforça para manter a maioria das chamadas da API REST do ONTAP, o que significa que, se você criou um conjunto de ferramentas de automação baseadas na API REST, elas ainda poderão ser usadas na maioria dos casos. As principais exceções incluem agregados, Metrocluster, SAN e alguns contadores de desempenho. A documentação completa da API REST pode ser encontrada no System Manager do cluster NetApp AFX, acessando https://clus_mgmt_ip/docs/api.
+
+
+
+== Ferramentas de gerenciamento ONTAP off-box
+
+NetApp AFX oferece algum suporte para ferramentas de gerenciamento off-box do ONTAP, tais como:
+
+* NetApp System Manager
+* NetApp Console
+* Grafana Harvest (25.11.0 e posterior)
+* NetApp Trident (25.10 e posterior)
+
+
+NetApp AFX não oferece suporte atualmente a:
+
+* NetApp ActiveIQ Unified Manager
+

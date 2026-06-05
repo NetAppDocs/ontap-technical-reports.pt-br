@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ontap-security-hardening/filesystem-auditing.html 
-keywords: tr-4569, ontap hardening guide, security, vserver audit create, file, folder, share access, files created, modified, or deleted, successful file read access, failed attempts to read or write files, folder permission changes, restriction of REST access and manipulate SMB/CIFS or NFS files 
+keywords: tr-4569, ontap hardening guide, security, vserver audit create, file, folder, share access, files created, modified, or deleted, successful file read access, failed attempts to read or write files, folder permission changes, restriction of REST access and manipulate SMB or NFS files 
 summary: 'É necessário habilitar a auditoria CIFS para gerar eventos de auditoria. Use o comando "vserver audit create" para criar uma configuração de auditoria.' 
 ---
 = Auditoria do sistema de arquivos nas

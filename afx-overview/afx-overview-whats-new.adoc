@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: afx-overview/afx-overview-whats-new.html 
+keywords: netapp afx, new features, release notes, version history, ontap 
+summary: Esta página contém as últimas atualizações do NetApp AFX e será atualizada a cada nova versão. 
+---
+= O que há de novo no NetApp AFX
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx-overview/
+
+
+[role="lead"]
+Esta seção contém as atualizações mais recentes para NetApp AFX e será atualizada a cada nova versão. Consulte esta página periodicamente para obter novas informações, mas também verifique as notas de lançamento da versão.
+
+
+
+== Quais são as novidades na versão mais recente do NetApp ONTAP para AFX?
+
+Última versão:
+
+ONTAP 9.19.1RC1 (a partir de maio de 2026)
+
+Novos recursos no NetApp AFX:
+
+* Desduplicação global
+* Eficiência de storage dinâmica
+* Leitura antecipada avançada
+* Suporte para 32 nós
+* Suporte para 32PB
+* 512 volumes constituintes por FlexGroup volume
+
+
+
+
+== Histórico de versões
+
+|===
+| Versão | Data | Histórico de versões do documento 
+
+
+| Versão 1.0 | Junho de 2026 | Lançamento inicial 
+|===
