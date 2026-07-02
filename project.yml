@@ -41,7 +41,7 @@ sidebar:
   - title: Sistemas de armazenamento
     entries:
     - title: AFX
-      section: afx-overview
+      section: afx
   - title: SnapCenter
     url: "/snapcenter.html"
   - title: Disposição em camadas

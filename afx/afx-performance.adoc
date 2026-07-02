@@ -1,13 +1,13 @@
 ---
 sidebar: sidebar 
-permalink: afx-overview/afx-overview-performance.html 
+permalink: afx/afx-performance.html 
 keywords: netapp afx, performance, nfsv4, benchmarks, read-ahead, throughput 
 summary: NetApp AFX foi desenvolvido com foco em desempenho e escalabilidade, sendo especificamente voltado para cargas de trabalho que exigem alta taxa de transferência de leitura e gravação. 
 ---
 = Desempenho
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/afx-overview/
+:imagesdir: ../media/afx/
 
 
 [role="lead"]
@@ -36,7 +36,7 @@ NOTE: Para obter as estimativas de desempenho mais recentes, consulte sua equipe
 
 == Desempenho por prateleira
 
-Cada prateleira contém módulos de prateleira de alto desempenho com 16 portas Ethernet de 100 GB que utilizam a comunicação RoCEv2 para interação de storage de alta largura de banda com os nós de computação no cluster. Como qualquer recurso físico, essas prateleiras têm máximos que podem ser alcançados – principalmente porque NetApp AFX pode apresentar vários nós apontando para o mesmo conjunto de discos. A tabela a seguir mostra o desempenho máximo estimado de leitura e gravação para uma única prateleira para unidades TLC e QLC. Para obter mais informações sobre as diferenças entre TLC e QLC, consulte link:afx-overview-hardware.html#tlc-vs-qlc["TLC vs. QLC"].
+Cada prateleira contém módulos de prateleira de alto desempenho com 16 portas Ethernet de 100 GB que utilizam a comunicação RoCEv2 para interação de storage de alta largura de banda com os nós de computação no cluster. Como qualquer recurso físico, essas prateleiras têm máximos que podem ser alcançados – principalmente porque NetApp AFX pode apresentar vários nós apontando para o mesmo conjunto de discos. A tabela a seguir mostra o desempenho máximo estimado de leitura e gravação para uma única prateleira para unidades TLC e QLC. Para obter mais informações sobre as diferenças entre TLC e QLC, consulte link:afx-hardware.html#tlc-vs-qlc["TLC vs. QLC"].
 
 *Estimativas de desempenho por prateleira*
 

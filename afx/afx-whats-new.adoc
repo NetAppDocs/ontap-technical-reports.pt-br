@@ -1,13 +1,13 @@
 ---
 sidebar: sidebar 
-permalink: afx-overview/afx-overview-whats-new.html 
+permalink: afx/afx-whats-new.html 
 keywords: netapp afx, new features, release notes, version history, ontap 
 summary: Esta página contém as últimas atualizações do NetApp AFX e será atualizada a cada nova versão. 
 ---
 = O que há de novo no NetApp AFX
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/afx-overview/
+:imagesdir: ../media/afx/
 
 
 [role="lead"]

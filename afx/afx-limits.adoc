@@ -1,13 +1,13 @@
 ---
 sidebar: sidebar 
-permalink: afx-overview/afx-overview-limits.html 
+permalink: afx/afx-limits.html 
 keywords: netapp afx, maximums, minimums, limits, capacity, nodes, volumes 
 summary: Esta página aborda os limites máximos e mínimos de um cluster AFX NetApp em comparação com ONTAP unificado. 
 ---
 = Máximos e limites
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/afx-overview/
+:imagesdir: ../media/afx/
 
 
 [role="lead"]
