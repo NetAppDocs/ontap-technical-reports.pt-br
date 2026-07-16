@@ -16,10 +16,11 @@ O Zero Trust tradicionalmente tem sido uma abordagem centrada na rede de arquite
 
 NOTE: A partir de julho de 2024, o conteúdo do relatório técnico _TR-4829: NetApp e confiança zero: Habilitando um modelo de confiança zero centrado em dados_, que foi publicado anteriormente como PDF, está disponível em docs.netapp.com.
 
-Os dados são o ativo mais importante que sua organização tem. As ameaças internas são a causa de 18% das violações de dados, de acordo com o 2022 https://enterprise.verizon.com/resources/reports/dbir/["Relatório de investigações de violação de dados da Verizon"^]. As organizações podem aumentar a vigilância com a implantação de controles de confiança zero líderes do setor relacionados aos dados com o software de gerenciamento de dados NetApp ONTAP.
+Os dados são o ativo mais importante da sua organização. Ameaças internas são responsáveis por 18% das violações de dados, segundo o relatório de 2022 https://www.verizon.com/business/resources/["Relatório de investigações de violação de dados da Verizon"^]. As organizações podem aumentar sua vigilância implementando controles de Zero Trust líderes do setor em torno dos dados com o software de gerenciamento de dados NetApp ONTAP.
 
 
 
+[[what-is-zero-trust]]
 == O que é Zero Trust?
 
 O modelo Zero Trust foi desenvolvido pela primeira vez por John Kindervag na Forrester Research. A abordagem Zero Trust de dentro para fora identifica um micronúcleo e um perímetro (MCAP). O MCAP é uma definição interior de dados, serviços, aplicativos e ativos a serem protegidos com um conjunto abrangente de controles. O conceito de um perímetro externo seguro é obsoleto. As entidades que são confiáveis e têm permissão para se autenticar com êxito através do perímetro podem então tornar a organização vulnerável a ataques. Insiders, por definição, já estão dentro do perímetro seguro. Funcionários, contratados e parceiros são membros da equipe e precisam estar habilitados a operar com controles apropriados para desempenhar suas funções na infraestrutura da organização.
@@ -38,6 +39,7 @@ Para os fins desta documentação, usamos os conceitos e a terminologia da Forre
 
 
 
+[[security-resources]]
 == Recursos de segurança
 
 Para obter informações sobre como reportar vulnerabilidades e incidentes, respostas de segurança do NetApp e confidencialidade do cliente, consulte o https://www.netapp.com/company/trust-center/security/["Portal de segurança da NetApp"^].

@@ -15,6 +15,7 @@ O ONTAP fornece várias abordagens que você pode usar para obter controle de ac
 
 
 
+[[nfs-v4-2-security-labels]]
 == Etiquetas de segurança NFS v4,2
 
 A partir do ONTAP 9,9.1, o recurso NFS v4,2 chamado rotulado NFS é suportado.
@@ -33,6 +34,7 @@ Os casos de uso de etiquetas de segurança NFS v4,2 incluem o seguinte:
 
 
 
+[[enable-nfs-v4-2-security-labels]]
 === Habilite rótulos de segurança NFS v4,2
 
 Você pode ativar ou desativar rótulos de segurança NFS v4,2 com o seguinte comando (privilégio avançado necessário):
@@ -45,6 +47,7 @@ Saiba mais sobre `vserver nfs modify` o link:https://docs.netapp.com/us-en/ontap
 
 
 
+[[enforcement-modes-for-nfs-v4-2-security-labels]]
 === Modos de aplicação para rótulos de segurança NFS v4,2
 
 A partir do ONTAP 9,9.1, o ONTAP suporta os seguintes modos de aplicação:
@@ -63,6 +66,7 @@ NOTE: Atualmente, o ONTAP não suporta o modo completo (armazenamento e aplicaç
 
 
 
+[[nfs-v4-2-security-labels-examples]]
 === Exemplos de rótulos de segurança NFS v4,2
 
 A configuração de exemplo a seguir demonstra conceitos usando o Red Hat Enterprise Linux versão 9,3 (Plow).
@@ -126,6 +130,7 @@ Além do MLS (Multi-Level Security), outro recurso chamado MCS (Multi-Category S
 |===
 
 
+[[extended-attributes-xattrs]]
 == Atributos estendidos (xattrs)
 
 A partir do ONTAP 9.12.1, o ONTAP suporta xattrs. Os xattrs permitem que os metadados sejam associados a arquivos e diretórios além do que é fornecido pelo sistema, como listas de controle de acesso (ACLs) ou atributos definidos pelo usuário.
@@ -157,6 +162,7 @@ Exemplos de casos de uso do xattr:
 
 
 
+[[commands-for-managing-xattrs]]
 === Comandos para gerenciar xattrs
 
 * `setfattr` define um atributo estendido de um arquivo ou diretório:
@@ -192,6 +198,7 @@ getfattr -n user.comment example.txt
 
 
 
+[[xattr-key-value-pair-examples]]
 === Exemplos de pares de valores de chave xattr
 
 A tabela a seguir mostra dois exemplos de pares de valores de chave xattr:
@@ -216,6 +223,7 @@ A tabela a seguir mostra dois exemplos de pares de valores de chave xattr:
 |===
 
 
+[[user-permissions-with-ace-for-xattrs]]
 === Permissões de usuário com ACE para xattrs
 
 Uma entrada de controle de acesso (ACE) é um componente dentro de uma ACL que define os direitos de acesso ou permissões concedidas a um usuário individual ou a um grupo de usuários para um recurso específico, como um arquivo ou diretório. Cada ACE especifica o tipo de acesso permitido ou negado e está associado a um responsável de segurança específico (identidade de usuário ou grupo).
@@ -238,6 +246,7 @@ Uma entrada de controle de acesso (ACE) é um componente dentro de uma ACL que d
 |===
 
 
+[[integration-with-abac-identity-and-access-control-software]]
 == Integração com software de controle de acesso e identidade ABAC
 
 Para aproveitar totalmente os recursos do ABAC, o ONTAP pode se integrar com um software de gerenciamento de identidade e acesso orientado ao ABAC.
@@ -274,6 +283,7 @@ image:abac-access-architecture.png["Arquitetura de acesso ABAC"]
 
 
 
+[[ontap-cloning-and-snapmirror]]
 == Clonagem de ONTAP e SnapMirror
 
 As tecnologias de clonagem e SnapMirror da ONTAP foram projetadas para fornecer recursos de replicação e clonagem de dados eficientes e confiáveis, garantindo que todos os aspetos dos dados de arquivos, incluindo xatrs, sejam preservados e transferidos juntamente com o arquivo. Os xatrs são críticos, pois armazenam metadados adicionais associados a um arquivo, como rótulos de segurança, informações de controle de acesso e dados definidos pelo usuário, essenciais para manter o contexto e integridade do arquivo.
@@ -287,6 +297,7 @@ NOTE: As etiquetas de segurança NFS v4,2 têm as ressalvas definidas no <<Etiqu
 
 
 
+[[auditing-changes-to-labels]]
 == Auditoria de alterações em rótulos
 
 A auditoria de alterações em rótulos de segurança xattrs ou NFS é um aspeto crítico do gerenciamento e da segurança do sistema de arquivos. As ferramentas padrão de auditoria do sistema de arquivos permitem o monitoramento e o Registro de todas as alterações em um sistema de arquivos, incluindo modificações em xattrs e rótulos de segurança.
@@ -325,6 +336,7 @@ Habilitar link:https://docs.netapp.com/us-en/ontap/nas-audit/two-parts-fpolicy-s
 
 
 
+[[examples-of-controlling-access-to-data]]
 == Exemplos de controle do acesso aos dados
 
 A seguinte entrada de exemplo para dados armazenados no cert PKI de John R. Smith mostra como a abordagem do NetApp pode ser aplicada a um arquivo e fornecer controle de acesso refinado.

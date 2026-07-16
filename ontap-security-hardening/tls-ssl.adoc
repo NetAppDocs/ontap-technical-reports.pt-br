@@ -22,6 +22,7 @@ NOTE: A configuração FIPS se aplica ao ONTAP e ao Platform BMC.
 
 
 
+[[netapp-ontaps-fips-mode-configuration]]
 == Configuração do modo FIPS do NetApp ONTAP
 
 O NetApp ONTAP tem uma configuração do modo FIPS que instancia um nível adicional de segurança ao plano de controle:
@@ -36,6 +37,7 @@ NOTE: O NIST enviou um padrão FIPS-140-3 e o NCSM terá validações FIPS-140-2
 
 
 
+[[enable-fips-140-2-and-fips-140-3-compliance-mode]]
 == Ative o modo de conformidade FIPS-140-2 e FIPS-140-3
 
 A partir do ONTAP 9, é possível habilitar o modo de conformidade FIPS-140-2 e FIPS-140-3 para interfaces do plano de controle em todo o cluster.
@@ -46,6 +48,7 @@ A partir do ONTAP 9, é possível habilitar o modo de conformidade FIPS-140-2 e 
 
 
 
+[[fips-enablement-and-protocols]]
 == Protocolos e capacitação FIPS
 
 O `security config modify` comando permite modificar a configuração de segurança existente em todo o cluster. Se ativar o modo compatível com FIPS, o cluster selecionará automaticamente apenas protocolos TLS.
@@ -62,6 +65,7 @@ O `security config modify` comando permite modificar a configuração de seguran
 
 
 
+[[fips-enablement-and-ciphers]]
 == Capacitação FIPS e cifras
 
 * Utilize o `-supported-cipher-suites` parâmetro para configurar apenas o AES (Advanced Encryption Standard) ou AES e 3DES.
@@ -72,6 +76,7 @@ O `security config modify` comando permite modificar a configuração de seguran
 
 
 
+[[ssh-and-tls-security-hardening]]
 == Proteção de segurança SSH e TLS
 
 A administração SSH do ONTAP 9 requer um cliente OpenSSH 5,7 ou posterior. Os clientes SSH devem negociar com o algoritmo de chave pública ECDSA (Elliptic Curve Digital Signature Algorithm) para que a conexão seja bem-sucedida.
@@ -80,6 +85,7 @@ Para proteger a segurança TLS, ative apenas o TLS 1,2 e use conjuntos de codifi
 
 
 
+[[enable-tlsv1-2-and-pfs-capable-cipher-suites]]
 == Ative os conjuntos de codificação compatíveis com TLSv1,2 e PFS
 
 Para ativar apenas conjuntos de encriptação compatíveis com TLS 1,2 e PFS, utilize o `security config modify` comando a partir do nível de privilégio avançado.

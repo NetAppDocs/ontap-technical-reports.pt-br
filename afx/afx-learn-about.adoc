@@ -15,6 +15,7 @@ NetApp AFX ainda é ONTAP — é simplesmente uma maneira diferente de aproveita
 
 
 
+[[an-evolution-of-innovation-netapp-ontap]]
 == Uma Evolução da Inovação: NetApp ONTAP
 
 NetApp ONTAP foi criado em 1992 como uma nova maneira de fornecer cargas de trabalho NFS para vários clientes, enquanto revolucionava o desempenho, a resiliência, as cópias em pontos no tempo e muito mais. Originalmente, ele suportava apenas NFSv2, mas, à medida que a demanda por versões mais recentes do NFS, outros protocolos de dados e mais recursos de proteção de dados crescia, NetApp ONTAP precisou evoluir.
@@ -40,6 +41,7 @@ A seguir está uma linha do tempo abreviada de algumas das principais evoluçõe
 |===
 
 
+[[netapp-ontap-personalities]]
 === NetApp ONTAP personalidades
 
 Durante anos, ONTAP funcionou como uma plataforma unificada, combinando arquivos, blocos e objetos em um único sistema. Isso posicionou ONTAP como o canivete suíço do datacenter – uma plataforma capaz de fazer tudo o que você pedisse.
@@ -65,6 +67,7 @@ No entanto, à medida que as aplicações evoluíram e os requisitos dos datacen
 |===
 
 
+[[unified-ontap-architecture-overview]]
 == Visão geral da arquitetura unificada do ONTAP
 
 O diagrama a seguir mostra a arquitetura geral unificada do ONTAP, com uma descrição de como tudo se encaixa abaixo dele.
@@ -90,6 +93,7 @@ Alguns aspectos-chave da arquitetura ONTAP:
 
 
 
+[[what-is-netapp-afx]]
 == O que é NetApp AFX?
 
 Um ponto importante a ter em mente é que NetApp AFX ainda é ONTAP.
@@ -106,6 +110,7 @@ image:image4.png["Imagem"]
 
 
 
+[[key-terms-and-concepts]]
 == Termos e conceitos-chave
 
 A seguir, estão os termos diretamente relacionados ao AFX. Para terminologia específica do ONTAP, consulte a documentação do produto.
@@ -114,24 +119,28 @@ link:https://docs.netapp.com/us-en/ontap-family/index.html["Documentação do pr
 
 
 
+[[disaggregated-ontap]]
 === ONTAP desagregado
 
 Refere-se à nova arquitetura baseada em ONTAP que oferece a capacidade de escalar computação e capacidade independentemente uma da outra. O termo "Disaggregated ONTAP" não é um nome de produto, mas sim uma forma de diferenciar entre ONTAP unificada e as arquiteturas NetApp AFX.
 
 
 
+[[netapp-afx]]
 === NetApp AFX
 
 NetApp AFX é o nome oficial do produto para a arquitetura ONTAP desagregada e foi anunciado no NetApp Insight 2025.
 
 
 
+[[compute-nodes]]
 === Nós de computação
 
 Em NetApp AFX, um nó de computação refere-se ao nó controlador de storage (e os termos são frequentemente usados de forma intercambiável na documentação). Esses nós não possuem disco integrado e são projetados para serem totalmente modulares, permitindo a escalabilidade independente que a arquitetura ONTAP desagregada proporciona.
 
 
 
+[[storage-availability-zone]]
 === Zona de disponibilidade de armazenamento
 
 Uma Zona de Disponibilidade de Armazenamento (SAZ, na sigla em inglês) é o único conjunto de capacidade em um NetApp AFX cluster, onde todos os discos são compartilhados entre todos os nós. A SAZ possibilita funcionalidades como capacidade compartilhada, desempenho aprimorado, deduplicação global e muito mais.

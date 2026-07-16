@@ -15,12 +15,14 @@ Estes são parâmetros importantes para fortalecer a administração do sistema 
 
 
 
+[[command-line-access]]
 == Acesso à linha de comando
 
 Estabelecer acesso seguro aos sistemas é uma parte essencial da manutenção de uma solução segura. As opções de acesso de linha de comando mais comuns são SSH, Telnet e RSH. Destes, o SSH é a melhor prática mais segura e padrão do setor para acesso remoto à linha de comando. A NetApp recomenda fortemente o uso de SSH para acesso de linha de comando à solução ONTAP.
 
 
 
+[[ssh-configurations]]
 === Configurações do SSH
 
 O `security ssh show` comando mostra as configurações dos algoritmos de troca de chaves SSH, cifras e algoritmos MAC para o cluster e SVMs. O método de troca de chaves usa esses algoritmos e cifras para especificar como as chaves de sessão únicas são geradas para criptografia e autenticação e como a autenticação do servidor ocorre.
@@ -46,6 +48,7 @@ vs1             aes256-ctr,   diffie-hellman-group-     hmac-sha1-96
 ----
 
 
+[[login-banners]]
 === Banners de login
 
 Os banners de login permitem que uma organização apresente quaisquer operadores, administradores e até mesmo errantes com termos e condições de uso aceitável, e eles indicam quem é permitido o acesso ao sistema. Esta abordagem é útil para estabelecer expetativa de acesso e uso do sistema. O `security login banner modify` comando modifica o banner de login. O banner de login é exibido imediatamente antes da etapa de autenticação durante o processo de login do dispositivo SSH e console. O texto do banner deve estar em aspas duplas (" "), como mostrado no exemplo a seguir.
@@ -56,6 +59,7 @@ cluster1::> security login banner modify -vserver cluster1 -message "Authorized 
 ----
 
 
+[[login-banner-parameters]]
 === Parâmetros de banner de login
 
 [cols="19%,81%"]
@@ -85,6 +89,7 @@ A mensagem não deve exceder 2048 bytes de comprimento. Carateres não ASCII dev
 |===
 
 
+[[message-of-the-day]]
 === Mensagem do dia
 
 O `security login motd modify` comando atualiza a mensagem do dia (MOTD).
@@ -130,6 +135,7 @@ Para obter mais informações sobre como configurar a mensagem do dia no ONTAP, 
 
 
 
+[[cli-session-timeout]]
 === Tempo limite da sessão da CLI
 
 O tempo limite padrão da sessão da CLI é de 30 minutos. O tempo limite é importante para evitar sessões obsoletas e piggybacking da sessão.
@@ -138,6 +144,7 @@ Use o `system timeout show` comando para exibir o tempo limite atual da sessão 
 
 
 
+[[web-access-with-netapp-ontap-system-manager]]
 == Acesso à Web com o Gerenciador do sistema NetApp ONTAP
 
 Se um administrador do ONTAP preferir usar uma interface gráfica em vez da CLI para acessar e gerenciar um cluster, use o Gerenciador do sistema do NetApp ONTAP. Ele é incluído com o ONTAP como um serviço da Web, habilitado por padrão e acessível usando um navegador. Aponte o navegador para o nome do host se estiver usando DNS ou o endereço IPv4 ou IPv6 através `+https://cluster-management-LIF+`do .
@@ -148,6 +155,7 @@ A partir do ONTAP 9.3, a autenticação SAML (Security Assertion Markup Language
 
 
 
+[[saml-authentication-for-ontap-system-manager]]
 === Autenticação SAML para o Gerenciador de sistemas do ONTAP
 
 O SAML 2,0 é um padrão amplamente adotado do setor que permite que qualquer provedor de identidade (IDP) compatível com SAML de terceiros execute MFA usando mecanismos exclusivos para o IDP escolhido pela empresa e como fonte de logon único (SSO).
@@ -164,10 +172,11 @@ Os IDPs que foram validados pelo NetApp são Microsoft ADFS, Cisco DUO e IDP de 
 
 A partir do ONTAP 9.14,1, o Cisco DUO pode ser usado como um segundo fator de autenticação para SSH.
 
-Para obter mais informações sobre o MFA para Gerenciador de sistemas ONTAP, Active IQ Unified Manager e SSH, link:http://www.netapp.com/us/media/tr-4647.pdf["TR-4647: Autenticação multifator no ONTAP 9"^]consulte .
+Para obter mais informações sobre MFA para ONTAP System Manager, Active IQ Unified Manager e SSH, consulte link:https://www.netapp.com/pdf.html?item=/media/17055-tr4647.pdf["TR-4647: Autenticação multifator no ONTAP 9"^].
 
 
 
+[[ontap-system-manager-insights]]
 === Insights do Gerenciador de sistemas da ONTAP
 
 A partir do ONTAP 9.11,1, o Gerenciador de sistemas do ONTAP fornece insights para ajudar os administradores de cluster a otimizar suas tarefas diárias. Os insights de segurança são baseados nas recomendações deste relatório técnico.
@@ -225,6 +234,7 @@ Para obter mais informações sobre os insights do Gerenciador de sistemas do ON
 
 
 
+[[system-manager-session-timeout]]
 === Tempo limite da sessão do System Manager
 
 Pode alterar o tempo limite de inatividade da sessão do Gestor do sistema. O tempo limite de inatividade padrão é de 30 minutos. Um tempo limite é importante para evitar sessões obsoletas e piggybacking da sessão.

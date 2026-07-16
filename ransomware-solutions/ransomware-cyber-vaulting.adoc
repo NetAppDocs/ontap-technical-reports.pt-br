@@ -13,6 +13,7 @@ A abordagem da NetApp a um cofre cibernético é uma arquitetura de referência 
 
 
 
+[[cyber-vaulting-with-snaplock-compliance-and-a-logical-air-gap]]
 == Cyber vaulting com SnapLock Compliance e uma lacuna de ar lógica
 
 Uma tendência crescente é que os invasores destruam as cópias de backup e, em alguns casos, até as criptografem. É por isso que muitos no setor de cibersegurança recomendam o uso de backups Air Gap como parte de uma estratégia geral de resiliência cibernética.
@@ -29,6 +30,7 @@ A NetApp lançou o recurso SnapLock há mais de 10 anos para atender aos requisi
 
 
 
+[[tamperproof-snapshots]]
 == Snapshots à prova de violações
 
 Embora a utilização do SnapLock Compliance como uma lacuna lógica forneça a melhor proteção para impedir que atacantes excluam suas cópias de backup, isso exige que você mova os snapshots usando o SnapVault para um volume secundário habilitado para SnapLock. Como resultado, muitos clientes implantam essa configuração em storage secundário na rede. Isso pode levar a tempos de restauração mais longos versus a restauração de um Snapshot de volume primário no storage primário.

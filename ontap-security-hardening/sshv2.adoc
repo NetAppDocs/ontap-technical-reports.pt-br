@@ -24,6 +24,7 @@ A NetApp recomenda o seguinte:
 ====
 
 
+[[supported-ciphers-and-key-exchanges]]
 == Cifras suportadas e trocas de chaves
 
 [cols="42%,58%"]
@@ -59,6 +60,7 @@ A NetApp recomenda o seguinte:
 |===
 
 
+[[supported-aes-and-3des-symmetric-encryptions]]
 == Criptografia simétrica AES e 3DES suportada
 
 O ONTAP também suporta os seguintes tipos de criptografia simétrica AES e 3DES (também conhecidos como cifras):

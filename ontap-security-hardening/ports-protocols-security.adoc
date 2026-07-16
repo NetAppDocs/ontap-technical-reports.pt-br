@@ -15,6 +15,7 @@ Além de executar operações e funções de segurança on-box, o endurecimento 
 
 
 
+[[commonly-used-protocols-and-ports]]
 == Protocolos e portas comumente usados
 
 [cols="27%,26%,47%"]
@@ -148,6 +149,7 @@ Além de executar operações e funções de segurança on-box, o endurecimento 
 |===
 
 
+[[netapp-internal-ports]]
 == Portas internas do NetApp
 
 [cols="47%,53%"]

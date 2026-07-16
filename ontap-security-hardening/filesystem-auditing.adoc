@@ -24,6 +24,7 @@ A segurança exige validação. ONTAP oferece mais eventos e detalhes de auditor
 
 
 
+[[create-an-audit-configuration]]
 == Crie uma configuração de auditoria
 
 É necessário habilitar a auditoria CIFS para gerar eventos de auditoria. Use o `vserver audit create` comando para criar uma configuração de auditoria. Por padrão, o log de auditoria usa um método de rotação baseado no tamanho. Você pode usar uma opção de rotação baseada no tempo, se especificado no campo Rotation Parameters (parâmetros de rotação). Os detalhes adicionais da configuração de rotação de auditoria de log incluem o cronograma de rotação, os limites de rotação, os dias de rotação da semana e o tamanho da rotação. O texto a seguir fornece um exemplo de configuração que descreve uma configuração de auditoria usando uma rotação mensal baseada em tempo agendada para todos os dias da semana às 12:30.
@@ -34,6 +35,7 @@ cluster1::> vserver audit create -vserver vs1 -destination /audit_log -rotate-sc
 ----
 
 
+[[cifs-audit-events]]
 == Eventos de auditoria CIFS
 
 Os eventos de auditoria CIFS são os seguintes:
@@ -50,12 +52,14 @@ NOTE: Esta funcionalidade é baseada na função de auditoria do sistema, que pe
 
 
 
+[[effect-of-rest-apis-on-nas-auditing]]
 == Efeito de APIS REST na auditoria nas
 
 O ONTAP inclui a capacidade de contas de administrador acessarem e manipularem arquivos SMB/CIFS ou NFS usando APIs REST. Embora as APIS REST só possam ser executadas por administradores do ONTAP, os comandos da API REST ignoram o log de auditoria nas do sistema. Além disso, as permissões de arquivo também podem ser ignoradas pelos administradores do ONTAP ao usar APIs REST. No entanto, as ações do administrador com APIs REST em arquivos são capturadas no log do histórico de comandos do sistema.
 
 
 
+[[create-no-access-rest-api-role]]
 === Criar função de API REST sem acesso
 
 É possível impedir que os administradores do ONTAP usem APIS REST para acesso a arquivos ao criar uma função de API REST que não tenha acesso a volumes do ONTAP por meio DE REST. Para provisionar essa função, execute as etapas a seguir.

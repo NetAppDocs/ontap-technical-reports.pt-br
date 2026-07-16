@@ -15,6 +15,7 @@ Garanta a integridade da auditoria de eventos transferindo eventos do ONTAP para
 
 
 
+[[send-out-syslog]]
 == Envie syslog
 
 As informações de log e auditoria são inestimáveis para uma organização do ponto de vista de suporte e disponibilidade. Além disso, as informações e detalhes contidos em logs (syslog) e relatórios de auditoria e saídas são geralmente de natureza sensível. Para manter a postura e os controles de segurança, é imperativo que as organizações gerenciem dados de log e auditoria de maneira segura.
@@ -23,6 +24,7 @@ O descarregamento de informações do syslog é necessário para limitar o escop
 
 
 
+[[create-a-log-forwarding-destination]]
 === Crie um destino de encaminhamento de registos
 
 Use o `cluster log-forwarding create` comando para criar destinos de encaminhamento de log para o log remoto.
@@ -82,6 +84,7 @@ NOTE: O NetApp recomenda usar o `cluster log-forwarding` comando para forçar a 
 
 
 
+[[event-notification]]
 == Notificação de evento
 
 Proteger as informações e os dados que saem de um sistema é vital para manter e gerenciar a postura de segurança do sistema. Os eventos gerados pela solução ONTAP fornecem uma riqueza de informações sobre o que a solução está encontrando, as informações processadas e muito mais. A vitalidade desses dados destaca a necessidade de gerenciá-los e migrá-los de forma segura.

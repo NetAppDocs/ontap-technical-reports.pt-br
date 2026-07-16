@@ -24,6 +24,7 @@ Embora contas órfãs representem um problema de segurança significativo, *NetA
 
 
 
+[[list-local-accounts]]
 == Listar contas locais
 
 Para listar as contas locais, execute o `security login show` comando.
@@ -47,6 +48,7 @@ autosupport      console     password  autosupport      no     no
 ----
 
 
+[[set-the-diagnostic-diag-account-password]]
 == Definir a palavra-passe da conta de diagnóstico (diag)
 
 Uma conta de diagnóstico nomeada `diag` é fornecida com o sistema de storage. Você pode usar a `diag` conta para executar tarefas de solução de problemas no `systemshell`. A `diag` conta é a única conta que pode ser usada para acessar o systemshell através do `diag` comando `systemshell`privilegiado .

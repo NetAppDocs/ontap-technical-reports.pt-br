@@ -17,12 +17,14 @@ Estas são as funções disponíveis para administradores de máquinas virtuais 
 
 
 
+[[roles]]
 == Funções
 
 Com o controle de acesso baseado em funções (RBAC), os usuários têm acesso apenas aos sistemas e opções necessários para suas funções e funções de trabalho. A solução RBAC no ONTAP limita o acesso administrativo dos usuários ao nível concedido para sua função definida, o que permite que os administradores gerenciem os usuários por função atribuída. O ONTAP fornece várias funções predefinidas. Os operadores e administradores podem criar, modificar ou excluir funções de controle de acesso personalizadas e podem especificar restrições de conta para funções específicas.
 
 
 
+[[predefined-roles-for-cluster-administrators]]
 === Funções predefinidas para administradores de cluster
 
 |===
@@ -159,6 +161,7 @@ NOTE: A `autosupport` função é atribuída à conta predefinida `autosupport`,
 
 
 
+[[predefined-roles-for-storage-virtual-machine-svm-administrators]]
 === Funções predefinidas para administradores de máquina virtual de storage (SVM)
 
 |===
@@ -252,6 +255,7 @@ NOTE: A `autosupport` função é atribuída à conta predefinida `autosupport`,
 |===
 
 
+[[application-methods]]
 == Métodos de aplicação
 
 O método de aplicação especifica o tipo de acesso do método de início de sessão. Os valores possíveis incluem `console, http, ontapi, rsh, snmp, service-processor, ssh,` e `telnet`.
@@ -266,6 +270,7 @@ O `security protocol modify` comando modifica a configuração existente em todo
 
 
 
+[[authentication-methods]]
 == Métodos de autenticação
 
 O parâmetro método de autenticação especifica o método de autenticação usado para logins.
@@ -318,4 +323,4 @@ Começando com ONTAP 9.13,1:
 * A revogação de chaves públicas é suportada com chaves públicas SSH, bem como certificados que serão verificados para expiração/revogação durante o SSH.
 
 
-Para obter mais informações sobre autenticação multifator (MFA) para Gerenciador de sistemas, Active IQ Unified Manager e SSH da ONTAP, link:http://www.netapp.com/us/media/tr-4647.pdf["TR-4647: Autenticação multifator no ONTAP 9"^]consulte .
+Para obter mais informações sobre autenticação multifator (MFA) para ONTAP System Manager, Active IQ Unified Manager e SSH, consulte link:https://www.netapp.com/pdf.html?item=/media/17055-tr4647.pdf["TR-4647: Autenticação multifator no ONTAP 9"^].

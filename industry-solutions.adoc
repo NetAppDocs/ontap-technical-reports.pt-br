@@ -18,12 +18,14 @@ Nossas soluções de storage de dados específicas do setor, aprimoradas por par
 
 
 
+[[eda]]
 == EDA
 
 link:https://www.netapp.com/pdf.html?item=/media/19368-tr-4617.pdf["Melhores práticas de automação de design eletrônico em ONTAP"^] Saiba mais sobre as práticas recomendadas e dicas de implementação com as cargas de trabalho do NetApp ONTAP para automação de design eletrônico (EDA), além disso, os volumes FlexGroup, ideais para lidar com a alta sobrecarga de metadados em ambientes EDA.
 
 
 
+[[healthcare]]
 == Saúde
 
 link:https://www.netapp.com/pdf.html?item=/media/17137-tr3928pdf.pdf["Práticas recomendadas da NetApp para a Epic"^] A Epic fabrica software para o setor de saúde. Saiba mais sobre as práticas recomendadas para a integração do storage NetApp aos ambientes de software da Epic.

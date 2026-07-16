@@ -13,6 +13,7 @@ Uma arma vital no arsenal de NetApp Snap é o SnapLock, que provou ser altamente
 
 
 
+[[snaplock-compliance]]
 == SnapLock Compliance
 
 O SnapLock Compliance (SLC) fornece proteção indelével para seus dados. O SLC proíbe que os dados sejam excluídos mesmo quando um administrador tenta reinicializar a matriz. Ao contrário de outros produtos competitivos, o SnapLock Compliance não é vulnerável a ataques de engenharia social por meio das equipes de suporte desses produtos. Os dados protegidos por volumes do SnapLock Compliance são recuperáveis até que esses dados atinjam a data de expiração.
@@ -25,6 +26,7 @@ Para ativar o SnapLock, é necessária uma link:https://docs.netapp.com/us-en/on
 
 
 
+[[tamperproof-snapshots]]
 == Snapshots à prova de violações
 
 As cópias Snapshot (TPS) à prova de violações fornecem uma maneira conveniente e rápida de proteger os dados de atos maliciosos. Ao contrário do SnapLock Compliance, o TPS é normalmente usado em sistemas primários onde o usuário pode proteger os dados por um determinado tempo e deixado localmente para recuperações rápidas ou onde os dados não precisam ser replicados fora do sistema primário. O TPS usa tecnologias SnapLock para impedir que o snapshot primário seja excluído mesmo por um administrador do ONTAP que use o mesmo período de expiração de retenção do SnapLock. A exclusão de snapshot é impedida mesmo que o volume não esteja habilitado para SnapLock, embora os snapshots não tenham a mesma natureza indelével dos volumes SnapLock Compliance.
