@@ -61,6 +61,8 @@ indexpage:
       url: nas.html
     - title: Kerberos NFS no ONTAP
       url: nas.html
+    - title: NFS sobre TLS
+      url: nfs-tls/
     - title: Relatórios técnicos adicionais nas
       url: nas.html
   - title: SAN

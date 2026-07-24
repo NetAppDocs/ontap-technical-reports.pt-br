@@ -20,10 +20,13 @@ sidebar:
     url: "/data-protection-disaster-recovery.html"
   - title: FlexCache e FlexGroup volumes
     url: "/nas-containers.html"
-  - title: NAS
-    url: "/nas.html"
   - title: Rede
     url: "/networking.html"
+  - title: NFS
+    entries:
+    - title: Visão geral
+      url: "/nfs.html"
+    - section: nfs-tls
   - title: SAN
     url: "/san.html"
   - title: Segurança
@@ -38,6 +41,10 @@ sidebar:
     - title: Visão geral
       url: "/security-hardening-guides.html"
     - section: ontap-security-hardening
+  - title: S3
+    url: "/s3.html"
+  - title: SMB
+    url: "/smb.html"
   - title: Sistemas de armazenamento
     entries:
     - title: AFX

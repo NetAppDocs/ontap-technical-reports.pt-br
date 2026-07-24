@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: nfs-tls/nfs-tls-performance.html 
+keywords: nfs, tls, performance, cpu, offload, ktls, connectx, handshake latency 
+summary: O TLS adiciona sobrecarga de CPU, memória e rede. O descarregamento de hardware nas NICs CX6-Dx e CX7 reduz significativamente o custo de CPU em estado estável. 
+---
+= Desempenho
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toc: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+:toc-position: content
+
+
+[role="lead"]
+O TLS aumenta o custo em três dimensões de recursos: CPU, memória e rede.
+
+
+
+[[resource-cost-overview]]
+== Visão geral dos custos de recursos
+
+*CPU* é o principal custo. O handshake TLS 1.3 é uma despesa única por conexão, cobrindo criptografia assimétrica, análise de certificados e troca de chaves. Depois que a conexão é estabelecida, a sobrecarga em estado estacionário é a criptografia simétrica de registros usando AES-GCM ou ChaCha20-Poly1305. Em plataformas equipadas com Mellanox ConnectX-6 Dx (CX6-Dx) ou ConnectX-7 (CX7) NICs, a própria NIC realiza a criptografia e a descriptografia por meio do descarregamento do kernel TLS (KTLS), reduzindo significativamente o custo da CPU em estado estacionário.
+
+O impacto na *memória* é baixo. O TLS adiciona um estado de sessão por conexão e um cache de configuração TLS por nó. O tamanho do cache é limitado; as entradas são atualizadas de acordo com o Time-To-Live (TTL) e atualizadas em segundo plano.
+
+O overhead de *rede* é pequeno. O enquadramento de registro TLS 1.3 adiciona um overhead fixo por registro e uma tag de autenticação. O handshake adiciona transferências de ida e volta apenas na configuração da conexão, não por RPC.
+
+
+
+[[tls-performance-penalty]]
+== Penalidade de desempenho do TLS
+
+Existem dois caminhos distintos para NFS sobre TLS no ONTAP: o caminho de descarregamento por hardware e o caminho TLS por software. O caminho de descarregamento por hardware está disponível em plataformas com NICs CX6-Dx ou CX7. O caminho TLS por software é usado em plataformas sem NICs com capacidade de descarregamento.
+
+Em plataformas com NICs com capacidade de offload, o desempenho observado ficou dentro de aproximadamente 10% do NFS em texto simples em uma variedade de cargas de trabalho. Em plataformas sem NICs com capacidade de offload, o caminho TLS por software é mais sensível à carga de trabalho e pode apresentar reduções de throughput de aproximadamente 30% em comparação com NFS em texto simples, no pior caso. Esses são números de caracterização, não especificações garantidas. Seus resultados vão variar dependendo do tipo de carga de trabalho, tamanho de E/S e número de conexões. Se você estiver misturando tráfego TLS e não-TLS no mesmo nó, espere algum impacto no throughput do tráfego não-TLS também.
+
+
+
+[[scaling-factors]]
+== Fatores de escala
+
+Os seguintes fatores aumentam o custo agregado de CPU do TLS ou a latência do handshake:
+
+*Troca de conexões.* Cada nova conexão acarreta o custo do handshake. Cargas de trabalho que abrem e fecham conexões TCP com o servidor NFS apresentam um uso agregado de CPU TLS maior do que cargas de trabalho com conexões de longa duração.
+
+*Tempestades de montagem após uma tomada de controle ou evento de rede.* Cargas de trabalho em que muitos clientes se reconectam simultaneamente, como após uma tomada de controle de HA, pagam o custo total do handshake TLS 1.3 por conexão. Monitore `nfs_tls:tls_handshake_average_latency` e planeje a capacidade de conexão de acordo.
+
+*Grande número de identidades de clientes distintas (TLS mútuo).* As implementações de TLS mútuo (mTLS) escalam a CPU do handshake de acordo com o número de certificados de cliente exclusivos que estão sendo validados.
+
+*mTLS vs. TLS somente no servidor.* Habilitar autenticação de host (mTLS) adiciona a validação do certificado do cliente no lado do servidor, tornando cada handshake moderadamente mais caro do que o TLS somente no servidor. O custo por RPC em estado estável permanece inalterado.
+
+*Churn de configuração TLS.* Alterações frequentes na configuração da interface TLS, como rotação de certificados e ciclos de ativação/desativação, invalidam o cache de configuração TLS por nó e forçam consultas de volta ao host de gerenciamento, aumentando brevemente a latência do handshake.

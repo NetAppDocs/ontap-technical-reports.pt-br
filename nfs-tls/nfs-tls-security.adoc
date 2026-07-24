@@ -1,0 +1,116 @@
+---
+sidebar: sidebar 
+permalink: nfs-tls/nfs-tls-security.html 
+keywords: nfs, tls, security, rbac, encryption, auditing, certificates, mtls 
+summary: NFS sobre TLS utiliza o RBAC padrão do ONTAP, requer um certificado de servidor X.509 por LIF e suporta apenas TLS 1.3. 
+---
+= Segurança
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toc: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+:toc-position: content
+
+
+[role="lead"]
+Esta página aborda os requisitos de RBAC, validação de certificados, parâmetros de criptografia, auditoria e limitações de segurança conhecidas para NFS sobre TLS no ONTAP 9.19.1.
+
+
+
+[[role-and-rbac-requirements]]
+== Requisitos de função e RBAC
+
+A família de comandos  `vserver nfs tls interface`-`enable`, `disable`, `modify` e  `show` é com escopo de SVM. Ela pode ser executada pela função de cluster `admin` ou pelo `vsadmin` da SVM proprietária.
+
+O campo  `-allow-nfs-tls-only`on `vserver export-policy rule` é um campo de escrita no objeto de regra de exportação existente. Ele usa o RBAC padrão da regra de política de exportação.
+
+Os endpoints REST  `/api/protocols/nfs/tls/interfaces`correspondem diretamente aos comandos da CLI acima. Eles utilizam o RBAC padrão de administração do NAS. Nenhuma função REST separada é definida.
+
+
+
+[[authentication-and-authorization]]
+== Autenticação e autorização
+
+Habilitar NFS sobre TLS em uma LIF requer um certificado X.509 de servidor instalado na SVM via `security certificate install`. O certificado é vinculado por LIF no momento da habilitação usando `-certificate-name`.
+
+ONTAP aplica duas verificações ao certificado do servidor fornecido:
+
+. O Nome Comum (CN) do certificado deve corresponder ao Nome de Domínio Totalmente Qualificado (FQDN) da LIF.
+. O endereço IP da LIF deve constar na lista de Nomes Alternativos do Assunto (SAN) do certificado.
+
+
+Uma opção  `-skip-san-validation`booleana (padrão `false`) suprime a verificação SAN no momento da ativação ou modificação.
+
+Cada falha na verificação retorna um erro distinto.
+
+A autenticação de host mútua TLS (mTLS) é opcional. Defina  `-enforce-host-auth true` como  `vserver nfs tls interface enable`on `modify` para habilitá-la. O padrão é  `false`, o que significa autenticação apenas do servidor. Os certificados do cliente são validados em relação à cadeia de confiança da CA instalada na SVM, cujo provisionamento é de sua responsabilidade.
+
+
+
+[[user-authentication]]
+=== Autenticação de usuário
+
+A autenticação de usuário permanece inalterada pelo TLS. O TLS adiciona confidencialidade no tráfego e autenticação do host. `AUTH_SYS` O UID/GID do UNIX ou `RPCSEC_GSS`Kerberos ainda devem ser usados para autenticação de usuário RPC. A RFC 9289 é explícita sobre isso: o TLS protege o transporte, enquanto os tipos de autenticação NFS existentes lidam com a autenticação de usuário exatamente como sempre fizeram.
+
+
+
+[[encryption]]
+== Criptografia
+
+
+
+[[in-transit]]
+=== Em trânsito
+
+Quando NFS sobre TLS está habilitado em uma LIF, somente a versão TLS 1.3 é utilizada. Os seguintes conjuntos de cifras são suportados:
+
+* `TLS_AES_128_GCM_SHA256`
+* `TLS_AES_256_GCM_SHA384`
+* `TLS_CHACHA20_POLY1305_SHA256`
+
+
+A troca de chaves utiliza ECDHE na  `secp384r1` curva. A criptografia se aplica ao tráfego NFSv3 e NFSv4.x transportado pela LIF habilitada para TLS.
+
+
+
+[[auditing]]
+== Auditoria
+
+Todas as alterações de configuração do NFS sobre TLS são registradas no log de auditoria padrão do ONTAP (`security audit log show`). As seguintes operações são registradas:
+
+* `vserver nfs tls interface enable`
+* `vserver nfs tls interface modify`
+* `vserver nfs tls interface disable`
+* `vserver export-policy rule create -allow-nfs-tls-only`
+* `vserver export-policy rule modify -allow-nfs-tls-only`
+
+
+As operações somente leitura `show` e `GET` seguem a política de log de auditoria padrão do ONTAP e normalmente não são registradas, a menos que a auditoria esteja configurada para registrá-las.
+
+Três eventos EMS visíveis ao cliente são emitidos no caminho de dados NFS-over-TLS. Para detalhes do evento, condições de ativação e limites de taxa, consulte link:nfs-tls-monitor.html["Mensagens EMS"].
+
+
+
+[[tenancy-boundary]]
+== Limite de locatário
+
+A configuração NFS-over-TLS é feita por SVM. Um administrador de SVM pode visualizar e gerenciar apenas a configuração TLS nas LIFs pertencentes à sua própria SVM. Os administradores do cluster visualizam todas as SVMs.
+
+As referências aos certificados do servidor são locais ao SVM. A configuração é replicada em todo o cluster, de modo que qualquer nó que atenda a uma determinada LIF aplique a mesma configuração TLS.
+
+
+
+[[known-security-relevant-limitations]]
+== Limitações conhecidas relevantes para a segurança
+
+**Aviso sobre certificados autoassinados.** A CLI `enable` e `modify` comandos alertam que certificados autoassinados expõem você a ataques do tipo "man-in-the-middle". Use um certificado assinado por uma CA instalado via `security certificate install`.
+
+**O TLS mútuo é opcional.** Com o padrão `-enforce-host-auth false`, NFS sobre TLS protege a confidencialidade e a integridade na transmissão e autentica o servidor para o cliente, mas não autentica criptograficamente o host do cliente. Se você precisar disso, habilite o mTLS explicitamente.
+
+**A aplicação exclusiva de TLS é feita por regra de política de exportação, não globalmente.** Até que você configure  `-allow-nfs-tls-only true` na regra de política de exportação relevante, a mesma LIF ainda poderá aceitar conexões NFS sem TLS de clientes que, de outra forma, seriam permitidos pela regra.

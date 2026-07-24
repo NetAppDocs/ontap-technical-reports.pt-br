@@ -1,0 +1,60 @@
+---
+sidebar: sidebar 
+permalink: nfs-tls/nfs-tls-use-cases.html 
+keywords: nfs, tls, use cases, kerberos, mtls, enforcement, zero trust, workloads, performance, connection churn 
+summary: NFS sobre TLS aborda criptografia em trânsito sem Kerberos, imposição de TLS por cliente e autenticação mútua de cliente. Nem toda carga de trabalho é adequada. 
+---
+= Casos de uso e cargas de trabalho
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toc: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+:toc-position: content
+
+
+[role="lead"]
+NFS sobre TLS é uma boa opção para três cenários de implementação comuns: criptografia em trânsito sem uma infraestrutura Kerberos, aplicação de TLS por cliente em uma exportação compartilhada e autenticação mútua de cliente.
+
+Nem todas as cargas de trabalho se beneficiam da mesma forma — conhecer os padrões que se encaixam e os que não se encaixam ajudará você a planejar sua implantação.
+
+
+
+[[use-cases]]
+== Casos de uso
+
+*Criptografia NFS em trânsito sem uma infraestrutura Kerberos.* Se você precisa de criptografia NFS para dados em trânsito, mas não quer implantar e operar um Centro de Distribuição de Chaves (KDC), distribuir keytabs para clientes ou estender um domínio Kerberos para abranger seus clientes NAS, NFS sobre TLS resolve isso diretamente. Você instala um certificado de servidor por Storage Virtual Machine (SVM), habilita NFS sobre TLS em cada Interface Lógica (LIF) de dados que deve transportar NFS criptografado, e os clientes negociam TLS 1.3 em banda na porta NFS padrão. Nenhum novo serviço de autenticação é necessário.
+
+*Imposição de TLS somente por cliente em uma exportação NFS compartilhada.* Se você tiver uma combinação de clientes que exigem criptografia e clientes que não precisam de criptografia, você precisa de uma maneira de forçar os clientes regulamentados a usar o caminho criptografado sem afetar os outros. A opção de regra de política de exportação `-allow-nfs-tls-only true` faz exatamente isso. Ela impede montagens não TLS de clientes correspondentes via TCP, enquanto deixa as outras regras de política de exportação intactas.
+
+*Autenticação mútua de cliente (mTLS) para confiança entre armazenamento e cliente.* Se você está operando sob princípios de rede de confiança zero ou possui requisitos de reforço que exigem que o controlador de armazenamento verifique a identidade do host de cada cliente que se conecta, use a opção de TLS mútuo por LIF. Defina  `-enforce-host-auth true` em  `vserver nfs tls interface enable` ou  `vserver nfs tls interface modify`. O ONTAP então valida o certificado X.509 de cada cliente que se conecta em relação à cadeia de confiança da Autoridade Certificadora (CA) instalada na SVM no momento do handshake TLS e rejeita clientes que não apresentem um certificado confiável. Isso oferece a você a aplicação criptográfica de "somente minha frota de hosts registrados pode acessar este NFS LIF" e funciona em conjunto com os filtros de host da política de exportação já existentes.
+
+
+
+[[workloads]]
+== Cargas de trabalho
+
+A criptografia não é gratuita. O handshake TLS tem um custo mensurável e a criptografia de registro TLS adiciona sobrecarga a cada RPC. O impacto no desempenho varia bastante dependendo da carga de trabalho, da plataforma e da disponibilidade de descarregamento de hardware. Para obter detalhes, consulte link:nfs-tls-performance.html["Desempenho"].
+
+
+
+[[workload-patterns]]
+=== Padrões de carga de trabalho
+
+Montagens NFS de longa duração com uma população de clientes estável são uma ótima opção. O handshake TLS tem um custo por conexão, pago no momento da montagem e no restabelecimento da sessão. Se você tiver um conjunto pequeno e estável de clientes que montam uma vez e permanecem montados por horas ou dias, você absorverá esse custo sem problemas.
+
+Se você já gerencia o mapeamento de LIF para nome de host de forma organizada, por exemplo, com registros DNS sob seu controle, você achará o provisionamento de NFS sobre TLS simples. O recurso é configurado por LIF: você instala um certificado de servidor cujo Common Name (CN) corresponde ao Fully Qualified Domain Name (FQDN) da LIF e cuja lista de Subject Alternative Name (SAN) contém o endereço IP da LIF.
+
+NFS sobre TLS é a ferramenta certa quando a confidencialidade na transmissão, a identidade do servidor e, opcionalmente, a identidade do host do cliente são seus requisitos de segurança, exatamente as propriedades que o TLS oferece.
+
+
+
+[[workload-anti-patterns]]
+=== Antipadrões de carga de trabalho
+
+Alta rotatividade de conexões ou grandes tempestades de montagens não são uma boa opção. Cada nova conexão TLS paga o custo do handshake TLS 1.3, incluindo criptografia assimétrica, validação de certificado e validação opcional da cadeia mTLS. Se muitos clientes montarem, fizerem uma pequena quantidade de trabalho, desmontarem e reconectarem repetidamente, você pagará esse custo de handshake várias vezes em vez de amortizá-lo.
