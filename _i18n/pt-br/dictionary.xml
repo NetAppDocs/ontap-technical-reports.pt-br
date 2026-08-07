@@ -2303,8 +2303,6 @@
   <block id="739f428040feee735e00029f2f74aaad" category="summary">Esta página contém as últimas atualizações do NetApp AFX e será atualizada a cada nova versão.</block>
   <block id="89bef61b77bccd688eb4c742aab2b38b" category="doc">O que há de novo no NetApp AFX</block>
   <block id="f5cb5bdaaa412361fa89cf3912168e46" category="summary">O IPsec oferece uma alternativa à criptografia de NFS ou SMB e é a única opção de criptografia em trânsito para o tráfego iSCSI.</block>
-  <block id="0edc4f2a9dbc6aeccfda9e35d7fc1e2c" category="sidebar">NetApp relatórios técnicos fornecem contexto adicional para o planejamento e a otimização de implantações em diferentes ecossistemas ou com diferentes protocolos. Alguns relatórios técnicos do ONTAP fornecem contexto arquitetônico e práticas recomendadas para os recursos e funcionalidades do ONTAP.</block>
-  <block id="769f9a17e2917e1c464ebd1dfbcbc78f" category="sidebar">Relatórios Técnicos da NetApp</block>
   <block id="5c6ab1284b6b7a5a7102854a969c99be" category="sidebar">Sistemas de armazenamento</block>
   <block id="e9d7397e9772df2e11071d57657f4b22" category="sidebar">AFX</block>
   <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">O que há de novo</block>
@@ -2486,7 +2484,6 @@
   <block id="799311ec2a93db750cc80868f6de9f45" category="list-text">Severidade<block ref="320f86f60f25459ba5550e000b2c3929" prefix=" " category="inline-code"></block>, com limite de taxa de 24 horas. Acionada quando um cliente tenta usar NFS sobre TLS em uma SVM onde o recurso está desativado. Campos registrados: nome da SVM.</block>
   <block id="3073a9f5875a227e23219f0525b7efbd" category="list-text"><block ref="77e0cb8b7c203cd744328c65b0690682" prefix="" category="inline-code"></block></block>
   <block id="4dd7e90fe2de7e36ca6e0f6c4551de0c" category="list-text">Gravidade<block ref="cd22bad976363fdd1bfbf6759fede482" prefix=" " category="inline-code"></block>. Acionado quando um cliente correspondente a uma regra de política de exportação com<block ref="0db3324f6e6bdfb7434bca0fd896c8b2" prefix=" " category="inline-code"></block> tenta montar ou acessar o caminho NFS sem TLS. Use este evento para confirmar que clientes sem TLS estão sendo bloqueados conforme o esperado.</block>
-  <block id="d4d963696760850746648f3a41f8ecd1" category="summary">ONTAP 9.19.1 introduz NFS nativo sobre TLS, permitindo a criptografia em trânsito do tráfego RPC do NFS conforme a RFC 9289, sem Kerberos ou IPsec.</block>
   <block id="08ed4a47b941685c9edbc9dcd5d9ee57" category="doc">Visão geral do NFS sobre TLS</block>
   <block id="2ae4132b55036d673c6efc936c13f75e" category="paragraph">ONTAP 9.19.1 introduz NFS sobre TLS, o tão aguardado "botão fácil" para criptografar seu tráfego NFS.</block>
   <block id="ffea051388edee8ef372949be32bff50" category="inline-link-macro">RFC 9289</block>
@@ -2517,7 +2514,6 @@
   <block id="af308a9544f9cd6667d954e201388346" category="paragraph">*Grande número de identidades de clientes distintas (TLS mútuo).* As implementações de TLS mútuo (mTLS) escalam a CPU do handshake de acordo com o número de certificados de cliente exclusivos que estão sendo validados.</block>
   <block id="21864784471d974f421182a25769daa9" category="paragraph">*mTLS vs. TLS somente no servidor.* Habilitar autenticação de host (mTLS) adiciona a validação do certificado do cliente no lado do servidor, tornando cada handshake moderadamente mais caro do que o TLS somente no servidor. O custo por RPC em estado estável permanece inalterado.</block>
   <block id="097bc9f656efd3efd7bb245df52f4e67" category="paragraph">*Churn de configuração TLS.* Alterações frequentes na configuração da interface TLS, como rotação de certificados e ciclos de ativação/desativação, invalidam o cache de configuração TLS por nó e forçam consultas de volta ao host de gerenciamento, aumentando brevemente a latência do handshake.</block>
-  <block id="60d3ef38aef28b0416bcd458ffc3d840" category="summary">NFS sobre TLS compõe-se com os controles de política de exportação padrão do ONTAP e replica por meio de SVM-DR e MetroCluster. Esta página também aborda limites de conexão, comportamento de aplicação e recomendações operacionais.</block>
   <block id="8d217ebd6342c5cff32664c568fede0c" category="doc">Interoperabilidade e limites</block>
   <block id="ff876c23f5a4e3c38b9a50b2f7b4a1fa" category="paragraph">NFS sobre TLS é compatível com os controles de política de exportação padrão do ONTAP, replica por meio do SVM-DR e MetroCluster, e apresenta um pequeno conjunto de limitações de plataforma e recomendações operacionais que você deve conhecer antes da implementação.</block>
   <block id="67a915151759ecc737f698391f7cfd08" category="section-title">Interoperabilidade</block>
@@ -2633,4 +2629,8 @@
   <block id="083f5724b7ba8a1aee93e65207c1ca46" category="list-text"><block ref="083f5724b7ba8a1aee93e65207c1ca46" category="inline-link-macro-rx"></block></block>
   <block id="0b177bc573a406d57588f5636aee8329" category="inline-link-macro">Ficha técnica AFX</block>
   <block id="ccc213f9aa4c560ef128ce5b7fec0244" category="list-text"><block ref="ccc213f9aa4c560ef128ce5b7fec0244" category="inline-link-macro-rx"></block></block>
+  <block id="28c20cc636e9273bfdbbb9e04c22b3eb" category="summary">O ONTAP 9.19.1 introduz o NFS nativo sobre TLS, permitindo a criptografia em trânsito do NFS de acordo com a RFC 9289, sem Kerberos ou IPsec.</block>
+  <block id="49f0664f282179029e2131d30362f45d" category="summary">NFS sobre TLS funciona com os controles de política de exportação padrão do ONTAP e replica por meio do SVM-DR e do MetroCluster. Esta página também aborda limites de conexão, comportamento de aplicação de políticas e recomendações operacionais.</block>
+  <block id="7ec1eb1e8c27af2d560415def72f2dcf" category="sidebar">Os relatórios técnicos do ONTAP fornecem contexto adicional para o planejamento e a otimização de implantações em diferentes ecossistemas ou com diferentes protocolos. Alguns relatórios técnicos do ONTAP oferecem contexto arquitetônico e práticas recomendadas para os recursos e funcionalidades do ONTAP.</block>
+  <block id="9678a7dcb872318bf33163b8a1ba5331" category="sidebar">Relatórios técnicos do ONTAP</block>
 </blocks>

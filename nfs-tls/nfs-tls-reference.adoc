@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: nfs-tls/nfs-tls-reference.html 
 keywords: nfs, tls, interoperability, svm-dr, metrocluster, snapmirror, limits, connection limit, enforcement, recommendations 
-summary: NFS sobre TLS compõe-se com os controles de política de exportação padrão do ONTAP e replica por meio de SVM-DR e MetroCluster. Esta página também aborda limites de conexão, comportamento de aplicação e recomendações operacionais. 
+summary: NFS sobre TLS funciona com os controles de política de exportação padrão do ONTAP e replica por meio do SVM-DR e do MetroCluster. Esta página também aborda limites de conexão, comportamento de aplicação de políticas e recomendações operacionais. 
 ---
 = Interoperabilidade e limites
 :toc: macro
