@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-node-disk.html 
+keywords: netapp afx, node-to-disk relationships, disk ownership, storage availability zone 
+summary: Aprenda como o NetApp AFX dá a cada nó de storage visibilidade de cada disco e elimina a propriedade do disco. 
+---
+= Relações nó-disco
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp AFX altera a relação entre nós de storage e discos ao conectar todos os nós e shelves através da mesma rede de backend.
+
+Na arquitetura unificada do ONTAP, as operações de leitura e gravação são direcionadas para um subconjunto específico de discos. Portanto, mesmo que você tenha 24 gavetas de discos em um cluster de 24 nós (uma gaveta por nó), em qualquer momento cada nó só poderá acessar diretamente uma gaveta de discos, o que limita a capacidade e o desempenho disponíveis no cluster.
+
+image:image5.png["Imagem"]
+
+Além disso, como NVRAM está diretamente conectada entre pares de HA, os nós precisam estar fisicamente próximos uns dos outros e são mais fortemente acoplados como destinos de failover. Por exemplo, quando um nó realiza failover para seu nó parceiro, os únicos discos aos quais ele tem acesso físico são os discos no domínio do par de HA.
+
+*Cluster ONTAP unificado durante failover de HA*
+
+image:image6.png["Imagem"]
+
+No NetApp AFX, há algumas mudanças importantes na forma como os discos são apresentados aos nós de computação.
+
+
+
+[[all-disks-are-visible-to-all-storage-nodes-no-disk-ownership]]
+== Todos os discos são visíveis para todos os nós de armazenamento--sem propriedade de disco
+
+No NetApp AFX, todos os nós e gabinetes estão conectados ao mesmo switch de backend, o que permite ao ONTAP estender o domínio de visibilidade geral dos discos para toda a pilha. Como resultado, nenhum nó possui discos específicos. Em vez disso, todos os discos participam de um único pool de capacidade chamado Storage Availability Zone, o que proporciona gerenciamento de capacidade mais simples e maior potencial de desempenho (mais discos disponíveis significam mais desempenho disponível).
+
+*NetApp AFX Zona de disponibilidade de armazenamento*
+
+image:image7.png["Imagem"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture.html["Anterior: arquitetura"] | link:afx-architecture-capacity-pool.html["A seguir: pool de capacidade única"] 
+|===

@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-independent-scale.html 
+keywords: netapp afx, independent scale, linear scale, compute, capacity, performance 
+summary: Descubra como o NetApp AFX dimensiona de forma independente os recursos computacionais e a capacidade, mantendo o desempenho linear dos nós. 
+---
+= Escala linear independente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+A arquitetura AFX desagregada da NetApp permite que a capacidade e os recursos computacionais sejam dimensionados independentemente e que o desempenho dos nós seja dimensionado linearmente.
+
+
+
+[[independent-scale-of-capacity-and-compute-nodes]]
+== Escala independente de capacidade e nós de computação
+
+Com os recursos de hardware desacoplados na arquitetura NetApp AFX, os nós não precisam mais ser adicionados lado a lado com os discos associados. Quando um cluster está com poucos recursos relacionados ao desempenho, como RAM, CPU ou throughput de rede, apenas os nós de storage precisam ser adicionados ao cluster e podem aproveitar a Storage Availability Zone existente. Por outro lado, se a necessidade for de capacidade, apenas os shelves precisarão ser adicionados à configuração. Essa flexibilidade garante que você compre apenas os recursos de que vai precisar, evitando o superprovisionamento.
+
+*NetApp AFX – Escala independente*
+
+image:image12.png["Imagem"]
+
+
+
+[[linear-scaling-of-node-performance]]
+== Escalabilidade linear do desempenho do nó
+
+À medida que nós são adicionados a um cluster AFX, mais CPU, RAM e recursos de rede são introduzidos na carga de trabalho. Conforme esses recursos são incorporados ao ambiente, os aumentos de desempenho são lineares. O gráfico abaixo mostra como esse desempenho aumentaria com a adição de nós.
+
+*O desempenho linear aumenta com a adição de nós NetApp AFX*
+
+image:image13.png["Imagem"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-nvram-ha.html["Anterior: NVRAM replicada e comportamento de failover de HA"] | link:afx-architecture-raid.html["A seguir: alterações no RAID"] 
+|===

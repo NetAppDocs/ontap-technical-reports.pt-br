@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-storage-efficiency.html 
+keywords: netapp afx, storage efficiency, deduplication, global deduplication, storage availability zone 
+summary: Saiba como os domínios de deduplicação do NetApp AFX mudaram e como o ONTAP 9.19.1 oferece deduplicação global. 
+---
+= Eficiência de storage
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp A AFX altera os limites de deduplicação e, a partir do ONTAP 9.19.1, oferece suporte a um domínio de deduplicação global em toda a Storage Availability Zone.
+
+
+
+[[deduplication-domains]]
+== Domínios de desduplicação
+
+A deduplicação permite que um sistema de storage encontre blocos duplicados em seu sistema de arquivos e, em seguida, crie ponteiros para um único bloco para reduzir a quantidade total de capacidade utilizada. No ONTAP unificado, a deduplicação segue um limite específico para os blocos que podem ser reduzidos. Esses limites dependem do tipo de deduplicação em uso. Em geral:
+
+* Deduplicação baseada em volume -> Limite de volume
+* Desduplicação entre volumes -> Limite de agregado
+
+
+*Domínios de deduplicação ONTAP unificados*
+
+image:image17.png["Imagem"]
+
+Como o NetApp AFX remove agregados físicos e move o gerenciamento de capacidade para a nova Storage Availability Zone, os limites do domínio de deduplicação também mudam. No AFX, o domínio de deduplicação está no nível do volume (como o ONTAP unificado) e no nó (em vez do agregado) antes da versão 9.19.1.
+
+A partir do ONTAP 9.19.1, o AFX oferece suporte a um domínio de deduplicação global no nível da Storage Availability Zone, de modo que todos os blocos duplicados no cluster storage pool sejam tratados da mesma forma.
+
+*NetApp AFX – Domínio de deduplicação global (ONTAP 9.19.1)*
+
+image:image18.png["Imagem"]
+
+A tabela abaixo compara o comportamento da capacidade para dados duplicados em diferentes cenários. À medida que as cópias de arquivos abrangem nós e agregados (e, portanto, domínios de deduplicação) no ONTAP unificado, a economia de espaço é reduzida. No AFX anterior à 9.19.1, o mesmo ocorre quando as cópias abrangem nós. A partir da 9.19.1, a deduplicação global aplica a mesma economia em toda a Storage Availability Zone.
+
+*Comportamentos de deduplicação para arquivos idênticos de 10 GB – o ONTAP e o NetApp AFX unificados*
+
+[cols="3,1,1,1"]
+|===
+| Cenário | ONTAP unificado | AFX 9.18.1 | AFX 9.19.1 
+
+
+| Quatro cópias do mesmo arquivo de 10 GB, no mesmo volume (desduplicação de volume) | 10 GB | 10 GB | 10 GB 
+
+
+| Quatro cópias do mesmo arquivo de 10GB, em volumes diferentes, no mesmo agregado (unificado ONTAP) ou no mesmo nó (AFX); deduplicação entre volumes ativada | 10 GB | 10 GB | 10 GB 
+
+
+| Quatro cópias do mesmo arquivo de 10GB, 4 volumes diferentes, 4 agregados diferentes (ONTAP unificado) ou 4 nós diferentes (AFX); deduplicação entre volumes ativada | 40 GB | 40 GB | 10 GB 
+|===
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-raid.html["Anterior: alterações no RAID"] | link:afx-architecture-feature-support.html["A seguir: alterações no suporte a recursos do ONTAP"] 
+|===

@@ -14,8 +14,17 @@ summary: Consulte os seguintes recursos para saber mais sobre NetApp AFX
 Para saber mais sobre as informações descritas neste documento, consulte os seguintes documentos e/ou sites:
 
 * link:https://hwu.netapp.com/["Hardware Universe"]
+* link:https://docs.netapp.com/us-en/ontap-afx/index.html["Documentação da AFX"]
+* link:https://docs.netapp.com/us-en/ontap-afx/release-notes/whats-new-9191.html["Novidades do ONTAP 9.19.1 para sistemas de armazenamento AFX"]
 * link:https://www.netapp.com/afx/["Página do produto AFX"]
 * link:https://www.netapp.com/blog/afx-scalable-secure-ai-data-infrastructure/["Construindo a empresa impulsionada por IA: por que a infraestrutura é importante"]
 * link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Deciding-between-NFSv3-or-NFSv4-x-The-choice-is-getting-clearer/ba-p/465963["Blog: decidindo entre NFSv3 e NFSv4.X"]
 * link:https://www.netapp.com/media/142853-ds-3466-netapp-afx-datasheet.pdf["Ficha técnica AFX"]
 
+
+[cols="1,1"]
+|===
+
+
+| link:afx-limits.html["Anterior"] |  
+|===

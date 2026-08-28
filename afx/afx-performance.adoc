@@ -18,9 +18,15 @@ NetApp AFX foi desenvolvido com foco em desempenho e escalabilidade, sendo espec
 [[per-node-performance]]
 == Desempenho por nó
 
-Cada nó de storage NetApp AFX fornece uma quantidade específica de throughput para leituras e gravações. À medida que nós são adicionados ao cluster, eles aumentam linearmente esse desempenho, conforme abordado na seção "Escalamento linear do desempenho do nó" deste documento.
+Cada nó de storage NetApp fornece uma quantidade específica de taxa de transferência para leituras e gravações. À medida que nós são adicionados ao cluster, eles aumentam linearmente esse desempenho, conforme abordado em link:afx-architecture-independent-scale.html#linear-scaling-of-node-performance["Escalabilidade linear do desempenho do nó"].
 
-Atualmente, os tipos de nós são link:https://www.netapp.com/media/142853-ds-3466-netapp-afx-datasheet.pdf["AFX 1K"^] e fornecem taxas de transferência para leitura e gravação aproximadamente nos valores abaixo. À medida que novos hardwares forem disponibilizados para NetApp AFX, esses limites poderão ser alterados. NOTA: O desempenho máximo foi alcançado utilizando vários clientes lendo e gravando vários arquivos, conforme mostrado na seção "Resultados do benchmark" abaixo.
+Atualmente, os tipos de nós são link:https://www.netapp.com/media/142853-ds-3466-netapp-afx-datasheet.pdf["AFX 1K"^] e link:https://www.netapp.com/media/142853-ds-3466-netapp-afx-datasheet.pdf["AFX 2K"^] e fornecem taxas de transferência para leituras e gravações aproximadamente nos valores abaixo*. À medida que novos hardwares estiverem disponíveis para o NetApp AFX, esses limites podem mudar.
+
+* Números de desempenho obtidos usando a ferramenta de benchmark link:https://github.com/breuner/elbencho["ElBencho"^] e leitura/gravação sequencial.
+
+
+
+NOTE: O desempenho máximo foi alcançado utilizando vários clientes lendo e gravando vários arquivos, conforme mostrado na seção link:#benchmark-results["Resultados de benchmark"] abaixo.
 
 *Estimativas de desempenho por nó*
 
@@ -29,6 +35,9 @@ Atualmente, os tipos de nós são link:https://www.netapp.com/media/142853-ds-34
 
 
 | AFX 1K | ~35GB/s | ~10GB/s 
+
+
+| AFX 2K | ~35GB/s | ~17GB/s (aumento de 70%) 
 |===
 
 NOTE: Para obter as estimativas de desempenho mais recentes, consulte sua equipe de vendas NetApp.
@@ -60,17 +69,17 @@ Desacoplar os nós de storage dos shelves na arquitetura ONTAP desagregada permi
 
 Esse conceito de "densidade de desempenho" permite que os administradores de storage aproveitem ao máximo o hardware disponível, sem precisar superdimensionar o ambiente de storage.
 
-Por exemplo, em um cluster ONTAP unificado, como cada nó possui seu próprio conjunto de discos, o desempenho é direcionado apenas aos discos pertencentes ao nó e, como apenas um nó pode acessar um conjunto de discos, ele não pode necessariamente saturar os discos disponíveis e atingir seu desempenho máximo.
-
 *Unified ONTAP – Como o desempenho é distribuído*
 
 image:image32.png["Imagem"]
 
-NetApp AFX agrupa todos os discos em uma única Storage Availability Zone, permitindo que todos os nós utilizem todos os discos. E como os discos e os nós são independentes, você não precisará de tantas shelves para obter o mesmo desempenho. Isso condensa o desempenho e maximiza o potencial máximo de desempenho da shelf.
+Por exemplo, em um cluster ONTAP unificado, cada nó possui seu próprio conjunto de discos dedicados. Como resultado, o desempenho é direcionado apenas aos discos pertencentes ao nó. Como apenas um nó pode acessar um conjunto de discos, o desempenho fica limitado aos discos que ele pode acessar diretamente.
 
 *NetApp AFX – densidade de desempenho*
 
 image:image33.png["Imagem"]
+
+NetApp AFX agrupa todos os discos disponíveis em um único pool de capacidade chamado Storage Availability Zone (SAZ). Como resultado, todos os nós podem utilizar todos os discos disponíveis para leituras e gravações. Como os discos e os nós são desacoplados, você não precisará necessariamente de tantas shelves para obter o mesmo (ou melhor) desempenho de throughput em comparação com a arquitetura unificada do ONTAP. NetApp A arquitetura desagregada do AFX maximiza o potencial de desempenho de uma shelf de discos.
 
 
 
@@ -81,7 +90,7 @@ Os nós Unified ONTAP exigem pelo menos um conjunto de discos por nó e podem te
 
 NetApp AFX apresenta todos os gabinetes de discos a todos os nós. Cada gabinete contém módulos com 16 x 100GB interfaces compatíveis com RoCE para aumentar a quantidade total de desempenho permitida por gabinete. Devido a isso, você pode saturar um único gabinete com vários nós que estarão lendo e gravando no mesmo conjunto de discos.
 
-A partir do ONTAP 9.19.1, a proporção de saturação nó:prateleira é de aproximadamente 4:1.
+A partir do ONTAP 9.19.1, a proporção de saturação nó:prateleira é de pelo menos 4:1, e 8:3 é possível.
 
 
 
@@ -91,8 +100,8 @@ A partir do ONTAP 9.19.1, a proporção de saturação nó:prateleira é de apro
 A seção a seguir aborda os resultados de benchmark usando um cluster AFX NetApp com os seguintes parâmetros de configuração.
 
 * 4 nós, 4 interfaces de dados
-* 2 prateleiras (discos de 7,6TB)
-* ONTAP 9.19.1
+* 2 prateleiras
+* ONTAP 9.19.1GA
 * NFSv4.2 (pNFS, trunking de sessão)
 * Volume FlexGroup
 * link:https://github.com/breuner/elbencho["ElBencho"^] benchmark
@@ -103,6 +112,9 @@ A seção a seguir aborda os resultados de benchmark usando um cluster AFX NetAp
 
 
 A configuração acima atingiu um valor muito próximo do máximo de leituras disponível para o cluster de 4 nós (~134GB/s) e ficou exatamente no limite máximo de gravações permitidas por nó (40GB/s).
+
+
+NOTE: Consulte a seção link:afx-performance-benchmarks.html["Dicas de benchmark de desempenho"] para obter orientações sobre como reproduzir esses resultados.
 
 *NetApp AFX – ElBencho desempenho de leitura, 4 nós*
 
@@ -146,7 +158,8 @@ A versão de NFS 3 tem sido um padrão de excelência para aplicações NFS por 
 
 No entanto, o NFSv3 não está isento de limitações. A ausência de estado no protocolo, embora excelente para o desempenho e para minimizar interrupções em caso de failover de storage, não é tão boa para consistência de dados e gerenciamento de bloqueios. Um servidor NFS não mantém um registro dos estados de bloqueio, então, se ocorrer uma falha, o servidor NFS pode ou não liberar os bloqueios, e o cliente NFS pode não saber se um arquivo está bloqueado ou não.
 
- Security for NFSv3 is also a bit lacking. The protocol requires multiple open firewall ports to function properly and numeric IDs are sent in plaintext over the wire. Furthermore, NFS does not have robust ACL support, and does not include native file and folder auditing. As a result of these limitations, NFSv4 was created in 2003 via link:https://datatracker.ietf.org/doc/html/rfc3530[RFC-3530^] (obsoleted in 2015 by link:https://datatracker.ietf.org/doc/html/rfc7530[RFC-7530^]).
+A segurança do NFSv3 também deixa um pouco a desejar. O protocolo exige várias portas de firewall abertas para funcionar corretamente e os IDs numéricos são enviados em texto simples por cabo. Além disso, o NFS não possui suporte robusto a ACLs e não inclui auditoria nativa de arquivos e pastas. Como resultado dessas limitações, o NFSv4 foi criado em 2003 via link:https://datatracker.ietf.org/doc/html/rfc3530["RFC-3530"^] (obsoleto em 2015 por link:https://datatracker.ietf.org/doc/html/rfc7530["RFC-7530"^]).
+
 Embora o NFSv4.x exista há mais de 20 anos, ainda não houve ampla adoção por alguns motivos.
 
 * Complexidade do gerenciamento de identidades: muitos ambientes não possuem uma infraestrutura de serviço de nomes implementada para aproveitar adequadamente os requisitos de string de nome e de segurança Kerberos no NFSv4.x.
@@ -212,6 +225,13 @@ Com as alterações no AFX ONTAP 9.18.1, o desempenho do NFSv4.x para esses tipo
 
 Nossas equipes de engenharia de desempenho compararam o desempenho de benchmarks padrão de IA para imagens, EDA e compilação de software e constataram ganhos significativos em relação à versão anterior do ONTAP.
 
-*NetApp AFX – desempenho de E/S de metadados NFSv4.1 no ONTAP 9.18.1*
+*NetApp AFX – desempenho de E/S de metadados NFSv4.1 no NetApp AFX*
 
 image:image37.png["Imagem"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-root-volume.html["Anterior: alterações no volume da raiz"] | link:afx-performance-benchmarks.html["A seguir: dicas de benchmark de desempenho"] 
+|===

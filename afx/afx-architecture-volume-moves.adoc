@@ -1,0 +1,70 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-volume-moves.html 
+keywords: netapp afx, volume moves, zero-copy, performance balancing, automated storage administration 
+summary: Saiba como o NetApp AFX utiliza movimentações de volume sem cópia para administração automatizada e balanceamento de desempenho. 
+---
+= Movimentações de volume
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp A AFX transfere a propriedade do volume entre nós sem copiar os dados do volume, permitindo automação rápida e balanceamento orientado ao desempenho.
+
+
+
+[[how-the-storage-availability-zone-changes-volume-behavior]]
+== Como a Storage Availability Zone altera o comportamento do volume
+
+Com a Storage Availability Zone no NetApp AFX, toda a capacidade é compartilhada entre todos os nós. Embora os nós ainda possuam volumes, o ONTAP gerencia automaticamente o uso da capacidade de cada nó, emprestando e liberando capacidade com base no que cada nó precisa em qualquer momento. Isso significa que os administradores de storage não precisam mais se preocupar com a melhor forma de equilibrar o espaço utilizável. Essa nova abordagem também oferece um método para que os volumes se movam com mais liberdade entre os nós.
+
+
+
+[[zero-copy-volume-moves]]
+== Movimentações de volume sem cópia
+
+O Unified ONTAP oferece uma maneira de mover volumes entre nós ou agregados sem interrupções, permitindo o gerenciamento do desempenho e do uso da capacidade em todo o cluster.
+
+Quando uma movimentação de volume é iniciada, ocorre o seguinte:
+
+* Um novo volume vazio é criado no agregado de destino
+* Metadados do volume (como informações de eficiência de storage, identificadores de arquivos, etc.) são replicados para o novo volume de destino
+* Os dados do volume são replicados para o volume de destino através da rede do cluster de back-end via tecnologia SnapMirror—o agregado de destino precisa ter espaço livre disponível para a movimentação, caso contrário, a tarefa de movimentação falhará
+* A replicação de volume ocorre novamente para garantir que ambos os volumes estejam consistentes com quaisquer alterações de dados
+* É iniciado um processo de transição para desativar o volume de origem e promover o volume de destino como o novo volume de origem para os clientes
+* A E/S do cliente sofre uma breve pausa durante a transição, mas não são necessárias remontagens
+
+
+No NetApp AFX, a Storage Availability Zone apresenta toda a capacidade para todos os nós, e todos os nós podem gravar em qualquer disco desse pool. Uma vez que os dados são colocados, eles permanecem onde foram alocados – mesmo se o volume for movido. Isso significa que nenhuma cópia de dados é necessária. O processo de movimentação de volume é idêntico ao ONTAP unificado, exceto pela necessidade de replicar dados via SnapMirror. Nenhuma capacidade extra é necessária.
+
+*Movimentação de volumes com zero cópia no NetApp AFX*
+
+image:image24.png["Imagem"]
+
+A mobilidade de volumes leves permite que o AFX automatize muitas das tarefas administrativas sem restrições de desempenho ou capacidade, e essas movimentações de volume são usadas em alguns novos recursos oferecidos pelo NetApp AFX, conforme descrito nos tópicos abaixo.
+
+
+
+[[performance-driven-volume-moves]]
+== Movimentos de volume orientados para o desempenho
+
+NetApp A funcionalidade de movimentação de volumes sem cópia do AFX permite o rebalanceamento de volumes conforme necessário, sem copiar dados, o que possibilita operações rápidas e sem a necessidade de capacidade adicional. Isso significa que a movimentação de volumes pode se tornar uma parte mais importante do balanceamento de carga automatizado disponível para clusters ONTAP. Agora que mover um volume não custa praticamente nada, o ONTAP pode aproveitar essa valiosa ferramenta para incorporar recursos como o balanceamento de carga de volumes orientado ao desempenho.
+
+No NetApp AFX com ONTAP 9.18.1 e versões posteriores, a utilização de nó, par de HA e volume é monitorada constantemente, enquanto os dados de desempenho são coletados e analisados. Se a utilização de um nó ficar fora dos limites definidos, então o ONTAP selecionará automaticamente um volume para mover para um nó menos utilizado, buscando manter o desempenho equilibrado em todo o cluster.
+
+*Movimentos de volume orientados pelo desempenho no NetApp AFX – alta utilização desencadeia um movimento de volume*
+
+image:image28.png["Imagem"]
+
+*Movimentação de volume orientada por desempenho no NetApp AFX – Utilização equilibrada dos nós após a movimentação de volume*
+
+image:image29.png["Imagem"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-flexgroup.html["Anterior: FlexGroup management improvements"] | link:afx-architecture-cluster-scale.html["A seguir: escala do cluster"] 
+|===

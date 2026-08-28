@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-nvram-ha.html 
+keywords: netapp afx, nvram replication, high availability, ha failover, volume rebalance 
+summary: Saiba como o NetApp AFX replica NVRAM na rede de back-end e reequilibra os volumes durante o failover de alta disponibilidade. 
+---
+= Comportamento de NVRAM replicada e failover de HA
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp O AFX move a replicação NVRAM para a rede do cluster de backend e usa a mobilidade de volume sem cópia para reequilibrar o trabalho após uma falha de nó.
+
+
+
+[[nvram-moved-from-direct-connection-to-switched-replication]]
+== NVRAM passou de conexão direta para replicação comutada
+
+ONTAP utiliza NVRAM como uma camada de proteção para proteger as gravações recebidas em um cluster. Cada nó em um cluster ONTAP possui uma placa NVRAM com bateria. Quando uma gravação é enviada para um volume a partir de um cliente, ela é armazenada primeiro na NVRAM. O conteúdo da NVRAM é então gravado em disco quando a NVRAM está cheia ou quando um timer de 10s expira (o que ocorrer primeiro). Isso é conhecido como ponto de consistência.
+
+O conteúdo do NVRAM também é constantemente replicado entre pares de HA, o que ajuda ainda mais a proteger a consistência de dados, pois, em caso de falha de um nó, o conteúdo do NVRAM será preservado no nó sobrevivente e gravado em disco.
+
+Em clusters ONTAP unificados, as placas NVRAM entre pares de HA são conectadas diretamente umas às outras. NetApp AFX move a replicação da NVRAM para a rede de backend do cluster. Como resultado, os nós parceiros de HA não têm um requisito de distância tão rígido para os nós. Em vez disso, os pares de HA podem ser separados até a distância máxima do ethernet.
+
+*Replicação de NVRAM NetApp AFX*
+
+image:image10.png["Imagem"]
+
+
+
+[[ha-failover-behavior]]
+== Comportamento de failover de HA
+
+No ONTAP unificado, os nós possuem discos e agregados, onde os dados são servidos por meio de volumes. As gravações são realizadas usando a NVRAM local de um nó para descarregar os dados nos discos que o nó possui. Quando um nó é reiniciado ou falha, o ONTAP aciona a transferência dos recursos do nó com falha, transferindo a propriedade dos discos e agregados para o nó parceiro. As interfaces de rede também são transferidas para portas no espaço IP e, como o conteúdo da NVRAM está sendo constantemente replicado entre o par de HA, o nó irá descarregar o conteúdo da NVRAM para confirmar as gravações do nó com falha nos discos. Depois disso, o nó sobrevivente passa a possuir os agregados e volumes do nó com falha até que o giveback do nó ocorra. Isso significa que todo o tráfego para esses volumes – bem como para os volumes já pertencentes ao nó sobrevivente – será processado em um único nó até que o problema de failover seja resolvido.
+
+Como parte da implantação inicial do cluster ONTAP unificado, recomenda-se planejar com antecedência para failovers a fim de evitar que um único nó sobrecarregue seu parceiro. Isso por si só representa um desafio, pois é difícil prever quais volumes podem ser vilões de desempenho, mas recursos como movimentação de volume sem interrupção e políticas de qualidade do serviço de volumes podem ajudar na mitigação.
+
+As imagens abaixo mostram como clusters ONTAP unificados podem apresentar desequilíbrio de desempenho entre os nós, bem como como um failover pode causar degradação de desempenho em alguns casos.
+
+*Unified ONTAP – possíveis desequilíbrios na utilização dos nós*
+
+image:image25.png["Imagem"]
+
+Quando os nós de um par de HA ficam desequilibrados em contagem de volume e utilização de desempenho, as falhas de nós impactam o desempenho geral, já que o nó sobrevivente passa a ser o proprietário de todos os volumes do nó com falha. Enquanto isso, outros nós no cluster podem ter espaço para assumir trabalho adicional.
+
+*Unified ONTAP – Impacto do failover na utilização dos nós*
+
+image:image26.png["Imagem"]
+
+No exemplo acima, quando um parceiro de par de HA precisa assumir trabalho adicional, ele pode ficar sobrecarregado e afetar o desempenho de todos os volumes nesse nó. A movimentação de volumes pode ajudar a aliviar a situação, mas requer cópias entre os nós (o que exige espaço livre), e o tempo necessário para isso pode exceder o tempo necessário para que os nós retornem ao estado original. Além disso, se você realocar um volume, ele não retornará ao nó original. Em vez disso, ele permanecerá no nó para o qual foi movido.
+
+Com o NetApp AFX, as falhas de nós assumem alguns comportamentos diferentes.
+
+* Como os nós não possuem discos e não existem agregados físicos, uma falha de nó não exigirá a transferência desses recursos. Em vez disso, apenas as interfaces de rede e a propriedade dos volumes são transferidas para outros nós.
+* As confirmações de NVRAM ainda ocorrem, mas através da rede de HA em vez de uma conexão direta.
+* Após a primeira transferência de volumes para o nó parceiro, o AFX redistribuirá os volumes entre os demais nós sobreviventes do cluster. Isso é possível graças à movimentação de volumes sem cópia.
+* Quando o nó for recuperado, os volumes retornarão ao nó original.
+
+
+NetApp AFX já mantém o equilíbrio de desempenho entre os nós do cluster para manter uma utilização relativamente uniforme, portanto, quando ocorre um failover e os volumes são reequilibrados, a utilização dos nós deve ser aproximadamente a mesma em todo o cluster.
+
+*NetApp AFX - Reequilíbrio de volume após falha*
+
+image:image27.png["Imagem"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-capacity-pool.html["Anterior: Single capacity pool"] | link:afx-architecture-independent-scale.html["Próximo: escala linear independente"] 
+|===

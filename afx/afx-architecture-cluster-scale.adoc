@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-cluster-scale.html 
+keywords: netapp afx, cluster scale, node addition, node removal, 32 nodes, 32PB 
+summary: Aprenda como o NetApp AFX automatiza a adição e remoção de nós e dimensiona clusters para até 32 nós e 32PB. 
+---
+= Escala de cluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+A arquitetura NetApp AFX simplifica a adição e remoção de nós e permite uma maior escalabilidade do cluster sem comprometer a capacidade ou o desempenho.
+
+
+
+[[node-additions-and-removals]]
+== Adições e remoções de nós
+
+Tanto o ONTAP unificado quanto o NetApp AFX permitem a adição e remoção de nós do cluster. No entanto, devido a algumas diferenças arquitetônicas, o processo de adição e remoção de nós difere um pouco.
+
+
+
+[[node-additionremoval-in-unified-ontap]]
+=== Adição/remoção de nós no ONTAP unificado
+
+Já aprendemos que unified ONTAP possui uma relação direta de propriedade entre nó e disco e que todos os nós devem ter alguns discos e pelo menos um agregado associado a eles. Com isso em mente, o seguinte se aplica a adições e remoções.
+
+* A adição de nós no ONTAP unificado não requer etapas adicionais, mas para garantir desempenho equilibrado em todos os nós (incluindo os novos), os volumes precisam ser movidos para os novos nós. Isso exige uma análise prévia dos volumes existentes e suas cargas de trabalho, decisões sobre quais volumes mover e, em seguida, a movimentação propriamente dita dos volumes, o que, novamente, requer uma cópia desses dados na rede do cluster de backend.
+* A remoção de nós no ONTAP unificado exigiria a evacuação manual dos volumes existentes no nó, o que significa que você deve identificar quais nós podem hospedar quais volumes para manter um desempenho uniforme e deve ter capacidade livre suficiente para fornecer um local para esses volumes serem movidos. Se a capacidade livre for um desafio, movimentos adicionais de volumes podem ser necessários para redistribuir as cargas de trabalho no cluster. A remoção de nós também envolve a remoção de par de HA, portanto o trabalho envolvido é dobrado. Como os nós possuem discos, uma reinicialização completa dos discos também seria necessária para esses nós. Cada uma dessas coisas adiciona tempo e esforço ao que deveria ser uma tarefa relativamente simples.
+
+
+
+
+[[node-additionremoval-in-netapp-afx]]
+=== Adição/remoção de nós no NetApp AFX
+
+Também descobrimos que o NetApp AFX não aproveita a propriedade padrão de nó para disco e não usa agregados físicos para apresentar capacidade ao cluster. Por causa disso, a adição e remoção de nós se comportam de maneira um pouco diferente.
+
+* A adição de nós no NetApp AFX não exigirá a mesma análise prévia de volume, nem exigirá intervenção administrativa para garantir que cada nó tenha um equilíbrio uniforme de volumes. Em vez disso, ONTAP equilibra automaticamente a quantidade de volumes entre os nós recém-adicionados para manter perfis de desempenho relativamente uniformes. ONTAP moverá automaticamente os volumes entre os nós sem copiar nada, reduzindo o tempo, a capacidade e o esforço necessários para adicionar nós a um cluster.
+* A remoção de nós no NetApp AFX também não exige muita intervenção manual, se é que exige alguma. Quando um nó é marcado para remoção, ONTAP move automaticamente os volumes entre os nós (novamente, sem copiar) para evacuar os nós que estão sendo removidos. E como não há discos pertencentes aos nós, não é necessário reinicializar os discos após a remoção dos nós. Isso torna os nós no AFX modulares por natureza e fáceis de escalar para cima ou para baixo.
+
+
+
+
+[[cluster-scale-and-expansion]]
+== Escala e expansão do cluster
+
+Os clusters Unified ONTAP suportam até 24 nós, e cada nó adicionado também deve ser adicionado com discos (tanto para funcionalidades do sistema quanto para serviços de dados). É possível adicionar gavetas de discos ao cluster, mas elas sempre ficam conectadas a um único par de HA e pertencem apenas a um único nó, mesmo que o cluster tenha 24 nós. Isso significa que a capacidade é adicionada ao cluster mesmo quando apenas o desempenho é necessário, e esse aumento de desempenho fica restrito principalmente a um conjunto específico de discos pertencentes aos novos nós. Como resultado, você pode acabar com capacidade extra que não necessariamente precisa.
+
+*Unified ONTAP – considerações adicionais de escala*
+
+image:image30.png["Imagem"]
+
+NetApp AFX suporta clusters em maior escala. A partir da versão 9.19.1, os clusters AFX podem atingir até 32 nós em um único cluster. E como todos os nós podem ver e acessar todos os discos, eles podem compartilhar o desempenho e a capacidade (até 32PB a partir do ONTAP 9.19.1) dessas unidades, de forma que nunca haja recursos ociosos. A movimentação de volumes não requer cópias, portanto ONTAP consegue mover automaticamente os volumes para os nós recém-adicionados para garantir uma utilização uniforme dos nós, enquanto a capacidade é distribuída uniformemente por meio da Storage Availability Zone.
+
+*NetApp AFX – considerações adicionais de escala*
+
+image:image31.png["Imagem"]
+
+Para informações sobre o tamanho máximo do cluster, consulte a link:afx-limits.html["Limites"] página.
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-volume-moves.html["Anterior: Movimentações de volume"] | link:afx-architecture-root-volume.html["A seguir: alterações no volume da raiz"] 
+|===

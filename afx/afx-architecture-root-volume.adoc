@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-root-volume.html 
+keywords: netapp afx, root volume, boot media, nvme, m.2, cluster database 
+summary: Aprenda como o NetApp AFX virtualiza volumes raiz e move imagens de inicialização e bancos de dados de cluster para mídias de inicialização integradas. 
+---
+= Alterações no volume raiz
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp O AFX remove os agregados raiz físicos e utiliza mídia de inicialização NVMe integrada para imagens de inicialização e bancos de dados de cluster replicados.
+
+
+
+[[root-volume-changes]]
+== Alterações no volume raiz
+
+No NetApp ONTAP, cada nó recebe um volume raiz, que é usado para arquivos e funções específicos do sistema, como arquivos de log, imagens de boot, arquivos de core, bancos de dados de cluster e muito mais.
+
+No ONTAP unificado, esses volumes raiz residiam em agregados raiz físicos. Para reduzir a quantidade de capacidade utilizada pelos agregados raiz, eles eram criados em partições de unidades de dados por meio do Advanced Disk Partitioning (ADP).
+
+NetApp AFX remove agregados físicos da equação e, como resultado, elimina a necessidade de agregados raiz e do uso do ADP. Os volumes raiz ainda são um conceito, mas agora residem em áreas virtualizadas do pool de capacidade e não exigem configuração adicional. Além disso, a funcionalidade do volume raiz foi alterada. As imagens de inicialização e os bancos de dados de cluster replicados foram movidos da pilha de storage para uma mídia de inicialização integrada em cada nó AFX. Agora, se o acesso à pilha de storage for perdido, os nós ainda podem inicializar e manter a elegibilidade para o cluster, o que simplifica a solução de problemas.
+
+
+
+[[onboard-boot-media]]
+== Mídia de inicialização integrada
+
+NetApp AFX nodes utilizam mídia de inicialização integrada, que é um dispositivo M.2 conectado via NVMe com aproximadamente 3,8 TB de capacidade. Esses dispositivos de inicialização contêm arquivos de imagem de inicialização e bancos de dados replicados que são separados dos gabinetes de armazenamento, o que proporciona redundância extra em caso de problemas de acesso ao disco. Se a mídia de inicialização falhar, o nó será assumido pelo seu parceiro de HA e a mídia de inicialização poderá ser substituída. Após a substituição, uma nova imagem ONTAP será carregada no dispositivo por um administrador de storage e o ONTAP reconstruirá automaticamente o banco de dados do cluster para restaurar a funcionalidade completa.
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-cluster-scale.html["Anterior: escala de cluster"] | link:afx-performance.html["Próximo: Desempenho"] 
+|===

@@ -34,7 +34,7 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
 * 800 TB
 
  a| 
-* N/A
+* N/A (sem agregados físicos)
 
 
 
@@ -44,7 +44,7 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
 
  a| 
 * 8 (9.17.1)
-* 32 (9.19.1RC1)
+* 32 (9.19.1GA)
 
 
 
@@ -57,7 +57,7 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
 * 3PB (9.18.1RC1)
 * 16PB (versão 9.18.1GA)
 * 20PB (9.19.1RC0)
-* 32PB (9.19.1RC1)
+* 32PB (9.19.1GA)
 
 
 
@@ -69,7 +69,7 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
  a| 
 * 12 por cluster (9.18.1GA)
 * 17 por cluster (9.19.1RC0)
-* 25 por cluster (9.19.1RC1) (sem limitação de par de HA)
+* 27 por cluster (9.19.1GA) (sem limitação de par de HA)
 
 
 
@@ -81,7 +81,7 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
  a| 
 * 288 por cluster (com base nos limites de contagem por prateleira; sem limitação de par de HA)
 * 408 por cluster (9.19.1RC0)
-* 600 por cluster (9.19.1RC1)
+* 648 por cluster (9.19.1GA)
 
 
 
@@ -92,7 +92,18 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
 
  a| 
 * 300TB (FlexVol)
-* 60PB (FlexGroup)*
+* 60PB (FlexGroup - anterior à 9.19.1)*
+* ~153PB (FlexGroup - 9.19.1 e posterior)*
+
+
+
+
+| Número máximo de componentes do FlexGroup  a| 
+* 200
+
+ a| 
+* 200 (9.18.1 e versões anteriores)
+* 512 (9.19.1GA)
 
 
 
@@ -104,6 +115,7 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
  a| 
 * 2 bilhões (FlexVol)
 * 400 bilhões (FlexGroup)
+* 1 trilhão (FlexGroup - 9.19.1GA e posterior)
 
 
 
@@ -164,16 +176,6 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
 
 
 
-| Número máximo de componentes – FlexGroup  a| 
-* 200
-
- a| 
-* 200
-* 512 em 9.19.1 RC1
-
-
-
-
 | Número máximo de LIFs intercluster  a| 
 * 8
 
@@ -208,4 +210,13 @@ Para os limites mais recentes, consulte link:http://hwu.netapp.com/["Hardware Un
 * 400
 
 
+|===
+[role="small"]
+_*FlexGroup o tamanho máximo será limitado a 32 PB de área física._
+
+[cols="1,1"]
+|===
+
+
+| link:afx-hardware.html["Anterior"] | link:afx-related-info.html["A seguir: informações relacionadas"] 
 |===
