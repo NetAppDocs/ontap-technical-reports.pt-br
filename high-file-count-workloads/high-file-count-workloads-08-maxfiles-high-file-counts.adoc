@@ -1,0 +1,118 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-08-maxfiles-high-file-counts.html 
+keywords: ONTAP, NAS, maxfiles, files-used, inodefile-public-capacity, high file count 
+summary: Entenda como os contadores de inode do ONTAP mudam e como um grande número de arquivos afeta a capacidade e as cargas de trabalho do NAS. 
+---
+= Alta contagem de arquivos e capacidade de inode no ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+O ONTAP informa o limite configurado de inodes públicos, o uso atual de inodes públicos e a capacidade de pico do arquivo de inodes públicos alocado como valores separados.
+
+
+
+[[high-file-counts-in-ontap]]
+== Alto número de arquivos no ONTAP
+
+ONTAP usa inodes para rastrear objetos do sistema de arquivos. Você pode monitorar o uso de inodes públicos com os seguintes valores de volume na CLI, API REST ou System Manager:
+
+* `files` é o limite máximo de inodes públicos configurado.
+* `files-used` é o número de inodes públicos atualmente em uso.
+
+
+Essa `files` opção controla quantas entradas de inode públicas podem ser alocadas no arquivo de inode público. Aumentar o `files` limite não aloca imediatamente inodes nem espaço no arquivo de inode para o sistema de arquivos ativo. Em vez disso, define o limite máximo permitido pelo volume.
+
+A criação de arquivos, diretórios, ACLs, fluxos nomeados ou índices de diretórios públicos pode aumentar o tamanho do arquivo de inode público. A exclusão de objetos diminui `files-used` e retorna inodes públicos para reutilização, mas não reduz o tamanho do arquivo de inode público.
+
+Para exemplos de como visualizar detalhes de uso da contagem de arquivos, consulte link:high-file-count-workloads-12-maxfiles-monitoring.html#monitoring-example["Exemplo de monitoramento"]. Para orientações sobre dimensionamento, consulte link:high-file-count-workloads-14-best-practices.html["Melhores práticas para workload NAS com grande quantidade de arquivos"].
+
+
+
+[[how-an-inode-count-increments]]
+== Como a contagem de inodes aumenta
+
+Nem todos os inodes contam para o limite público de inodes. link:high-file-count-workloads-09-maxfiles.html#private-inodes["Inodes privados"] não contam. link:high-file-count-workloads-09-maxfiles.html#public-inodes["Inodes públicos"] como arquivos, diretórios, ACLs, fluxos nomeados e índices de diretórios públicos contam.
+
+ `files-used`aumenta sempre que um inode público é usado. Se já existir um inode público livre no arquivo de inodes alocado, `files-used` ainda aumenta, mas `inodefile-public-capacity` não. Se não restar nenhum inode público livre, o ONTAP aumenta o arquivo de inodes públicos até `files`, e ambos os valores aumentam.
+
+As operações típicas incluem:
+
+* Ao criar um arquivo, diretório, link simbólico ou arquivo especial: +1 inode público e um novo nome no diretório pai.
+* Criando um link físico: +0 inodes públicos e +1 nome no diretório pai.
+* Armazenar uma ACL NTFS ou NFSv4 em um objeto que ainda não tinha um inode de ACL: até +1 inode público, sujeito ao compartilhamento de ACL.
+* Criar um fluxo nomeado: +1 inode público para o fluxo e, se necessário, um inode de diretório de fluxo. Nenhum deles adiciona um nome ao diretório pai do usuário.
+* Mover índices de diretórios para o espaço público: aproximadamente +1 inode público por diretório indexado.
+
+
+A forma como esses tipos de objeto, o compartilhamento de ACL e os fluxos, como  `Zone.Identifier`, afetam a contagem de arquivos visíveis é descrita em link:high-file-count-workloads-09-maxfiles.html["Tipos de inode do ONTAP"].
+
+`files-used` diminui quando os inodes públicos ficam livres, como após a conclusão da exclusão e os objetos deixarem de ser retidos como zumbis. `inodefile-public-capacity` permanece em seu nível máximo e o tamanho do arquivo de inode nunca diminui.
+
+O ONTAP cria novos registros livres para reutilização até que o arquivo de inode alocado esteja cheio, após o que o ONTAP o aumenta se `files` a capacidade do volume permitir.
+
+
+
+[[how-high-file-counts-affect-nas-workloads]]
+== Como um grande número de arquivos afeta as cargas de trabalho do NAS
+
+Um grande número de arquivos aumenta a proporção do trabalho com metadados em relação à transferência de dados. As operações comuns incluem:
+
+* Alocação e liberação de inodes
+* Consultar nomes de diretórios e identificadores de arquivos
+* Leitura e atualização de atributos, permissões e registros de data e hora
+* Abrir, fechar, renomear, criar links e excluir arquivos
+* Enumerando diretórios e percorrendo árvores de diretórios
+* Analisando namespaces em busca de analytics, backup, replicação ou recursos de segurança
+
+
+O impacto no desempenho depende da taxa de operações, da concorrência, do comportamento do protocolo, do layout do namespace, do estado do cache e dos recursos do nó. A quantidade total de arquivos, por si só, não é uma previsão de desempenho. Milhões de arquivos distribuídos por vários diretórios ativos podem apresentar maior paralelismo do que a mesma quantidade de arquivos concentrada em um único espaço de diretório.
+
+
+
+[[capacity-impact]]
+== Impacto na capacidade
+
+Cada inode do ONTAP 9 ocupa 288 bytes no arquivo de inodes. Uma estimativa aproximada para planejamento é:
+
+[listing]
+----
+inode-file bytes = inode count × 288
+----
+|===
+| Inodes | Número aproximado de bytes brutos do inode | Capacidade binária aproximada 
+
+
+| 1 milhões | 288.000.000 | 274,7 MiB 
+
+
+| 100 milhões | 28.800.000.000 | 26,8 GiB 
+
+
+| 1 bilhões | 288.000.000.000 | 268,2 GiB 
+|===
+Esses valores descrevem registros de inode. O uso físico observado também pode incluir a estrutura do arquivo de inode, o arredondamento de blocos, a retenção de Snapshot e outros metadados.
+
+Aumentar `files` altera o teto permitido; isso não aloca imediatamente todo o espaço correspondente do arquivo de inodes. A capacidade é consumida à medida que o arquivo de inodes cresce. Se ele posteriormente contiver um milhão de inodes públicos, os registros brutos de inode usarão 288 MB (aproximadamente 274,7 MiB) da capacidade real do volume. O arquivo de inodes não diminui, portanto o planejamento de capacidade deve levar em conta sua alocação máxima histórica. Você pode depois reduzir `files`, mas não abaixo de `inodefile-public-capacity`. Esse campo é a marca de alocação máxima do arquivo de inodes, não o pico `files-used` nem uma configuração anterior de `files`. Por exemplo, se o arquivo de inodes já tiver crescido para 1 milhão de registros, `files` não poderá ser definido abaixo de 1 milhão, mesmo que o valor atual de `files-used` seja muito menor. Se você aumentou `files` sem fazer o arquivo de inodes crescer até esse ponto, poderá reduzi-lo novamente até a capacidade atual.
+
+A capacidade física usada para o arquivo inode é separada da `maxdir-size` capacidade usada. `maxdir-size` limita o tamanho em bytes do arquivo de mapeamento de nomes de cada diretório. Um arquivo de diretório de 320 MB usa 320 MB de blocos de arquivo de diretório nesse diretório; um arquivo inode de tamanho semelhante representa a população de inodes de todo o volume e não é limitado por `maxdir-size`.
+
+Para saber como inspecionar o espaço de arquivo inode em unidades de capacidade e como lê-lo  `inodefile-public-capacity`como uma contagem de inodes, consulte link:high-file-count-workloads-12-maxfiles-monitoring.html#monitoring-example["Monitorar arquivos maxfile, eventos EMS e melhorias do ONTAP"].
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-07-maxdirsize-features-ems.html["← Anterior: recursos, EMS e monitoramento para maxdir-size"] | link:high-file-count-workloads-09-maxfiles.html["A seguir: tipos de inode do ONTAP →"] 
+|===
+
+
+[[related-information]]
+== Informações relacionadas
+
+* link:high-file-count-workloads-10-maxfiles-limits.html["Informações sobre Maxfiles e inodes do ONTAP"]
+* link:high-file-count-workloads-11-maxfiles-controlling.html["Controlando maxfiles"]
+

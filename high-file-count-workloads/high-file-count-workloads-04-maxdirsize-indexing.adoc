@@ -1,0 +1,104 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-04-maxdirsize-indexing.html 
+keywords: ONTAP, NAS, directory indexing, sparse directory, hole punching, SnapMirror 
+summary: Entenda a indexação de diretórios do ONTAP, a comparação entre inodes de índice públicos e privados e o hole punching de diretórios esparsos. 
+---
+= Indexação de diretórios no ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+O ONTAP indexa automaticamente diretórios grandes, para que as pesquisas direcionadas não precisem ler o arquivo de diretório inteiro de uma só vez. A indexação é separada de  `maxdir-size` e não altera o limite máximo do arquivo de diretório.
+
+
+
+[[why-directory-indexing-exists]]
+== Por que existe a indexação de diretórios
+
+Um índice em computação é uma estrutura auxiliar cuja função é responder à pergunta "onde está isto?" sem percorrer todos os registros. O índice de um livro é a versão mais familiar: você procura um termo e vai para uma página em vez de ler o livro inteiro. Bancos de dados, mecanismos de busca e sistemas de arquivos usam a mesma ideia para que uma consulta continue barata à medida que a coleção cresce. O índice não é uma segunda cópia dos dados. É um mapa de uma chave, como um nome, para a localização desse item.
+
+Um diretório é uma lista de nomes. Sem um índice, encontrar um nome pode significar percorrer grande parte dessa lista. O índice de diretórios do ONTAP é a versão do sistema de arquivos desse atalho.
+
+Sem um índice persistente, encontrar um nome pode exigir a leitura de muitos blocos de diretório e a criação de um hash na memória. A partir do ONTAP 9.2, o ONTAP cria automaticamente um inode complementar de índice de diretório quando um arquivo de diretório atinge aproximadamente 2 MiB.
+
+O índice persistente mapeia a localização das entradas no arquivo de diretório. Uma pesquisa direcionada pode, portanto, ler o índice necessário e blocos de diretório específicos, em vez de carregar todo o arquivo de diretório na memória. A indexação geralmente reduz o uso de CPU, memória e E/S para operações de pesquisa em diretórios grandes, o que pode liberar mais recursos do nó para outras cargas de trabalho, além do conteúdo do diretório grande.
+
+[link=../media/high-file-count-workloads/directory-file-index.png]
+image::directory-file-index.png[Fluxograma mostrando uma operação de nome do cliente em um arquivo de diretório com menos de 2 MiB, sendo respondida por uma varredura completa]
+
+Não é necessário configurar nenhuma opção de administrador para habilitar a indexação de diretórios; ela já está habilitada por padrão. Um diretório se torna elegível para um índice persistente somente após o arquivo de diretório exceder o limite de aproximadamente 2 MiB. Após essa condição ser atendida, a construção do índice pode ser iniciada pela operação que aumenta o diretório além do limite, por um scanner de indexação ou por uma operação de nome do front-end qualificada, como LOOKUP, ACCESS, uma abertura ou criação baseada em caminho, renomeação ou remoção. Esses gatilhos do scanner e do front-end não substituem o limite de tamanho nem criam índices persistentes para diretórios menores. O ponto de aproximadamente 2 MiB altera a forma como as pesquisas direcionadas são atendidas. Não se trata de um limite de latência baseado no tamanho do diretório. A forma como diretórios em crescimento aparecem no comportamento do cliente e do nó é descrita em link:high-file-count-workloads-05-maxdirsize-impact.html#performance-impact["Impacto no desempenho"].
+
+
+
+[[what-indexing-does-not-change]]
+== O que a indexação não altera
+
+O índice de diretório é separado do arquivo de diretório. O seguinte ainda é válido apesar da presença de um índice de diretório:
+
+* `maxdir-size` ainda limita o tamanho do arquivo de diretório.
+* O índice complementar consome metadados adicionais e um inode, mas não afeta o tamanho do diretório.
+* A indexação melhora a pesquisa direcionada em comparação com a enumeração completa do diretório.
+* As varreduras com curingas e `READDIR` ainda processam todo o espaço de nomes do diretório.
+* A perda ou a reconstrução do índice não remove os nomes do diretório; o ONTAP pode reconstruí-lo a partir do arquivo de diretório.
+
+
+
+
+[[about-private-and-public-index-inodes]]
+== Sobre inodes de índice privados e públicos
+
+Cada diretório indexado tem seu próprio índice; os índices de diretório não são compartilhados. Portanto, um volume pode conter um índice para cada diretório que ultrapasse o limite de aproximadamente 2 MiB. Diretórios abaixo desse limite permanecem no caminho de pesquisa não persistente e não recebem um inode de índice de diretório complementar, mesmo quando scanners ou operações de front-end os acessam. Se os índices de diretórios qualificados são contabilizados em relação a  `maxfiles` depende de serem privados ou públicos, conforme descrito aqui.
+
+Por padrão, os índices de diretório residem historicamente no espaço de inode privado. Os inodes privados de índice de diretório são omitidos das transferências do SnapMirror, portanto o ONTAP reconstrói os índices no destino sob demanda após a ativação ou restauração.
+
+A partir do ONTAP 9.17.1, a opção em nível de volume  `-is-dir-index-transfer-enabled true` move os índices de diretório para o espaço de inodes públicos para que os fluxos de trabalho compatíveis do SnapMirror e do SnapMirror Cloud possam transferi-los. Quando a opção está  `true`, novos índices são criados no espaço de inodes públicos e um scanner migra os índices privados existentes. Isso pode reduzir a criação de índices após a restauração, mas os índices públicos consomem inodes públicos e devem ser incluídos no planejamento de  `maxfiles`.
+
+Você pode verificar se existe um índice de diretório público com a opção `volume show` `-has-dir-index-public true`. Essa opção não pode ser definida manualmente; ela só mostra verdadeiro se houver um índice de diretório público.
+
+Os índices de diretórios públicos contam para  `files`e podem aumentar  `files-used`em aproximadamente um inode para cada diretório indexado.
+
+Os índices privados não consomem a verba pública `files`.
+
+
+
+[[when-to-enable-public-directory-index-transfers]]
+=== Quando habilitar as transferências de índice de diretório público
+
+Habilitar a transferência de índices preserva os índices para replicação ou restaurações, evitando reconstruções dispendiosas para diretórios com grande número de arquivos. Quando a transferência de índices está desabilitada, o SnapMirror omite índices privados. Após a ativação ou restauração, o ONTAP pode reconstruir os índices ausentes para diretórios qualificados por meio de um scanner de indexação ou de uma operação de front-end qualificada, o que pode causar impacto no desempenho após o failover para um destino do SnapMirror. Habilitar a transferência de índices não melhora o desempenho de pesquisa local; a indexação local já ocorre quando a opção está `false`. Ela se destina estritamente ao uso com volumes que fazem parte de uma relação do SnapMirror.
+
+
+
+[[sparse-directories-and-hole-punching]]
+== Diretórios esparsos e perfuração de furos
+
+Um arquivo de diretório pode crescer muito e depois ficar esparso após a exclusão de muitos nomes (ou seja, quando arquivos são removidos do diretório). O tamanho do arquivo de diretório permanecerá em seu limite máximo, portanto um `READDIR` pode gastar uma quantidade substancial de CPU e E/S percorrendo blocos vazios.
+
+Para diretórios indexados, o ONTAP pode perfurar um espaço quando um bloco de diretório de 4 KiB fica completamente vazio.
+
+O índice rastreia a lacuna de forma que:
+
+* `READDIR` pode ignorar o bloco vazio.
+* O bloco físico pode ser recuperado.
+* Uma criação pode reutilizar posteriormente essa localização lógica.
+
+
+O campo avançado `-has-optimized-sparse-directories` é uma opção somente leitura do volume show. Um valor de `true` significa que o volume contém blocos de diretório nesta forma otimizada e perfurada.
+
+Se o tamanho do diretório de um aplicativo continuar problemático após a exclusão, copiar as entradas restantes para um diretório recém-criado resulta em um layout de diretório-arquivo mais compacto. Reduzir `maxdir-size` não compacta um diretório esparso.
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-03-maxdirsize-view.html["← Anterior: visualizar maxdir-size e o tamanho do diretório atual"] | link:high-file-count-workloads-05-maxdirsize-impact.html["A seguir: impacto do tamanho máximo do diretório →"] 
+|===
+
+
+[[related-information]]
+== Informações relacionadas
+
+* link:high-file-count-workloads-09-maxfiles.html["Tipos de inode do ONTAP"]
+

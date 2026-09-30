@@ -18,6 +18,13 @@ NetApp NFS simplifica o gerenciamento de dados e ajuda você a acompanhar o cres
 
 
 
+[[high-file-count-workloads]]
+== Cargas de trabalho com grande número de arquivos
+
+link:high-file-count-workloads/high-file-count-workloads-01-overview.html["NetApp ONTAP workloads com grande número de arquivos para volumes NAS"] Aprenda como as cargas de trabalho NAS com grande quantidade de arquivos usam os metadados do ONTAP, como  `maxfiles` e  `maxdir-size` definem diferentes limites de escalabilidade e como planejar namespaces para capacidade e desempenho.
+
+
+
 [[nfs]]
 == NFS
 

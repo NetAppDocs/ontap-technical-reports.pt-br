@@ -1,0 +1,36 @@
+---
+section: high-file-count-workloads
+title: Cargas de trabalho NAS com grande quantidade de arquivos
+entries:
+- title: Visão geral
+  url: "/high-file-count-workloads/high-file-count-workloads-01-overview.html"
+- title: Tamanho máximo do diretório e diretórios grandes
+  entries:
+  - title: Visão geral
+    url: "/high-file-count-workloads/high-file-count-workloads-02-maxdirsize.html"
+  - title: Exibir maxdir-size e o tamanho do diretório atual
+    url: "/high-file-count-workloads/high-file-count-workloads-03-maxdirsize-view.html"
+  - title: Indexação de diretórios no ONTAP
+    url: "/high-file-count-workloads/high-file-count-workloads-04-maxdirsize-indexing.html"
+  - title: Impacto do tamanho máximo do diretório
+    url: "/high-file-count-workloads/high-file-count-workloads-05-maxdirsize-impact.html"
+  - title: Considerações sobre o volume
+    url: "/high-file-count-workloads/high-file-count-workloads-06-maxdirsize-volume-types.html"
+  - title: Funcionalidades, EMS e monitoramento
+    url: "/high-file-count-workloads/high-file-count-workloads-07-maxdirsize-features-ems.html"
+- title: Alto número de arquivos e capacidade de inodes
+  entries:
+  - title: Visão geral
+    url: "/high-file-count-workloads/high-file-count-workloads-08-maxfiles-high-file-counts.html"
+  - title: Tipos de inode
+    url: "/high-file-count-workloads/high-file-count-workloads-09-maxfiles.html"
+  - title: Informações sobre Maxfiles e inodes do ONTAP
+    url: "/high-file-count-workloads/high-file-count-workloads-10-maxfiles-limits.html"
+  - title: Controlando maxfiles
+    url: "/high-file-count-workloads/high-file-count-workloads-11-maxfiles-controlling.html"
+  - title: Monitoramento, EMS e melhorias
+    url: "/high-file-count-workloads/high-file-count-workloads-12-maxfiles-monitoring.html"
+- title: Abordagem de planejamento
+  url: "/high-file-count-workloads/high-file-count-workloads-13-planning.html"
+- title: Melhores práticas
+  url: "/high-file-count-workloads/high-file-count-workloads-14-best-practices.html"

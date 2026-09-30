@@ -1,0 +1,128 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-03-maxdirsize-view.html 
+keywords: ONTAP, NAS, maxdir-size, maxdirsize, volume show, stat, find, XCP, SMB, EMS 
+summary: Visualize o limite máximo de tamanho de diretório do ONTAP, meça um arquivo de diretório de NFS, SMB ou XCP e resolva IDs de arquivo do EMS em caminhos. 
+---
+= Exibir maxdir-size e o tamanho do diretório atual
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+O campo de volume `maxdir-size` representa o limite autorizado para cada diretório no volume. Medir um diretório individual requer inspecionar esse objeto de diretório, e não os dados do volume em uso.
+
+
+
+[[view-the-configured-cap]]
+== Veja o limite configurado
+
+[listing]
+----
+set -privilege advanced
+volume show -vserver <svm> -volume <volume> -fields maxdir-size
+----
+Este relatório informa o limite por diretório, não o tamanho de um diretório específico.
+
+
+
+[[view-the-directory-file-from-an-nfs-client]]
+== Visualize o arquivo de diretório a partir de um cliente NFS
+
+Não há comandos do ONTAP que informem diretamente o tamanho de um diretório individual, portanto o valor deve ser consultado a partir de um cliente ou com uma ferramenta off-box. Um cliente NFS é o método preferencial no lado do cliente quando o tamanho exato do objeto de diretório é necessário.
+
+Em um caminho NFS montado de um cliente GNU/Linux, use `stat` ou uma listagem longa do diretório no próprio objeto de diretório:
+
+[listing]
+----
+stat -c '%n %s bytes' /mount/path/directory
+ls -ld /mount/path/directory
+----
+Não utilize  `du`para essa finalidade. `du` relata dados acessíveis abaixo do diretório, enquanto  `maxdir-size` se aplica ao próprio arquivo de metadados do diretório.
+
+Para encontrar os maiores diretórios em um ponto de montagem, execute um  `find` que liste os diretórios folha por tamanho e exclua as cópias do Snapshot. O comando a seguir retorna os 10 maiores diretórios:
+
+[listing]
+----
+find /mountpoint -name .snapshot -prune -o -type d -ls -links 2 -prune | sort -rn -k 7 | head
+----
+A sétima coluna indica o tamanho do arquivo de diretório em bytes; um diretório com o padrão de 320 MB aparece como 335.544.320 bytes. Isso é executado rapidamente mesmo em diretórios com milhões de arquivos.
+
+
+
+[[view-directory-size-from-an-smb-client]]
+== Exibir o tamanho do diretório a partir de um cliente SMB
+
+O Windows e os clientes SMB não expõem o tamanho dos próprios metadados de um diretório, portanto não existe um equivalente direto em SMB de `stat` ou `ls -ld` para `maxdir-size`:
+
+* `dir`lista um diretório como  `<DIR>` sem tamanho próprio.
+* A caixa de diálogo *Propriedades* de uma pasta no Explorador de Arquivos exibe o tamanho total dos dados contidos abaixo da pasta (equivalente a  `du`), e não o arquivo de metadados do diretório.
+
+
+Para medir o tamanho do diretório de um conjunto de dados servido por SMB, use uma das seguintes opções:
+
+* Se o volume também permitir NFS, monte-o e use os métodos  `stat`,  `ls -ld` ou  `find` acima.
+* Use o NetApp XCP, que pode analisar um compartilhamento SMB diretamente (consulte a seção a seguir).
+
+
+
+
+[[scan-directory-sizes-with-xcp]]
+== Analise o tamanho dos diretórios com o XCP
+
+NetApp O XCP examina um sistema de arquivos em paralelo e informa os tamanhos e as contagens de diretórios, o que é útil para conjuntos de dados grandes ou do FlexGroup. Ele funciona tanto com exportações NFS quanto com compartilhamentos SMB. O XCP examina todo o sistema de arquivos antes de retornar correspondências, portanto, reserve um tempo para conjuntos de dados com um grande número de arquivos.
+
+
+NOTE: O XCP 1.5 reorganizou a ferramenta em subcomandos como  `scan` e  `diag`. Use o formato  `xcp scan` no XCP 1.5 e versões posteriores. Em versões anteriores, execute as mesmas opções  `-match` e  `-fmt` diretamente sem o verbo  `scan`, por exemplo  `xcp -match "type == d" -fmt "..." <host>:/<export>`.
+
+Imprima um relatório de estatísticas da árvore, que inclui a contagem de entradas do maior diretório (mostrada como `Dirsize`) juntamente com as contagens de arquivos e diretórios:
+
+[listing]
+----
+xcp scan -stats <host>:/<export>
+----
+Liste cada diretório com o tamanho do arquivo de diretório em bytes, do maior para o menor. Para um objeto de diretório, o  `used`valor é o tamanho dos metadados do diretório que  `maxdir-size`limita:
+
+[listing]
+----
+xcp scan -match "type == d" -fmt "'{} {}'.format(used, x)" <host>:/<export> | sort -rn
+----
+Adicione  `-csv` ou  `-html` para salvar um relatório com valores exatos em vez dos totais abreviados do console.
+
+Para restringir a varredura a diretórios acima de uma contagem de entradas escolhida, use `xcp diag find`. O exemplo a seguir lista diretórios com mais de 2.000 entradas (adaptado de link:https://www.netapp.com/pdf.html?item=/media/12385-tr4571.pdf["TR-4571: volumes NetApp ONTAP FlexGroup"^]):
+
+[listing]
+----
+xcp diag find --branch-match True -fmt "'{size} {name}'.format(size=x.digest, name=x)" <host>:/<export> 2>/dev/null | awk '{if ($1 > 2000) print $1 " " $2}'
+----
+
+
+[[locate-a-directory-reported-by-ems]]
+== Localize um diretório relatado pelo EMS
+
+O evento EMS maxdir-size inclui um ID de volume e um ID de arquivo. Resolva esse inode para um caminho com:
+
+[listing]
+----
+volume file show-inode -vserver <svm> -volume <volume-or-constituent> -inode-number <file-id>
+----
+O ID do arquivo relatado pertence ao diretório que atingiu ou se aproximou do limite, não ao arquivo cuja criação falhou.
+
+
+NOTE: Para um FlexGroup, `volume file show-inode` opera em um constituinte, em vez do nome do FlexGroup. Use o constituinte nomeado pelo evento EMS, como  `fg__0024`.
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-02-maxdirsize.html["← Anterior: tamanho máximo de diretório e diretórios grandes do ONTAP"] | link:high-file-count-workloads-04-maxdirsize-indexing.html["A seguir: indexação de diretórios no ONTAP →"] 
+|===
+
+
+[[related-information]]
+== Informações relacionadas
+
+* link:high-file-count-workloads-07-maxdirsize-features-ems.html["Recursos, EMS e monitoramento para maxdir-size"]
+* link:https://docs.netapp.com/us-en/ontap-cli/volume-file-show-inode.html[`volume file show-inode`referência de comando^]
+

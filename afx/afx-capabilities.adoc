@@ -59,7 +59,7 @@ Além disso, NetApp AFX oferece suporte a muitos dos recursos de segurança forn
 
 Para obter informações sobre as certificações que o unified ONTAP recebeu (bem como outras informações sobre reforço de segurança), consulte:
 
-* link:https://security.netapp.com/certifications["Segurança de produtos NetApp"^]
+* link:https://security.netapp.com/resources/["Segurança de produtos NetApp"^]
 * link:https://docs.netapp.com/us-en/ontap-technical-reports/ontap-security-hardening/security-hardening-overview.html["Visão geral do fortalecimento da segurança do ONTAP"^]
 
 

@@ -1,0 +1,130 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-06-maxdirsize-volume-types.html 
+keywords: ONTAP, NAS, maxdir-size, maxdirsize, FlexVol, FlexGroup, volume language, utf8mb4, volume options 
+summary: Entenda como o tipo de volume, as opções de volume e o idioma do volume afetam o comportamento do maxdir-size do ONTAP. 
+---
+= Considerações sobre o volume
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+`maxdir-size` é um limite por diretório, mas o volume em torno desse diretório ainda importa. O tipo de volume, as opções de volume e o idioma do volume alteram a velocidade com que um arquivo de diretório cresce e como você gerencia o limite.
+
+
+
+[[volume-type]]
+== Tipo de volume
+
+`maxdir-size` aplica-se a todos os diretórios em ambos os volumes FlexVol e FlexGroup. As entradas de diretório e o layout dos constituintes do FlexGroup alteram a velocidade com que um arquivo de diretório pode crescer.
+
+
+
+[[flexvol-volumes]]
+=== Volumes FlexVol
+
+Um FlexVol tem um sistema de arquivos e um suprimento público de inodes. `maxdir-size` isso ainda se aplica independentemente a cada diretório. Um único diretório "hot" é processado dentro da propriedade desse volume e não ganha paralelismo simplesmente porque o cluster contém nós adicionais.
+
+
+
+[[flexgroup-volumes]]
+=== Volumes FlexGroup
+
+A FlexGroup apresenta um namespace suportado por múltiplos componentes FlexVol. Isso melhora a escalabilidade agregada da contagem de arquivos e da capacidade, permitindo a distribuição de dados entre nós e discos, mas não multiplica o limite de um diretório lógico (`maxdir-size` pela contagem de componentes.
+
+A figura a seguir mostra como um arquivo de diretório permanece em um constituinte, enquanto os objetos de arquivo nomeados por esse diretório podem residir em outros constituintes.
+
+[link=../media/high-file-count-workloads/flexgroup-directory-placement.png]
+image::flexgroup-directory-placement.png[Diagrama de um FlexGroup com um inode de diretório e um arquivo de diretório em um único componente,700,and remote links counting against maxdir-size]
+
+Considere as seguintes diferenças:
+
+* As entradas de diretório podem apontar para arquivos em constituintes remotos e podem exigir uma representação em disco maior do que as entradas locais do FlexVol.
+* Os mesmos nomes de arquivo visíveis podem, portanto, consumir espaço do arquivo de diretório em uma taxa diferente da de um FlexVol.
+* A capacidade de arquivos e inode é mantida por constituinte, portanto a distribuição e a pressão do constituinte são importantes.
+* `maxdir-size` é modificado no nível do FlexGroup, não diretamente em um constituinte.
+* A divisão de uma aplicação em vários diretórios usando volumes FlexGroup oferece ao ONTAP mais oportunidades para distribuir trabalho e arquivos.
+
+
+Em resumo, a mesma `maxdir-size` configuração em um FlexGroup geralmente contém menos nomes do que em um FlexVol, porque as entradas de diretório remoto ocupam mais espaço. O tamanho dessa diferença depende do layout do conjunto de dados e de quanto posicionamento remoto ocorreu.
+
+Os links físicos remotos do volume FlexGroup aumentam o número de entradas por diretório em uma quantidade que varia de acordo com a fração de entradas armazenadas remotamente. Planeje com um limite superior de aproximadamente 2× para diretórios grandes e planos (cerca de 85% de entradas remotas), o que reduz o limite prático para cerca de 2 a 2,6 milhões link:high-file-count-workloads-02-maxdirsize.html#estimating-the-number-of-names-per-directory-file["nomes comuns"] no padrão de 320 MB, em comparação com até cerca de 4,3 milhões em um FlexVol. Layouts de diretório amplos ou profundos mantêm a proporção e a inflação de links físicos remotos mais baixas. Valide em um diretório representativo com  `stat`,  `ls -ld` ou XCP.
+
+
+
+[[volume-options]]
+== Opções de volume
+
+Os seguintes campos do volume são os que surgem com mais frequência ao planejar ou solucionar problemas em diretórios grandes.
+
+|===
+| Campo | Configurável e privilegiado | Propósito 
+
+
+| `maxdir-size` | Sim, avançado | Autoriza um arquivo maior por diretório, permitindo mais arquivos por diretório. 
+
+
+| `is-dir-index-transfer-enabled` | Sim, administrador | Move os índices de diretório para o espaço de inodes público para compatibilidade com replicação e portabilidade de restauração. 
+
+
+| `has-dir-index-public` | Não, avançado | Informa se existem inodes de índice de diretório público. 
+
+
+| `has-optimized-sparse-directories` | Não, avançado | Informa se o volume contém diretórios esparsos perfurados otimizados. 
+
+
+| `language` | Limitado, admin | Controla a interpretação de nomes. Nomes não ASCII e caracteres UTF-8 de 4 bytes (`utf8mb4` podem conter menos nomes por diretório; veja <<volume-language>>. 
+
+
+| `analytics-state` | Sim, administrador | Habilita a análise do sistema de arquivos. Suas varreduras de namespace podem adicionar trabalho em volumes com grande quantidade de arquivos, mas não alteram `maxdir-size`. 
+|===
+
+
+[[volume-language]]
+== Linguagem do volume
+
+A configuração de volume `-language` controla como o NFS converte nomes entre a codificação do cliente e os nomes Unicode armazenados no disco. Os volumes herdam o padrão da SVM, a menos que você defina `-language` no momento da criação. O padrão do ONTAP é `C.UTF-8`. A partir do ONTAP 9.5, `utf8mb4` armazena nomes UTF-8 de 4 bytes (emoji e outros caracteres suplementares Unicode) em vez de colocar os bytes extras em bag-of-bits.
+
+O código de idioma em si não altera quantos nomes ASCII cabem em um diretório. `C.UTF-8`, `en_US.UTF-8`, `de.UTF-8`, `ja.UTF-8` e `utf8mb4` todos usam a mesma compactação de diretório Unicode para os mesmos caracteres. O que altera a contagem são os caracteres nos nomes que esse idioma deve conter: o texto não ASCII é armazenado em uma forma mais ampla, e os caracteres suplementares de 4 bytes em um volume `utf8mb4` são mais amplos ainda. Os clientes NFSv3 que não conseguem representar um nome na codificação do volume também podem fazer com que o ONTAP armazene um nome alternativo NFS de 8 caracteres, o que usa ainda mais espaço de diretório.
+
+Os exemplos a seguir usam nomes de 32 caracteres em 320 MB `maxdir-size` e incluem as entradas `.` e `..`. São valores estimados, não garantias.
+
+[cols="2,3,3,1,2,2"]
+|===
+| Linguagem do volume | Uso típico | Exemplo de estilo de nome com 32 caracteres | Nomes por bloco de 4 KiB | Nomes em um diretório a 320 MB | Comparado com o ASCII padrão 
+
+
+| `C.UTF-8` (ONTAP padrão) | Localidade POSIX C com UTF-8. Novas SVMs e volumes herdam isso, a menos que  `-language` seja definido. | ASCII, como `project-alpha-run0142-input1.dat` | 53 | 4.341.758 | Linha de base 
+
+
+| `en_US.UTF-8` | Inglês americano UTF-8 | Os mesmos nomes ASCII ou latinos básicos | 53 | 4.341.758 | Sem redução em relação ao padrão para nomes ASCII 
+
+
+| `de.UTF-8` | UTF-8 alemão, incluindo trema (`ä`, `ö`, `ü`, `ß`) | Latim acentuado, como `Geschäftsbericht-2026-Q3-v03.docx` | 26 | 2.129.918 | Cerca de 49% da contagem ASCII padrão 
+
+
+| `ja.UTF-8` | Japonês UTF-8 (CJK no Plano Multilíngue Básico) | Nomes japoneses com o mesmo comprimento de 32 caracteres | 26 | 2.129.918 | Cerca de 49% da contagem ASCII padrão 
+
+
+| `utf8mb4` | UTF-8 de 4 bytes (ONTAP 9.5 e posterior). Use quando os nomes incluírem emoji ou outros caracteres suplementares. | Textos comuns em alemão ou japonês ainda se compactam como as linhas UTF-8 acima. Um nome de 32 caracteres que inclui caracteres suplementares (por exemplo, um emoji) se compacta de forma mais ampla. | 22 | 1.802.238 | Aproximadamente 41% da contagem ASCII padrão quando caracteres suplementares estão presentes 
+|===
+Se os nomes permanecerem em ASCII básico, a mudança de `C.UTF-8` para `en_US.UTF-8`, `de.UTF-8`, `ja.UTF-8` ou `utf8mb4` não reduz a contagem por diretório. O acesso misto por NFS e SMB pode adicionar nomes alternativos NFS ou aliases SMB 8.3 além desses números.
+
+Para as regras de compactação por trás da tabela, consulte link:high-file-count-workloads-02-maxdirsize.html#estimating-the-number-of-names-per-directory-file["Estimando o número de nomes por arquivo de diretório"].
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-05-maxdirsize-impact.html["← Anterior: impacto do tamanho máximo do diretório"] | link:high-file-count-workloads-07-maxdirsize-features-ems.html["A seguir: recursos, EMS e monitoramento para maxdir-size →"] 
+|===
+
+
+[[related-information]]
+== Informações relacionadas
+
+* link:https://docs.netapp.com/us-en/ontap/smb-admin/multi-byte-file-directory-qtree-names-concept.html["Nomes de arquivos, diretórios e qtrees multibyte do SMB"^]
+* link:https://docs.netapp.com/us-en/ontap/flexgroup/index.html["FlexGroup gerenciamento de volumes"^]
+

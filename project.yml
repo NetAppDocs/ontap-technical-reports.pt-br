@@ -27,6 +27,8 @@ sidebar:
     - title: Visão geral
       url: "/nfs.html"
     - section: nfs-tls
+  - title: Cargas de trabalho NAS com grande quantidade de arquivos
+    section: high-file-count-workloads
   - title: SAN
     url: "/san.html"
   - title: Segurança

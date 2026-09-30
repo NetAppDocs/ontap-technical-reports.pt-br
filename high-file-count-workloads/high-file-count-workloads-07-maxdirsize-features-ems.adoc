@@ -1,0 +1,98 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-07-maxdirsize-features-ems.html 
+keywords: ONTAP, NAS, maxdir-size, maxdirsize, EMS, wafl.dir.size, directory indexing 
+summary: Analise as melhorias da versão maxdir-size do ONTAP, os eventos do EMS e as orientações de monitoramento para diretórios grandes. 
+---
+= Recursos, EMS e monitoramento para maxdir-size
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+Use os recursos de versão do ONTAP, os eventos do EMS e as medições de tamanho de diretório para detectar o crescimento excessivo de diretórios antes que as criações falhem.
+
+Para saber como visualizar `maxdir-size` o tamanho atual de um objeto de diretório, consulte link:high-file-count-workloads-03-maxdirsize-view.html["Exibir maxdir-size e o tamanho do diretório atual"].
+
+
+
+[[ontap-functionality-and-enhancements-related-to-maxdir-size]]
+== Funcionalidade e aprimoramentos do ONTAP relacionados ao maxdir-size
+
+|===
+| Versão do ONTAP | Funcionalidade 
+
+
+| ONTAP 9.2 | Indexação persistente de diretórios em aproximadamente 2 MiB. Consulte link:high-file-count-workloads-04-maxdirsize-indexing.html#why-directory-indexing-exists["Por que existe a indexação de diretórios"]. 
+
+
+| ONTAP 9.5 (documentado) | Diretórios esparsos otimizados (`-has-optimized-sparse-directories`): perfuram blocos vazios em diretórios indexados. A documentação pública não confirma uma introdução anterior. Veja link:high-file-count-workloads-04-maxdirsize-indexing.html#sparse-directories-and-hole-punching["Diretórios esparsos e perfuração de furos"]. 
+
+
+| ONTAP 9.14.1 | 320 MB por padrão `maxdir-size`. Confirme o máximo suportado para a versão e a plataforma para aumentos. Consulte link:high-file-count-workloads-02-maxdirsize.html#how-the-maxdir-size-cap-behaves["Como o limite maxdir-size se comporta"] e link:high-file-count-workloads-02-maxdirsize.html#raising-the-maxdir-size-value["Aumentando o valor de maxdir-size"]. 
+
+
+| ONTAP 9.17.1 | `-is-dir-index-transfer-enabled` e inodes de índice de diretório público para transferência compatível do SnapMirror. Consulte link:high-file-count-workloads-04-maxdirsize-indexing.html#about-private-and-public-index-inodes["Sobre inodes de índice privados e públicos"]. 
+|===
+
+
+[[ems-messages-related-to-maxdir-size]]
+== Mensagens EMS relacionadas a maxdir-size
+
+
+
+[[wafl-dir-entries-warning]]
+=== `wafl.dir.entries.warning`
+
+O número de entradas de diretório ocupadas ultrapassou a porcentagem de aviso configurada. Use o volume e o ID do arquivo para localizar o diretório e, em seguida, avalie a quantidade de entradas, o tamanho atual do arquivo de diretório e o padrão de crescimento.
+
+
+
+[[wafl-dir-size-warning]]
+=== `wafl.dir.size.warning`
+
+O diretório atingiu a porcentagem de aviso configurada, geralmente 90%, do seu  `maxdir-size`limite. Use o ID do volume e do arquivo do evento para resolver o caminho do diretório. Reestruture o namespace ou planeje um aumento antes que o limite seja atingido.
+
+
+
+[[wafl-dir-size-max-warning]]
+=== `wafl.dir.size.max.warning`
+
+O diretório atingiu ou ultrapassou a porcentagem de aviso configurada, normalmente 90%, enquanto o uso atual do volume `maxdir-size` está abaixo do valor padrão definido pela versão (a referência do EMS descreve esse padrão como 1% da memória do sistema). Isso difere da condição normal `wafl.dir.size.warning`. Determine por que o limite configurado está abaixo do padrão antes de decidir se deve restaurar o padrão, reestruturar o diretório ou escolher outro valor compatível.
+
+
+
+[[wafl-dir-size-max]]
+=== `wafl.dir.size.max`
+
+O diretório atingiu `maxdir-size`. As operações que adicionam nomes falham até que os slots se tornem reutilizáveis, o namespace seja reestruturado ou o limite seja aumentado.
+
+
+
+[[wafl-maxdirsize-boot-notice]]
+=== `wafl.maxdirsize.boot.notice`
+
+Na inicialização, o ONTAP emite este AVISO para um volume cujo valor configurado é maior que o padrão. Ele lembra o administrador de que operações em diretórios muito grandes podem acarretar uma perda de desempenho.
+
+
+
+[[sparse-readdir-events]]
+=== Eventos `READDIR` esparsos
+
+`wafl.readdir.expired` e  `wafl.readdir.sparse` identificam a enumeração dispendiosa de diretórios esparsos grandes. Eles estão relacionados ao layout do diretório e ao comportamento de pico, mas não significam que  `maxdir-size` em si tenha sido alcançado.
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-06-maxdirsize-volume-types.html["← Anterior: considerações sobre o volume"] | link:high-file-count-workloads-08-maxfiles-high-file-counts.html["A seguir: alta contagem de arquivos e capacidade de inode →"] 
+|===
+
+
+[[related-information]]
+== Informações relacionadas
+
+* link:https://docs.netapp.com/us-en/ontap-ems/wafl-dir-events.html["Eventos EMS de diretório WAFL"^]
+* link:https://docs.netapp.com/us-en/ontap-ems/wafl-maxdirsize-events.html[`wafl.maxdirsize` eventos EMS^]
+
