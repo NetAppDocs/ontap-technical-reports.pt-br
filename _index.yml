@@ -23,8 +23,6 @@ indexpage:
       url: apps-dbs.html#postgresql
     - title: SAP HANA no ONTAP
       url: apps-dbs.html#sap-hana
-    - title: Épico em ONTAP
-      url: https://docs.netapp.com/us-en/ontap-apps-dbs/epic/epic-overview.html
   - title: Proteção de dados, recuperação de desastres e continuidade dos negócios
     links:
     - title: Configuração e práticas recomendadas do SnapMirror
